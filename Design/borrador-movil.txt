@@ -1,0 +1,89 @@
+🔐Pantalla de Inicio (Login / Registro)
++----------------------------------+
+|          🐾 Pet-Me               |
+|----------------------------------|
+|  [ 📸 Fondo con fotos de pets ]  |
+|----------------------------------|
+|  Inicia sesión para continuar 🐾 |
+|----------------------------------|
+|  📧 Correo: [___________]        |
+|  🔒 Contraseña: [_______]        |
+|  [ Iniciar sesión ]              |
+|----------------------------------|
+|  ¿No tienes cuenta?              |
+|  [ Crear una cuenta ]            |
+|----------------------------------|
+|  o continúa con: [G] [f]         |
++----------------------------------+
+Idea: igual que Instagram — sencilla, directa, sin navegación externa.
+
+🐾 Feed (Inicio principal)
++----------------------------------+
+| 🐾 Pet-Me            [🔍] [❤️]   |
+|----------------------------------|
+| 📍 CDMX | Filtros [🐶 🐱 🐰]       |
+|----------------------------------|
+| 🐶 Luna (3 meses, Coyoacán)      |
+| [📸 Foto cuadrada]               |
+| "Juguetona y vacunada."          |
+| [❤️] [💬 Contactar]              |
+|----------------------------------|
+| 🐱 Michi (2 años, Polanco)       |
+| [📸 Foto cuadrada]               |
+| "Le gusta dormir al sol."        |
+| [❤️] [💬 Contactar]              |
+|----------------------------------|
+| 🐰 Bunny (1 año, Roma Norte)     |
+| [📸 Foto cuadrada]               |
+| "Rescatada y sociable."          |
+| [❤️] [💬 Contactar]              |
++----------------------------------+
+| 🏠 Feed   ➕ Publicar   👤 Perfil |
++----------------------------------+
+Notas:
+Navegación inferior fija.
+Cada post es una tarjeta simple (foto + descripción + acciones).
+El botón central “➕” abre el formulario de publicación.
+
+
+➕ Publicar Mascota
+
++----------------------------------+
+| ← Atrás           📸 Publicar    |
+|----------------------------------|
+| [📷 Agregar foto]                |
+| Nombre: [___________]            |
+| Edad: [__] años                  |
+| Género: ( ) Macho ( ) Hembra     |
+| Especie: [🐶 🐱 🐰 🐦 Otro]       |
+| Ubicación: [__________]          |
+| Descripción:                     |
+| [_____________________]          |
+| [✅ Publicar]                    |
++----------------------------------+
+| 🏠 Feed   ➕ Publicar   👤 Perfil |
++----------------------------------+
+Diseño minimal: campo por campo con botón de confirmación visible siempre.
+
+
+👤 Perfil del Usuario
++----------------------------------+
+| 👤 Edgar A.        [⚙️] [🚪Salir] |
+|----------------------------------|
+| 📍 Ciudad de México              |
+| 🐾 Publicaciones: 3  ❤️ Fav: 8   |
+|----------------------------------|
+| [➕ Publicar nueva mascota]      |
+|----------------------------------|
+| Tus publicaciones:               |
+|----------------------------------|
+| 🐶 Luna  – En adopción [✏️]      |
+| 🐱 Michi – Adoptada ✅            |
+| 🐰 Bunny – En adopción            |
++----------------------------------+
+| 🏠 Feed   ➕ Publicar   👤 Perfil |
++----------------------------------+
+Concepto:
+Tu “perfil social” + gestión de publicaciones.
+Cada mascota tiene estado editable y puede marcarse como adoptada.
+
