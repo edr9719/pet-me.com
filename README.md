@@ -60,6 +60,7 @@ Crear un prototipo funcional de una red social con flujo básico de usuario, lan
 - Dante [Apellido]
 - Pao [Apellido]
 - Mar [Apellido]
+- Alan [Apellido]
 
 ## Licencia
 
