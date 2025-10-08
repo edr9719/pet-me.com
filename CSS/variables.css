@@ -24,10 +24,4 @@
   --petme-font-primary: 'Poppins', sans-serif; /* Fuente principal */
   --petme-font-secondary: 'Nunito', sans-serif; /* Fuente secundaria */
   --petme-font-accent: 'Montserrat', sans-serif; /* Fuente para acentos */
-
-  /* Backwards compatibility */
-  --petme-font: var(--petme-font-primary);
-  --nunito: var(--petme-font-secondary);
-  --poppins: var(--petme-font-primary);
-  --montserrat: var(--petme-font-accent);
 }
