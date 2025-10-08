@@ -1,0 +1,33 @@
+:root {
+  /* ---------- VARIABLES DE COLORES PETME ---------- */
+  --petme-bg: #023d54; /* azul oscuro principal */
+  --petme-text: #ffffff; /* texto blanco */
+  --petme-primary: #02968a; /* verde azulado para botones */
+  --petme-primary-hover: #94dea5; /* verde claro hover */
+  --petme-accent: #ffff66; /* amarillo para títulos y links */
+  --petme-border: #037f74; /* tono intermedio del verde azulado */
+
+  /* Colores adicionales para el diseño */
+  --petme-container-bg: #0e182b; /* fondo del contenedor de login */
+  --petme-shadow: rgba(0, 0, 0, 0.3); /* sombra del contenedor */
+  --petme-shadow-focus: rgba(
+    255,
+    255,
+    102,
+    0.25
+  ); /* sombra del focus amarillo */
+  --petme-shadow-btn: rgba(2, 150, 138, 0.5); /* sombra del botón */
+  --petme-placeholder: rgba(255, 255, 255, 0.5); /* color de placeholder */
+  --petme-btn-shadow: rgba(0, 0, 0, 0.2); /* sombra del botón hover */
+
+  /* ---------- VARIABLES DE FUENTES PETME ---------- */
+  --petme-font-primary: 'Poppins', sans-serif; /* Fuente principal */
+  --petme-font-secondary: 'Nunito', sans-serif; /* Fuente secundaria */
+  --petme-font-accent: 'Montserrat', sans-serif; /* Fuente para acentos */
+
+  /* Backwards compatibility */
+  --petme-font: var(--petme-font-primary);
+  --nunito: var(--petme-font-secondary);
+  --poppins: var(--petme-font-primary);
+  --montserrat: var(--petme-font-accent);
+}

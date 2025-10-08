@@ -1,30 +1,6 @@
-/* ========== CSS BASE: LOGIN PAGE ========== */
+/* ========== PETME LOGIN - BOOTSTRAP VERSION ========== */
 
-/* ---------- VARIABLES ---------- */
-:root {
-  --color-bg: #f9fafc;
-  --color-text: #1e1e1e;
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-border: #d1d5db;
-  --color-card-bg: #ffffff;
-
-  --font-main: 'Inter', sans-serif;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f172a;
-    --color-text: #e2e8f0;
-    --color-primary: #3b82f6;
-    --color-primary-hover: #60a5fa;
-    --color-border: #334155;
-    --color-card-bg: #1e293b;
-  }
-}
-
-/* ---------- GLOBAL STYLES ---------- */
+/* ---------- ESTILOS GLOBALES ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -32,146 +8,212 @@
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-main);
-  display: flex;
-  flex-direction: column;
+  font-family: var(--petme-font-primary) !important;
+  background-color: var(--petme-bg) !important;
+  color: var(--petme-text) !important;
+}
+
+/* ---------- FONDO Y CONTENEDOR PRINCIPAL ---------- */
+.petme-bg {
+  background-color: var(--petme-bg);
   min-height: 100vh;
 }
 
-/* ---------- MAIN LOGIN BOX ---------- */
-.login-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ---------- CONTENEDOR DE LOGIN ---------- */
+.petme-login-container {
+  background-color: var(--petme-container-bg);
+  border-radius: 15px;
   padding: 2rem;
+  box-shadow: 0 8px 32px var(--petme-shadow);
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.login-box {
-  background: var(--color-card-bg);
-  padding: 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  max-width: 360px;
-  width: 100%;
-  border: 1px solid var(--color-border);
-  text-align: center;
+/* ---------- TARJETA DE LOGIN ---------- */
+.petme-login-card {
+  background-color: transparent !important;
+  border: none !important;
 }
 
-.login-box h2 {
+/* ---------- LOGO ---------- */
+.petme-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  /* Imagen corregida, sin necesidad de filtros */
+}
+
+/* ---------- TÍTULOS ---------- */
+.petme-title {
+  color: var(--petme-accent) !important;
   font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--petme-font-accent); /* Montserrat para títulos */
+}
+
+.petme-subtitle {
+  color: var(--petme-text) !important;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para subtítulos */
+}
+
+/* ---------- LABELS ---------- */
+.petme-label {
+  color: var(--petme-text) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
   margin-bottom: 0.5rem;
+  font-family: var(--petme-font-primary); /* Poppins para labels */
 }
 
-.subtitle {
-  color: var(--color-border);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-}
-
-/* ---------- FORM ---------- */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.form-group label {
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-}
-
-.form-group input {
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
-  background-color: transparent;
-  color: var(--color-text);
+/* ---------- INPUTS ---------- */
+.petme-input {
+  background-color: transparent !important;
+  border: 2px solid var(--petme-border) !important;
+  border-radius: 0.5rem !important;
+  color: var(--petme-text) !important;
+  padding: 0.75rem !important;
   font-size: 1rem;
+  font-family: var(--petme-font-primary); /* Poppins para inputs */
+  transition: all 0.3s ease;
 }
 
-.form-group input:focus {
-  border-color: var(--color-primary);
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+.petme-input:focus {
+  background-color: transparent !important;
+  border-color: var(--petme-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-focus) !important;
+  color: var(--petme-text) !important;
 }
 
-/* ---------- BUTTON ---------- */
-.btn-login {
-  background-color: var(--color-primary);
-  color: #fff;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 0.5rem;
+.petme-input::placeholder {
+  color: var(--petme-placeholder) !important;
+}
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+.petme-btn {
+  background-color: var(--petme-primary) !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  color: var(--petme-text) !important;
+  padding: 0.8rem !important;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  font-family: var(--petme-font-primary); /* Poppins para botones */
+  transition: all 0.3s ease;
 }
 
-.btn-login:hover {
-  background-color: var(--color-primary-hover);
+.petme-btn:hover {
+  background-color: var(--petme-primary-hover) !important;
+  color: var(--petme-bg) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--petme-btn-shadow);
+}
+
+.petme-btn:focus {
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-btn) !important;
+}
+
+/* ---------- TEXTO PEQUEÑO Y ENLACES ---------- */
+.petme-small-text {
+  font-size: 0.9rem;
+  color: var(--petme-text) !important;
+  opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para texto pequeño */
+}
+
+.petme-link {
+  color: var(--petme-accent) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-family: var(--petme-font-primary); /* Poppins para enlaces */
+  transition: all 0.3s ease;
+}
+
+.petme-link:hover {
+  color: var(--petme-accent) !important;
+  text-decoration: underline !important;
+  filter: brightness(1.1);
 }
 
 /* ---------- FOOTER ---------- */
-.footer {
-  text-align: center;
-  padding: 1rem;
+.petme-footer {
+  background-color: transparent !important;
+  color: var(--petme-text) !important;
   font-size: 0.8rem;
   opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para footer */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
-.small-text {
-  font-size: 0.9rem;
-  color: var(--color-border);
+/* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+@media (max-width: 576px) {
+  .petme-login-container {
+    padding: 1.5rem !important;
+    border-radius: 8%;
+  }
+
+  .petme-logo {
+    width: 100px;
+    height: auto;
+  }
+
+  .petme-title {
+    font-size: 1.5rem;
+  }
+
+  .petme-subtitle {
+    font-size: 0.85rem;
+  }
 }
 
-.small-text a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.small-text a:hover {
-  text-decoration: underline;
-}
-
-/* ---------- RESPONSIVE ---------- */
 @media (max-width: 480px) {
-  .login-box {
-    padding: 2rem 1.5rem;
+  main {
+    padding: 1rem !important;
   }
 
-  .logo {
-    font-size: 1.3rem;
+  .petme-login-container {
+    padding: 1rem !important;
+    border-radius: 6%;
+  }
+
+  .petme-logo {
+    width: 80px;
+    height: auto;
+  }
+
+  .petme-title {
+    font-size: 1.4rem;
+  }
+} /* ---------- ANIMACIONES ---------- */
+.petme-login-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ---------- LOGO STYLES ---------- */
-.logo-img {
-  height: 36px;
-  width: auto;
-  vertical-align: middle;
-  margin-right: 0.5rem;
+/* ---------- BOOTSTRAP OVERRIDES ---------- */
+.form-control:focus {
+  border-color: var(--petme-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-focus) !important;
 }
 
-.logo-text {
-  display: inline-block;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  vertical-align: middle;
+.btn:focus {
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-btn) !important;
 }
 
-/* Login box logo (centered version) */
-.login-logo {
-  width: 70px;
-  height: auto;
-  margin-bottom: 1rem;
+/* Asegurar que el container-fluid ocupe toda la altura */
+.container-fluid {
+  min-height: 100vh !important;
 }
