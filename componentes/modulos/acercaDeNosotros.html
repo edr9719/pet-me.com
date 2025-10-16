@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -372,7 +372,10 @@
               </div>
 
               <div class="col-md-3 col-sm-6">
-                <div class="card team-card text-center">
+                <div
+                  class="card team-card text-center"
+                  style="cursor: default; pointer-events: auto"
+                >
                   <img
                     src="/Img/kevinQuirino.jpg"
                     class="rounded-circle mx-auto mt-3"
@@ -390,11 +393,34 @@
                       Desarrollador Full-Stack con experiencia en desarrollo web
                       y gestión exitosa de proyectos.
                     </p>
-                    <div class="social-links">
-                      <a href="https://www.linkedin.com/in/kevin-quirino-ibañez-4a45aa37b/" class="text-primary me-2" target="_blank">
+                    <div
+                      class="social-links"
+                      style="position: relative; z-index: 10"
+                    >
+                      <a
+                        href="https://www.linkedin.com/in/kevin-quirino-ibañez-4a45aa37b/"
+                        class="text-primary me-2"
+                        target="_blank"
+                        style="
+                          position: relative;
+                          z-index: 11;
+                          pointer-events: auto;
+                        "
+                        onclick="event.stopPropagation();"
+                      >
                         <i class="bi bi-linkedin"></i>
                       </a>
-                      <a href="https://github.com/KevinQuirino" class="text-dark" target="_blank">
+                      <a
+                        href="https://github.com/KevinQuirino"
+                        class="text-dark"
+                        target="_blank"
+                        style="
+                          position: relative;
+                          z-index: 11;
+                          pointer-events: auto;
+                        "
+                        onclick="event.stopPropagation();"
+                      >
                         <i class="bi bi-github"></i>
                       </a>
                     </div>
