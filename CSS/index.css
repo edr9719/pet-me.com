@@ -217,3 +217,44 @@ body {
 .container-fluid {
   min-height: 100vh !important;
 }
+.bg-primary {
+  background: linear-gradient(to right, var(--bs-primary), var(--bs-secondary));
+}
+/* Carrusel de adopción */
+
+:root {
+  --bs-primary: #4F8AE3;
+  --bs-secondary: #724FE3;
+  --bs-success: #4F5CE3;
+  --bs-info: #A34FE3;
+  --bs-warning: #FFC107;
+  --bs-danger: #DC3545;
+  --bs-light: #C1C4E8;
+  --bs-dark: #343A40;
+}
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 1rem;
+}
+#carruselMascotas {
+  max-height: 400px;
+  overflow: hidden;
+}
+.carousel-item img {
+  max-height: 400px;
+  
+  object-fit: contain;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--bs-dark); 
+  border-radius: 50%;
+  padding: 10px;
+  opacity: 10 ;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 5rem;
+  height: 5rem;
+} 

@@ -1,11 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="CSS/index.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <section class = "container py-5">
+    <title>Acerca de Nosotros</title>
+    
+  </head>
+  <body>
+    <section>
+      <h1 class = "text-center mb-4">Acerca De Nosotros</h1>
+      <p class = "lead text-center">
+        PET ME es una plataforma dedicada a conectar animales en situación de
+        abandono con personas que desean brindarles un hogar lleno de amor.
+        Nuestro objetivo es facilitar la adopción responsable mediante una
+        experiencia digital cálida, accesible y emocionalmente significativa. A
+        través de perfiles interactivos, historias conmovedoras y herramientas
+        intuitivas, PET ME transforma el proceso de adopción en un acto
+        responsable de cuidado y compromiso.
+      </p>
+    </section>
+    <!-- Carrusel de mascotas -->
+ <div class="container my-4">
+<div style="max-width: 800px; margin: 0 auto;">
+<div id="carruselMascotas" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
 
-<head>
-  <meta charset="UTF-8" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <div class="carousel-item active">
+      <img src="/Img/adop2.webp" class="d-block w-100 img-fluid" alt="Perro y gato adoptados">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Amigos Inseparables</h5>
+        <p>Descubre historias de adopción que transforman vidas.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/Img/adop1.jpg" class="d-block w-100 img-fluid" alt="Gato curioso">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Ana y Roco</h5>
+        <p> Adopta vida y amor.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/Img/adop3.png" class="d-block w-100 img-fluid" alt="Perro de asistencia" style="object-fit: contain; max-height: 500px;" >
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Lomito asustado.</h5>
+        <p>Cuando rescatamos ellos nos rescatan.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carruselMascotas" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carruselMascotas" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+  </div>
+</div>
+</div>
+   
+    <section class="container py-5">
+      <h2 class="text-center mb-4 fw-bold">Nuestro Equipo</h2>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/CSS/acerDeNosotros.css" />
@@ -136,6 +202,28 @@
           </div>
         </div>
 
+          <!-- Slide 2 (ejemplo de más integrantes) -->
+          <div class="carousel-item">
+            <div class="row justify-content-center">
+              <div class="col-md-3 col-sm-6">
+                <div class="card team-card text-center">
+                  <img src="/Img/mariana.jpg"
+                    class="rounded-circle mx-auto mt-3"
+                    alt="Mariana"
+                    style="width: 120px; height: 120px;"
+                  />
+                  <div class="card-body">
+                    <h5>Mariana Vázquez Valverde</h5>
+                    <p class="text-muted">Developer</p>
+                    <p>
+                      Hola soy Mariana! te doy la bienvenida al lugar donde encontrarás el amor más leal, soy desarrolladora y amo a los animales,
+                      en especial a los michis y lomitos, son mis compañeros de desvelo, encuentra a tu compañerito.
+                    </p>
+                    <div class="social-links">
+                      <a href="#"><i class="bi bi-facebook"></i></a>
+                      <a href="#"><i class="bi bi-twitter"></i></a>
+                      <a href="#"><i class="bi bi-instagram"></i></a>
+                    </div>
         <!-- Slide 2 (ejemplo de más integrantes) -->
         <div class="carousel-item">
           <div class="row justify-content-center">
@@ -158,6 +246,24 @@
               </div>
             </div>
 
+              <div class="col-md-3 col-sm-6">
+                <div class="card team-card text-center">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/6.jpg"
+                    class="rounded-circle mx-auto mt-3"
+                    alt="Marina Ixchel"
+                  />
+                  <div class="card-body">
+                    <h5>Marina Ixchel Molina</h5>
+                    <p class="text-muted">Developer Front</p>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                    <div class="social-links">
+                      <a href="#"><i class="bi bi-facebook"></i></a>
+                      <a href="#"><i class="bi bi-twitter"></i></a>
+                      <a href="#"><i class="bi bi-instagram"></i></a>
+                    </div>
             <div class="col-md-3 col-sm-6">
               <div class="card team-card text-center">
                 <img src="/Img/Edgar.jpg" class="rounded-circle mx-auto mt-3" alt="Edgar García"
