@@ -28,10 +28,15 @@ h2{
     font-size: 45px;
     color: #023d54;
 }
+.white-title {
+    font-family: "Poppins" sans-serif;
+    font-size: 45px;
+    color: white;
+}
 .card{
     margin: 25px ;
     background-attachment: fixed;
-    border-color: #023d54;
+    border-color: #ffffff;
     box-shadow: 0 0 10px 5px #023d54
 }
 .card-body h5{
@@ -42,5 +47,23 @@ h2{
 .card-body p{
     font-family: "Montserrat", sans-serif;
     color: #023d54;
+}
+
+.diagonal-blue-bg {
+    background-color: #02968a; /* Color azul de Bootstrap */
+    color: white;
+    padding: 150px 0; /* Padding superior e inferior para espacio */
+    
+    /* Esta es la propiedad clave para el efecto de desnivel */
+    /* La inclinación ahora va desde la esquina superior izquierda a la inferior derecha */
+    clip-path: polygon(0 0, 100% 9%, 100% 100%, 0 100%);
+}
+
+@media (max-width: 992px) {
+    .diagonal-blue-bg {
+        padding-top: 50px;
+        /* Puedes cambiar los valores del polígono para ajustar la inclinación */
+        clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
+    }
 }
 

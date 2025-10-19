@@ -1,0 +1,213 @@
+/* Definición de variables de color con tu paleta */
+:root {
+    --petme-dark-slate-gray: #023D54; /* Navbar y Contactar */
+    --petme-dark-cyan: #02968A; /* Icono de ubicación, texto de marca */
+    --petme-medium-aquamarine: #94DEA5; /* Fondo claro */
+    --petme-yellow: #FFFF66; /* Botón Favorito */
+    --petme-white: #FFFFFF;
+}
+
+/* * IMPORTANTE: Para que esto funcione, debes asegurarte de haber importado 
+ * las tres fuentes (Nunito, Poppins, Montserrat) en tu archivo HTML.
+ */
+
+/* * Estructura General y Párrafos
+ * APLICACIÓN CLAVE: Montserrat para el texto general del cuerpo (Párrafos).
+ */
+body {
+    font-family: 'Montserrat', sans-serif; /* Montserrat para texto general */
+    font-weight: 400; /* Regular */
+    background-color: var(--petme-medium-aquamarine); 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    background-color: var(--petme-white);
+    /* Se quita el border-radius para un look cuadrado */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px; 
+    min-height: 100vh; 
+    overflow: hidden;
+    position: relative;
+}
+
+/* Media Query para Escritorio: Hacer la app más grande y centrada */
+@media (min-width: 768px) {
+    .app-container {
+        min-height: 90vh; 
+        max-width: 1200px; /* Ancho mayor para modo escritorio/tablet */
+    }
+}
+
+
+/* * Navbar (Barra Superior)
+ */
+.petme-navbar {
+    background-color: var(--petme-dark-slate-gray);
+    padding: 1rem 1.5rem;
+    /* Se quita el border-top-left-radius y border-top-right-radius */
+}
+
+/* APLICACIÓN CLAVE: Nunito ExtraBold para el logo de imagen */
+.petme-custom-logo {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; /* ExtraBold */
+    height: 55px;
+    width: auto; 
+}
+
+/* APLICACIÓN CLAVE: Poppins Bold para el texto de la marca (Título) */
+.petme-brand-text {
+    font-family: 'Poppins', sans-serif;
+    color: var(--petme-white);
+    font-weight: 700; /* Bold */
+    font-size: 1.5rem;
+}
+
+.petme-nav-icon {
+    font-size: 1.5rem;
+    color: var(--petme-white);
+    margin-left: 0.8rem;
+}
+
+/* * Controles (Localización y Botones)
+ */
+.petme-icon-location {
+    font-size: 1.5rem;
+    color: var(--petme-dark-cyan); /* Icono de ubicación con el color de acento */
+}
+
+/* APLICACIÓN CLAVE: Poppins Bold para la ciudad (Subtítulo) */
+.location-city {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Bold */
+    color: var(--petme-dark-slate-gray);
+    font-size: 1rem;
+}
+
+/* El área es un párrafo, hereda Montserrat Regular del body */
+.location-area {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* APLICACIÓN CLAVE: Nunito ExtraBold para el texto de los botones */
+.petme-filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; /* ExtraBold */
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    color: var(--petme-dark-slate-gray);
+    border: 1px solid var(--petme-medium-aquamarine);
+    background-color: var(--petme-medium-aquamarine);
+}
+
+/* APLICACIÓN CLAVE: Nunito ExtraBold para el texto de los botones */
+.petme-update-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; /* ExtraBold */
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    background-color: var(--petme-dark-cyan); 
+    border-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+}
+
+
+/* * Tarjetas de Mascotas (Pet Cards)
+ */
+.pet-cards-container {
+    padding: 0 1rem;
+}
+
+/* Estilos de responsividad para que las tarjetas se organicen en columnas */
+@media (min-width: 768px) {
+    /* En tablets, 2 columnas */
+    .pet-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    /* En escritorio, 3 columnas */
+    .pet-card-col {
+        flex: 0 0 auto;
+        width: 33.333333%;
+    }
+}
+
+.pet-card {
+    /* Se quita el border-radius para un look cuadrado */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+    height: 100%; 
+}
+
+.pet-img {
+    height: 200px;
+    object-fit: cover;
+    /* Se quitan los border-radius */
+}
+
+/* APLICACIÓN CLAVE: Poppins Bold para el nombre (Título) */
+.pet-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Bold */
+    color: var(--petme-dark-slate-gray);
+    font-size: 1.2rem;
+}
+
+/* Los detalles y la descripción son párrafos, heredan Montserrat Regular del body */
+.pet-details {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.pet-description {
+    color: var(--petme-dark-slate-gray);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    min-height: 40px; 
+}
+
+/* APLICACIÓN CLAVE: Nunito ExtraBold para los botones de acción */
+.pet-action-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; /* ExtraBold */
+    border-radius: 25px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+    transition: all 0.2s ease-in-out;
+}
+
+.petme-btn-favorite {
+    background-color: var(--petme-yellow);
+    border-color: var(--petme-yellow);
+    color: var(--petme-dark-slate-gray); 
+}
+
+.petme-btn-contact {
+    background-color: var(--petme-dark-slate-gray);
+    border-color: var(--petme-dark-slate-gray);
+    color: var(--petme-white);
+}
+
+/* Estado activo para Favorito */
+.petme-btn-favorite.active {
+    background-color: #ff6666; /* Un color rojo suave para indicar activo */
+    border-color: #ff6666;
+    color: var(--petme-white);
+}
