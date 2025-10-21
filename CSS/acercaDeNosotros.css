@@ -2,8 +2,9 @@
 nav {
   background-color: var(--petme-bg);
 }
+
 h1 {
-  color: #02968a;
+  color: var(--petme-primary);
   font-family: 'Poppins', serif;
   font-style: bold;
   margin: 15px;
@@ -12,49 +13,54 @@ h1 {
 .lead {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
-  color: black;
+  color: var(--petme-bg);
   margin: 30px;
 }
 
 .carousel-caption h5 {
   font-size: 22px;
   font-family: 'Poppins', serif;
+  color: var(--petme-text);
 }
 
 .carousel-caption p {
   font-size: 18px;
   font-family: 'Montserrat', sans-serif;
+  color: var(--petme-text);
 }
 
 h2 {
-  font-family: 'Poppins' sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 45px;
-  color: #023d54;
+  color: var(--petme-bg);
 }
+
 .white-title {
-  font-family: 'Poppins' sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 45px;
-  color: white;
+  color: var(--petme-text);
 }
+
 .card {
   margin: 25px;
   background-attachment: fixed;
-  border-color: #ffffff;
-  box-shadow: 0 0 10px 5px #023d54;
+  border-color: var(--petme-text);
+  box-shadow: 0 0 10px 5px var(--petme-bg);
 }
+
 .card-body h5 {
-  color: #02968a;
+  color: var(--petme-primary);
   font-family: 'Poppins', serif;
 }
 
 .card-body p {
   font-family: 'Montserrat', sans-serif;
-  color: #023d54;
+  color: var(--petme-bg);
 }
 
 .diagonal-blue-bg {
-  background-color: #02968a; /* Color azul de Bootstrap */
-  color: white;
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
   padding: 150px 0; /* Padding superior e inferior para espacio */
 
   /* Esta es la propiedad clave para el efecto de desnivel */
@@ -68,4 +74,37 @@ h2 {
     /* Puedes cambiar los valores del polígono para ajustar la inclinación */
     clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
   }
+}
+
+/* Estilos para controles del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 8%;
+}
+
+/* Estilos para el navbar */
+#navbar-acercade {
+  background-color: var(--petme-bg);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  min-height: auto;
+}
+
+#navbar-acercade .navbar-brand img {
+  width: 60px;
+  height: 60px;
+}
+
+#navbar-acercade .navbar-brand,
+#navbar-acercade .nav-link {
+  color: var(--petme-text) !important;
+}
+
+#navbar-acercade .navbar-toggler {
+  border-color: var(--petme-text);
+  padding: 0.25rem 0.5rem;
+}
+
+#navbar-acercade .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
