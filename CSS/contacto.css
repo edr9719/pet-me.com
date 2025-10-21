@@ -82,3 +82,22 @@ textarea.form-control.has-content {
   background-color: var(--petme-container-bg);
   box-shadow: 0 0 10px var(--petme-shadow-btn);
 }
+
+/* Estilos para el navbar */
+
+#navbar-acercade {
+  background-color: var(--petme-bg);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  min-height: auto;
+}
+
+#navbar-acercade .navbar-brand img {
+  width: 60px;
+  height: 60px;
+}
+
+#navbar-acercade .navbar-brand,
+#navbar-acercade .nav-link {
+  color: var(--petme-text) !important;
+}
