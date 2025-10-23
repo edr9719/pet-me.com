@@ -1,11 +1,11 @@
 :root {
-  --petme-bg: #023d54;
+  --petme-bg: #0E182B;
   --petme-text: #ffffff;
   --petme-primary: #02968a;
   --petme-primary-hover: #94dea5;
-  --petme-accent: #ffff66;
+  --petme-accent: #023d54;
   --petme-border: #037f74;
-  --petme-container-bg: #0e182b;
+  --petme-container-bg: #0E182B;
   --petme-font-primary: 'Poppins', sans-serif;
 }
 
