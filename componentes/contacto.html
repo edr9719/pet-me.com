@@ -20,82 +20,46 @@
   </head>
   <body class="text-white">
     <!--Navbar-->
-    <nav  id="navbar-acercade" class="navbar navbar-dark fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-          <img
-            src="/Img/icono pet me.png"
-            alt="Logo"
-            class="me-3"
-            style="height: 60px"
-          />
-          <span></span>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasDarkNavbar"
-          aria-controls="offcanvasDarkNavbar"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="offcanvas offcanvas-end text-bg-dark"
-          tabindex="-1"
-          id="offcanvasDarkNavbar"
-          aria-labelledby="offcanvasDarkNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="/componentes/feed.html"
-                  >Inicio</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/componentes/perfil.html">Perfil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/componentes/chat.html">Chat</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/componentes/contacto.html"
-                  >Contáctanos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/componentes/acercaDeNosotros.html"
-                  >Acerca de Nosotros</a
-                >
-              </li>
-            </ul>
-            <form class="d-flex mt-3" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
+<nav class="navbar navbar-dark bg-petme fixed-top">
+  <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
+      <span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-    </nav>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link" href="/componentes/feed.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/componentes/perfil.html">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/componentes/chat.html">Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/componentes/contacto.html">Contáctanos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/componentes/acercaDeNosotros.html">Acerca de Nosotros</a>
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>    
     
     <div class="container py-5">
       <div class="row petme-form-wrapper shadow-lg">
