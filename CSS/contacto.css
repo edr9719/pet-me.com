@@ -12,6 +12,7 @@
 body {
   background-color: var(--petme-accent);
   font-family: var(--petme-font-primary);
+  padding-top: 50px;
 }
 
 .petme-form-wrapper {
