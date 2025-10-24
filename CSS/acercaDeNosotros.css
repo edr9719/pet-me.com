@@ -2,6 +2,9 @@
 nav {
   background-color: var(--petme-bg);
 }
+body{
+  padding-top: 50px;
+}
 
 h1 {
   color: var(--petme-primary);
