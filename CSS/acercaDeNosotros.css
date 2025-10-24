@@ -2,7 +2,7 @@
 nav {
   background-color: var(--petme-bg);
 }
-body{
+body {
   padding-top: 50px;
 }
 
@@ -110,4 +110,29 @@ h2 {
 
 #navbar-acercade .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    overflow: hidden;
+  }
+  .card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  /* Hide all cards except the first one */
+  .card:not(:first-child) {
+    display: none;
+  }
+  /* Hide carousel controls */
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none !important;
+  }
 }

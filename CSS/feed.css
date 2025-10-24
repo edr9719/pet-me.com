@@ -24,7 +24,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 120px;
+    padding-top: 80px;
 }
 
 .app-container {
@@ -54,6 +54,10 @@ body {
     padding: 1rem 1.5rem;
     /* Se quita el border-top-left-radius y border-top-right-radius */
 }
+.bg-petme-dark {
+    background-color: var(--petme-dark-slate-gray) !important;
+}
+
 
 /* APLICACIÓN CLAVE: Nunito ExtraBold para el logo de imagen */
 .petme-custom-logo {
