@@ -32,7 +32,7 @@
   <!-- Navigation -->
 <nav class="navbar navbar-dark bg-petme fixed-top">
   <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
       <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
       <span></span>
     </a>
@@ -41,32 +41,44 @@
     </button>
     <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
+        <img src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/feed.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/perfil.html">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/chat.html">Chat</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/contacto.html">Contáctanos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/componentes/acercaDeNosotros.html">Acerca de Nosotros</a>
-          </li>
-        </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-      </div>
+  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+        <i class="bi bi-house-door"></i> Inicio
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
+        <i class="bi bi-person"></i> Perfil
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/chat.html">
+        <i class="bi bi-chat-left-text"></i> Chat
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contacto.html">
+        <i class="bi bi-envelope"></i> Contáctanos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+        <i class="bi bi-info-circle"></i> Acerca de Nosotros
+      </a>
+    </li>
+  </ul>
+  <form class="d-flex mt-3" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+    <button class="btn btn-success" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+</div>
     </div>
   </div>
 </nav>    
@@ -89,22 +101,18 @@
     </div>
   </nav>
   -->
-  <header class="bg-white py-5">
-    <div class="container">
-      <section>
-        <h1 class="text-center mb-4">Acerca De Nosotros</h1>
-        <p class="lead text-center">
-          PET ME es una plataforma dedicada a conectar animales en situación de
-          abandono con personas que desean brindarles un hogar lleno de amor.
-          Nuestro objetivo es facilitar la adopción responsable mediante una
-          experiencia digital cálida, accesible y emocionalmente significativa. A
-          través de perfiles interactivos, historias conmovedoras y herramientas
-          intuitivas, PET ME transforma el proceso de adopción en un acto
-          responsable de cuidado y compromiso.
+<header class="bg-white py-5">
+  <div class="container">
+    <section>
+      <h1 class="text-center mb-4">Acerca De Nosotros</h1>
+      <div class="about-text has-watermark text-center">
+        <p class="lead">
+          PET ME es una plataforma dedicada a conectar animales en situación de abandono con personas que desean brindarles un hogar lleno de <strong class="text-accent">amor</strong>. Nuestro objetivo es facilitar la adopción responsable mediante una experiencia digital <strong class="text-accent">cálida</strong>, accesible y emocionalmente significativa. A través de perfiles interactivos, historias <strong class="text-accent">conmovedoras</strong> y herramientas intuitivas, PET ME transforma el proceso de adopción en un acto responsable de cuidado y compromiso.
         </p>
-      </section>
-    </div>
-  </header>
+      </div>
+    </section>
+  </div>
+</header>
 
   <!-- Carrusel de mascotas -->
   <div class="container my-4">
@@ -347,7 +355,7 @@
       </div>
     </div>
   </section>
-
+<!-- Footer -->
   <footer class="petme-footer text-center py-3">
     <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
   </footer>
