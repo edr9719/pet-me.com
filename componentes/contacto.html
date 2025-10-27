@@ -6,23 +6,29 @@
   <title>Contáctenos</title>
   <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
   
+    <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-    crossorigin="anonymous"
-  />
+    crossorigin="anonymous"/>
+    
+    <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  
+  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet"/>
+    <!-- Custom CSS -->
   <link rel="stylesheet" href="/CSS/contacto.css" />
   </head>
+
   <body class="text-white">
     <!--Navbar-->
 <nav class="navbar navbar-dark bg-petme fixed-top">
   <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
       <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
       <span></span>
     </a>
@@ -31,44 +37,57 @@
     </button>
     <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
+        <img src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/feed.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/perfil.html">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/chat.html">Chat</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/componentes/contacto.html">Contáctanos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/componentes/acercaDeNosotros.html">Acerca de Nosotros</a>
-          </li>
-        </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-      </div>
+  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+        <i class="bi bi-house-door"></i> Inicio
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
+        <i class="bi bi-person"></i> Perfil
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/chat.html">
+        <i class="bi bi-chat-left-text"></i> Chat
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active d-flex align-items-center gap-2" href="/componentes/contacto.html">
+        <i class="bi bi-envelope"></i> Contáctanos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+        <i class="bi bi-info-circle"></i> Acerca de Nosotros
+      </a>
+    </li>
+  </ul>
+  <form class="d-flex mt-3" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+    <button class="btn btn-success" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+</div>
     </div>
   </div>
 </nav>    
-    
+<!-- Imagen con texto -->
     <div class="container py-5">
       <div class="row petme-form-wrapper shadow-lg">
-        <div
-          class="col-md-6 petme-form-image d-flex flex-column justify-content-center align-items-center text-center text-white"
-        >
+        <div class="col-md-6 petme-form-image d-flex flex-column justify-content-center align-items-center text-center">
+          <div class="text-container">
           <h2 class="petme-accent-text">¡Contáctanos!</h2>
           <p>Estamos aquí para ayudarte 🐶🐱</p>
+          </div>
         </div>
+        <!-- Formulario -->
         <div class="col-md-6 petme-formulario text-white p-4">
           <form
             id="contactForm"
@@ -94,6 +113,7 @@
                 class="form-control"
                 id="email"
                 name="email"
+                placeholder="tucorreo@ejemplo.com"
                 required
               />
             </div>
@@ -104,6 +124,7 @@
                 class="form-control"
                 id="telefono"
                 name="telefono"
+                placeholder="0000000000"
                 maxlength="10"
                 pattern="\d{10}"
                 inputmode="numeric"
@@ -116,17 +137,22 @@
                 class="form-control"
                 id="mensaje"
                 name="mensaje"
+                placeholder="Tu opinión nos ayuda a mejorar... 🐾🐶"
                 rows="4"
                 required
               ></textarea>
             </div>
             <button type="submit" class="btn petme-btn w-100">Enviar</button>
             <div id="alerta" class="mt-3"></div>
+            <div class="petme-logo-animated mt-3"></div>
           </form>
         </div>
       </div>
     </div>
-
+<!-- Footer -->
+  <footer class="petme-footer text-center py-3">
+    <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
+  </footer>
     <script src="/JavaScript/contacto.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

@@ -95,3 +95,26 @@ body{
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }//*mio*/
+
+/* Logo Crece*/
+.navbar-brand img {
+  transition: transform 0.3s ease-in-out;
+}
+.navbar-brand img:hover {
+  transform: scale(1.15);
+}
+
+/* Estilo base para el logo en el offcanvas */
+.offcanvas-header img {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 25px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.0);
+}
+
+/* Efecto hover */
+.offcanvas-header img:hover {
+  opacity: 1;
+  transform: rotate(5deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
