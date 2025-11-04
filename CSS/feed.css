@@ -1,235 +1,544 @@
-/* Definición de variables de color con tu paleta */
+/* PetMe Feed Page Styles */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* Root Variables */
 :root {
-    --petme-dark-slate-gray: #023D54; /* Fondo principal oscuro, botones de contacto */
-    --petme-dark-cyan: #02968A; /* Navbar, iconos de ubicación */
-    --petme-medium-aquamarine: #94DEA5; /* Fondo claro */
-    --petme-yellow: #FFFF66; /* Botón Favorito, acentos */
-    --petme-white: #FFFFFF;
+  /* PetMe Color Palette */
+  --petme-bg: #023d54;
+  --petme-text: #ffffff;
+  --petme-primary: #02968a;
+  --petme-primary-hover: #94dea5;
+  --petme-accent: #ffff66;
+  --petme-border: #037f74;
+  --petme-container-bg: #0e182b;
+  --petme-font-primary: 'Poppins', sans-serif;
+
+  /* Feed-specific colors */
+  --surface-light: #ffffff;
+  --surface-dark: #1a1a1a;
+  --border-light: #e5e7eb;
+  --border-dark: #374151;
+  --text-light-primary: #111827;
+  --text-light-secondary: #6b7280;
+  --text-dark-primary: #f9fafb;
+  --text-dark-secondary: #9ca3af;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-dark: rgba(255, 255, 255, 0.05);
 }
 
-/* * Estructura General y Párrafos */
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    background-color: var(--petme-medium-aquamarine);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 80px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f8fafc;
+  color: var(--text-light-primary);
+  line-height: 1.5;
 }
 
-.app-container {
-    background-color: var(--petme-white);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 450px;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
+/* Layout Container */
+.design-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Media Query para Escritorio: Hacer la app más grande y centrada */
-@media (min-width: 768px) {
-    body {
-        align-items: flex-start; 
-    }
-    .app-container {
-        min-height: 90vh;
-        max-width: 1200px;
-        margin-top: 5vh;
-        border-radius: 10px;
-    }
+.main-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 40px 16px;
 }
 
-
-/* --- Navbar (Barra Superior) --- */
-
-.bg-petme {
-    background-color: var(--petme-dark-cyan) !important;
+.grid-container {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: 48px;
+  max-width: 1400px;
+  width: 100%;
 }
 
-.navbar-brand img {
-    transition: transform 0.3s ease-in-out;
+/* Sidebar Styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.navbar-brand img:hover {
-    transform: scale(1.15);
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* Estilo del Offcanvas (Menú Lateral) */
-.offcanvas-header {
-    background-color: var(--petme-dark-slate-gray);
-    border-bottom: 2px solid var(--petme-yellow);
-}
-.offcanvas-title {
-    color: var(--petme-yellow) !important;
-    font-family: 'Poppins', sans-serif;
-}
-.offcanvas-body {
-    background-color: var(--petme-dark-slate-gray);
-    font-family: 'Poppins', sans-serif;
-}
-.offcanvas .nav-link {
-    color: var(--petme-white) !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.offcanvas .nav-link:hover,
-.offcanvas .nav-link.active {
-    color: var(--petme-dark-slate-gray) !important;
-    background-color: var(--petme-yellow);
-    border-radius: 5px;
-}
-.offcanvas form.d-flex button[type="submit"] {
-    background-color: var(--petme-dark-cyan);
-    border-color: var(--petme-dark-cyan);
-    color: var(--petme-white);
-    transition: all 0.2s ease-in-out;
-}
-.offcanvas form.d-flex button[type="submit"]:hover {
-    background-color: var(--petme-medium-aquamarine);
-    border-color: var(--petme-medium-aquamarine);
-    color: var(--petme-dark-slate-gray);
-    transform: scale(1.05);
+.sidebar-sticky {
+  position: sticky;
+  top: 24px;
 }
 
-/* --- Controles del Feed (Localización y Botones) --- */
-.petme-icon-location {
-    color: var(--petme-dark-cyan);
-}
-.location-city {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    color: var(--petme-dark-slate-gray);
-}
-.petme-filter-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    background-color: var(--petme-medium-aquamarine);
-    color: var(--petme-dark-slate-gray);
-    transition: all 0.2s ease-in-out;
-}
-.petme-filter-btn:hover {
-    background-color: var(--petme-yellow);
-    transform: translateY(-2px);
-}
-.petme-update-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    background-color: var(--petme-dark-cyan);
-    color: var(--petme-white);
-    transition: all 0.2s ease-in-out;
-}
-.petme-update-btn:hover {
-    background-color: var(--petme-dark-slate-gray);
-    transform: scale(1.03);
+.sidebar-content {
+  background-color: #ffff66;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #023d54;
+  margin: 0 0 16px 0;
+}
 
-/* --- Tarjetas de Mascotas (Pet Cards) --- */
+.filter-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.filter-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #023d54;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 16px;
+}
+
+.filter-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  width: 100%;
+  text-decoration: none;
+  color: #023d54;
+}
+
+.filter-link:hover {
+  background-color: #f3f4f6;
+  color: #023d54;
+}
+
+.filter-link.active {
+  background-color: var(--petme-primary);
+}
+
+.filter-link.active .filter-text {
+  color: var(--petme-text);
+  font-weight: 700;
+}
+
+.filter-link.active .material-symbols-outlined,
+.filter-link.active .filter-text-only {
+  color: var(--petme-text);
+}
+
+.filter-link .material-symbols-outlined {
+  font-size: 24px;
+  color: #023d54;
+}
+
+.filter-link .filter-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.filter-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #023d54;
+  margin: 0;
+}
+
+.filter-text-only {
+  font-size: 18px;
+  font-weight: 700;
+  color: #023d54;
+  width: 24px;
+  text-align: center;
+}
+
+/* Feed Container */
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Pet Cards Wrapper */
+.pet-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Pet Card Styles */
 .pet-card {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  box-shadow: 0 0 12px var(--shadow-light);
+  background-color: var(--surface-light);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .pet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--shadow-light);
 }
-.pet-img {
-    height: 200px;
-    object-fit: cover;
+
+/* Card Header */
+.pet-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
 }
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light-primary);
+  margin: 0;
+}
+
+.profile-location {
+  font-size: 12px;
+  color: var(--text-light-secondary);
+  margin: 0;
+}
+
+/* Pet Image */
+.pet-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Card Body */
+.pet-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.pet-info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .pet-name {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    color: var(--petme-dark-slate-gray);
-}
-.pet-action-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    transition: all 0.2s ease-in-out;
-}
-.petme-btn-favorite {
-    background-color: var(--petme-yellow);
-    color: var(--petme-dark-slate-gray);
-}
-.petme-btn-favorite:hover {
-    background-color: #CCCC00;
-    transform: scale(1.05);
-}
-.petme-btn-contact {
-    background-color: var(--petme-dark-slate-gray);
-    color: var(--petme-white);
-}
-.petme-btn-contact:hover {
-    background-color: var(--petme-dark-cyan);
-    transform: scale(1.05);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-primary);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
 }
 
-/* --- Botón de Acción Flotante (FAB) --- */
-.petme-fab-btn {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    z-index: 1050;
-    background-color: var(--petme-dark-cyan);
-    color: var(--petme-white);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 1.8rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    border: 3px solid var(--petme-yellow);
-    transition: all 0.3s ease-in-out;
+.pet-details {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-light-secondary);
+  margin: 4px 0 0 0;
 }
 
-.petme-fab-btn:hover {
-    background-color: var(--petme-dark-slate-gray);
-    color: var(--petme-yellow);
-    transform: scale(1.1) rotate(5deg);
+.btn-adopt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 40px;
+  padding: 0 24px;
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 0.2s;
 }
 
-/* Estilos para el Modal */
-.modal-header.bg-petme {
-    background-color: var(--petme-dark-cyan) !important;
-    color: var(--petme-white) !important;
-    border-bottom: 2px solid var(--petme-yellow);
-}
-.btn-close-white {
-    filter: invert(1);
+.btn-adopt:hover {
+  opacity: 0.9;
+  background-color: var(--petme-primary-hover);
 }
 
-/* --- Animación de Entrada de Tarjetas (CSS Keyframes) --- */
-@keyframes fadeInSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.pet-card-col {
-    animation: fadeInSlideUp 0.6s ease-out forwards;
-    opacity: 0;
+.btn-adopt span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* --- Footer --- */
-.petme-footer {
-    background-color: var(--petme-dark-slate-gray);
-    color: var(--petme-white);
-    position: relative; 
+.pet-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-light-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Card Footer */
+.pet-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-light-secondary);
+}
+
+.action-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.action-btn:hover {
+  color: var(--text-light-primary);
+}
+
+.like-btn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.like-btn:hover .material-symbols-outlined {
+  color: #ef4444;
+}
+
+.comment-btn:hover,
+.share-btn:hover {
+  background-color: rgba(2, 150, 138, 0.2);
+  color: var(--text-light-primary);
+}
+
+.action-count {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .sidebar-right {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar-right {
+    display: none;
+  }
+
+  .main-container {
+    padding: 20px 12px;
+  }
+
+  .pet-card-footer {
+    justify-content: space-around;
+  }
+
+  .pet-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-adopt {
     width: 100%;
-    margin-top: 2rem; 
+    max-width: 100%;
+  }
 }
 
-/* Ajuste de FAB en escritorio */
-@media (min-width: 768px) {
-    .petme-fab-btn {
-        right: calc((100vw - 1200px) / 2 + 20px);
-        bottom: 40px;
-    }
+@media (max-width: 480px) {
+  .pet-name {
+    font-size: 18px;
+  }
+
+  .pet-details {
+    font-size: 13px;
+  }
+
+  .pet-description {
+    font-size: 14px;
+  }
+
+  .action-btn {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .action-count {
+    font-size: 13px;
+  }
+}
+
+/* Dark Mode Support (Optional - can be removed if not needed) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0f172a;
+    color: var(--text-dark-primary);
+  }
+
+  .pet-card {
+    background-color: var(--surface-dark);
+    box-shadow: 0 0 12px var(--shadow-dark);
+  }
+
+  .pet-card-header {
+    border-bottom-color: var(--border-dark);
+  }
+
+  .profile-name {
+    color: var(--text-dark-primary);
+  }
+
+  .profile-location {
+    color: var(--text-dark-secondary);
+  }
+
+  .pet-name {
+    color: var(--text-dark-primary);
+  }
+
+  .pet-details {
+    color: var(--text-dark-secondary);
+  }
+
+  .pet-description {
+    color: var(--text-dark-secondary);
+  }
+
+  .pet-card-footer {
+    border-top-color: var(--border-dark);
+  }
+
+  .action-btn {
+    color: var(--text-dark-secondary);
+  }
+
+  .action-btn:hover {
+    color: var(--text-dark-primary);
+  }
+
+  .filter-link {
+    color: #023d54;
+  }
+
+  .filter-link:hover {
+    background-color: #1f2937;
+  }
+
+  .filter-text {
+    color: #023d54;
+  }
+}
+
+/* You Might Like Sidebar */
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.suggestion-info {
+  flex: 1;
+}
+
+.suggestion-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #023d54;
+  margin: 0 0 4px 0;
+}
+
+.suggestion-breed {
+  font-size: 14px;
+  color: #023d54;
+  margin: 0;
+}
+
+.suggestion-view {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--petme-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.suggestion-view:hover {
+  color: var(--petme-primary-hover);
 }
