@@ -1,0 +1,132 @@
+body {
+    background-color: var(--petme-bg);
+    color: var(--petme-text);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*    CONTENEDOR    */
+
+.petme-register-horizontal {
+    background-color: var(--petme-container-bg);
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/*     LOGO Y TEXTOS  */
+
+.petme-logo {
+    width: 90px;
+    height: auto;
+}
+
+.petme-title {
+    font-family: var(--petme-font-primary);
+    font-weight: 40px ;
+    color: var(--petme-accent);
+}
+
+.petme-subtitle {
+    font-family:var(--petme-font-accent);
+    color:var(--petme-accent);
+    font-size: 15px;
+}
+
+/*    FORMULARIO     */
+
+.petme-label {
+    color: var(--petme-text);
+    font-size: 10px;
+}
+
+.form-control, .form-select {
+    background-color: var(--petme-container-bg);
+    border: 2px solid var(--petme-primary);
+    border-radius: 10px;
+    color: var(--petme-text);
+    font-family: var(--petme-font-accent);
+    font-size: 12px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+}
+
+.form-control:hover, .form-select:hover {
+    border: 2px solid var(--petme-accent);
+    border-radius: 10px;
+    color: var(--petme-text);
+}
+input:focus, .form-select:focus, .form-control:focus {
+    border-color: var(--petme-accent);
+    box-shadow: 0 0 0 0.2rem rgba(122, 252, 179, 0.25);
+    outline: none;
+    background-color: var(--petme-container-bg); /* un poco más claro para el efecto */
+}
+
+/*    CHECKBOX Y ENLACES */
+
+.form-check-input:checked {
+    background-color: var(--petme-accent);
+    border-color:var(--petme-accent);
+}
+
+.text-info, .text-decoration-none {
+    color: var(--petme-accent);
+    font-family: var(--petme-font-accent);
+    font-size: 15px;
+}
+p{
+    color: var(--petme-text);
+    font-family: var(--petme-font-accent)!important;
+}
+
+/*   BOTÓN crear cuenta */
+
+.btn {
+    background-color: var(--petme-primary); /* verde menta */
+    color:var(--petme-text);
+    font-family: var(--petme-font-secondary);
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 0;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color:var(--petme-primary-hover);
+    box-shadow: 0 4px 12px var(--petme-btn-shadow);
+    color: var(--petme-bg);
+    transform: translateY(-2px);
+}
+
+/*     FOOTER       */
+
+.petme-footer {
+    font-size: 12px;
+    color: var(--petme-text);
+    margin-top: auto;
+}
+
+/*    RESPONSIVE     */
+
+@media (max-width: 576px) {
+    .petme-login-card {
+    padding: 1.5rem;
+    }
+
+.petme-title {
+    font-size: 1.5rem;
+}
+
+.petme-btn {
+    font-size: 1rem;
+}
+}
