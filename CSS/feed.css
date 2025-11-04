@@ -166,8 +166,8 @@ body {
 }
 
 .filter-link:hover {
-  background-color: #f3f4f6;
-  color: #023d54;
+  background-color: #ffff66;
+  color: #023d54; 
 }
 
 .filter-link.active {
@@ -197,7 +197,7 @@ body {
 .filter-text {
   font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
+  color: #023d54;
   margin: 0;
 }
 
