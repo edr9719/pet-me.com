@@ -439,67 +439,6 @@ body {
   }
 }
 
-/* Dark Mode Support (Optional - can be removed if not needed) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #0f172a;
-    color: var(--text-dark-primary);
-  }
-
-  .pet-card {
-    background-color: var(--surface-dark);
-    box-shadow: 0 0 12px var(--shadow-dark);
-  }
-
-  .pet-card-header {
-    border-bottom-color: var(--border-dark);
-  }
-
-  .profile-name {
-    color: var(--text-dark-primary);
-  }
-
-  .profile-location {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-name {
-    color: var(--text-dark-primary);
-  }
-
-  .pet-details {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-description {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-card-footer {
-    border-top-color: var(--border-dark);
-  }
-
-  .action-btn {
-    color: var(--text-dark-secondary);
-  }
-
-  .action-btn:hover {
-    color: var(--text-dark-primary);
-  }
-
-  .filter-link {
-    color: #023d54;
-  }
-
-  .filter-link:hover {
-    background-color: #1f2937;
-  }
-
-  .filter-text {
-    color: #023d54;
-  }
-}
-
 /* You Might Like Sidebar */
 .suggestions-list {
   display: flex;
