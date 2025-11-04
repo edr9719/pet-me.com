@@ -1,23 +1,17 @@
 /* Definición de variables de color con tu paleta */
 :root {
-    --petme-dark-slate-gray: #023D54; /* Navbar y Contactar */
-    --petme-dark-cyan: #02968A; /* Icono de ubicación, texto de marca */
+    --petme-dark-slate-gray: #023D54; /* Fondo principal oscuro, botones de contacto */
+    --petme-dark-cyan: #02968A; /* Navbar, iconos de ubicación */
     --petme-medium-aquamarine: #94DEA5; /* Fondo claro */
-    --petme-yellow: #FFFF66; /* Botón Favorito */
+    --petme-yellow: #FFFF66; /* Botón Favorito, acentos */
     --petme-white: #FFFFFF;
 }
 
-/* * IMPORTANTE: Para que esto funcione, debes asegurarte de haber importado 
- * las tres fuentes (Nunito, Poppins, Montserrat) en tu archivo HTML.
- */
-
-/* * Estructura General y Párrafos
- * APLICACIÓN CLAVE: Montserrat para el texto general del cuerpo (Párrafos).
- */
+/* * Estructura General y Párrafos */
 body {
-    font-family: 'Montserrat', sans-serif; /* Montserrat para texto general */
-    font-weight: 400; /* Regular */
-    background-color: var(--petme-medium-aquamarine); 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: var(--petme-medium-aquamarine);
     margin: 0;
     padding: 0;
     display: flex;
@@ -29,281 +23,213 @@ body {
 
 .app-container {
     background-color: var(--petme-white);
-    /* Se quita el border-radius para un look cuadrado */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 450px; 
-    min-height: 100vh; 
+    max-width: 450px;
+    min-height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
 /* Media Query para Escritorio: Hacer la app más grande y centrada */
 @media (min-width: 768px) {
+    body {
+        align-items: flex-start; 
+    }
     .app-container {
-        min-height: 90vh; 
-        max-width: 1200px; /* Ancho mayor para modo escritorio/tablet */
+        min-height: 90vh;
+        max-width: 1200px;
+        margin-top: 5vh;
+        border-radius: 10px;
     }
 }
 
 
-/* Navbar (Barra Superior)*/
-/* Estilos para el navbar */
+/* --- Navbar (Barra Superior) --- */
 
-/*-- Mejora de NavBar-->*/
 .bg-petme {
-    background-color: #02968A !important;
+    background-color: var(--petme-dark-cyan) !important;
 }
 
-#offcanvasDarkNavbar {
-    font-family: 'Poppins', sans-serif;
-}
-.offcanvas-body {
-    font-family: 'Poppins', sans-serif;
+.navbar-brand img {
+    transition: transform 0.3s ease-in-out;
 }
 
-/* 1. ESTILO DEL ENCABEZADO "MENÚ" */
+.navbar-brand img:hover {
+    transform: scale(1.15);
+}
+
+/* Estilo del Offcanvas (Menú Lateral) */
 .offcanvas-header {
-       background-color: #023D54; 
-       border-bottom: 2px solid #FFFF66; 
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    background-color: var(--petme-dark-slate-gray);
+    border-bottom: 2px solid var(--petme-yellow);
 }
-
-/* 2. ESTILO DEL TÍTULO "Menú" */
 .offcanvas-title {
-    color: #FFFF66 !important; 
+    color: var(--petme-yellow) !important;
     font-family: 'Poppins', sans-serif;
 }
-
-/* 3. ESTILO DEL CUERPO DEL MENÚ */
 .offcanvas-body {
-    background-color: #023D54; 
+    background-color: var(--petme-dark-slate-gray);
     font-family: 'Poppins', sans-serif;
-    padding-left: 0;
-    padding-right: 0;
 }
-
-/* 4. AJUSTE DE ESPACIADO PARA LOS ELEMENTOS DE LA LISTA */
-.offcanvas .nav-item {
-    padding-left: 1rem; 
-    padding-right: 1rem;
-}
-
-/* 5. ESTILO DE LOS ENLACES (VISIBILIDAD INICIAL) */
 .offcanvas .nav-link {
-    color: #FFFFFF !important; 
-    font-size: 1.1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    color: var(--petme-white) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-/* 6. EFECTO HOVER: Inversión de Colores (Texto oscuro sobre fondo amarillo) */
 .offcanvas .nav-link:hover,
 .offcanvas .nav-link.active {
-    color: #023D54 !important; 
-    background-color: #FFFF66; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    color: var(--petme-dark-slate-gray) !important;
+    background-color: var(--petme-yellow);
     border-radius: 5px;
 }
-
-/* SELECTOR PARA EL CAMPO DE TEXTO DE BÚSQUEDA */
-.offcanvas form.d-flex input[type="search"] {
-    border: 2px solid #02968A;
-    border-radius: 0.25rem; 
-    box-shadow: none !important; 
-    background-color: white; 
-    color: #023D54; 
-}
-
-/* EFECTO DE FOCO (al hacer click) */
-.offcanvas form.d-flex input[type="search"]:focus {
-    border-color: #FFFF66;
-    box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5);
-}
-
-/* SELECTOR PARA EL BOTÓN DE BÚSQUEDA */
 .offcanvas form.d-flex button[type="submit"] {
-    background-color: #02968A;
-    border-color: #02968A;
-    color: white;
-    font-weight: 600;
-    transition: background-color 0.3s ease; 
-}
-
-/* EFECTO HOVER (al pasar el cursor) */
-.offcanvas form.d-flex button[type="submit"]:hover {
-    background-color: #94DEA5;
-    border-color: #94DEA5;
-    color: #023D54; 
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}//*mio*/
-
-/* Logo Crece*/
-.navbar-brand img {
-  transition: transform 0.3s ease-in-out;
-}
-.navbar-brand img:hover {
-  transform: scale(1.15);
-}
-
-/* APLICACIÓN CLAVE: Nunito ExtraBold para el logo de imagen */
-.petme-custom-logo {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800; /* ExtraBold */
-    height: 55px;
-    width: auto; 
-}
-
-/* APLICACIÓN CLAVE: Poppins Bold para el texto de la marca (Título) */
-.petme-brand-text {
-    font-family: 'Poppins', sans-serif;
-    color: var(--petme-white);
-    font-weight: 700; /* Bold */
-    font-size: 1.5rem;
-}
-
-.petme-nav-icon {
-    font-size: 1.5rem;
-    color: var(--petme-white);
-    margin-left: 0.8rem;
-}
-
-/* * Controles (Localización y Botones)
- */
-.petme-icon-location {
-    font-size: 1.5rem;
-    color: var(--petme-dark-cyan); /* Icono de ubicación con el color de acento */
-}
-
-/* APLICACIÓN CLAVE: Poppins Bold para la ciudad (Subtítulo) */
-.location-city {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700; /* Bold */
-    color: var(--petme-dark-slate-gray);
-    font-size: 1rem;
-}
-
-/* El área es un párrafo, hereda Montserrat Regular del body */
-.location-area {
-    color: #6c757d;
-    font-size: 0.8rem;
-}
-
-/* APLICACIÓN CLAVE: Nunito ExtraBold para el texto de los botones */
-.petme-filter-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800; /* ExtraBold */
-    border-radius: 20px;
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
-    color: var(--petme-dark-slate-gray);
-    border: 1px solid var(--petme-medium-aquamarine);
-    background-color: var(--petme-medium-aquamarine);
-}
-
-/* APLICACIÓN CLAVE: Nunito ExtraBold para el texto de los botones */
-.petme-update-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800; /* ExtraBold */
-    border-radius: 20px;
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
-    background-color: var(--petme-dark-cyan); 
+    background-color: var(--petme-dark-cyan);
     border-color: var(--petme-dark-cyan);
     color: var(--petme-white);
+    transition: all 0.2s ease-in-out;
+}
+.offcanvas form.d-flex button[type="submit"]:hover {
+    background-color: var(--petme-medium-aquamarine);
+    border-color: var(--petme-medium-aquamarine);
+    color: var(--petme-dark-slate-gray);
+    transform: scale(1.05);
+}
+
+/* --- Controles del Feed (Localización y Botones) --- */
+.petme-icon-location {
+    color: var(--petme-dark-cyan);
+}
+.location-city {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--petme-dark-slate-gray);
+}
+.petme-filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    background-color: var(--petme-medium-aquamarine);
+    color: var(--petme-dark-slate-gray);
+    transition: all 0.2s ease-in-out;
+}
+.petme-filter-btn:hover {
+    background-color: var(--petme-yellow);
+    transform: translateY(-2px);
+}
+.petme-update-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    background-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+    transition: all 0.2s ease-in-out;
+}
+.petme-update-btn:hover {
+    background-color: var(--petme-dark-slate-gray);
+    transform: scale(1.03);
 }
 
 
-/* * Tarjetas de Mascotas (Pet Cards)
- */
-.pet-cards-container {
-    padding: 0 1rem;
-}
-
-/* Estilos de responsividad para que las tarjetas se organicen en columnas */
-@media (min-width: 768px) {
-    /* En tablets, 2 columnas */
-    .pet-cards-container {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0 2rem;
-    }
-}
-
-@media (min-width: 992px) {
-    /* En escritorio, 3 columnas */
-    .pet-card-col {
-        flex: 0 0 auto;
-        width: 33.333333%;
-    }
-}
-
+/* --- Tarjetas de Mascotas (Pet Cards) --- */
 .pet-card {
-    /* Se quita el border-radius para un look cuadrado */
-    overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: none;
-    height: 100%; 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 .pet-img {
     height: 200px;
     object-fit: cover;
-    /* Se quitan los border-radius */
 }
-
-/* APLICACIÓN CLAVE: Poppins Bold para el nombre (Título) */
 .pet-name {
     font-family: 'Poppins', sans-serif;
-    font-weight: 700; /* Bold */
+    font-weight: 700;
     color: var(--petme-dark-slate-gray);
-    font-size: 1.2rem;
 }
-
-/* Los detalles y la descripción son párrafos, heredan Montserrat Regular del body */
-.pet-details {
-    color: #6c757d;
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-}
-
-.pet-description {
-    color: var(--petme-dark-slate-gray);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    min-height: 40px; 
-}
-
-/* APLICACIÓN CLAVE: Nunito ExtraBold para los botones de acción */
 .pet-action-btn {
     font-family: 'Nunito', sans-serif;
-    font-weight: 800; /* ExtraBold */
-    border-radius: 25px;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.9rem;
-    min-width: 100px;
+    font-weight: 800;
     transition: all 0.2s ease-in-out;
 }
-
 .petme-btn-favorite {
     background-color: var(--petme-yellow);
-    border-color: var(--petme-yellow);
-    color: var(--petme-dark-slate-gray); 
+    color: var(--petme-dark-slate-gray);
 }
-
+.petme-btn-favorite:hover {
+    background-color: #CCCC00;
+    transform: scale(1.05);
+}
 .petme-btn-contact {
     background-color: var(--petme-dark-slate-gray);
-    border-color: var(--petme-dark-slate-gray);
     color: var(--petme-white);
 }
+.petme-btn-contact:hover {
+    background-color: var(--petme-dark-cyan);
+    transform: scale(1.05);
+}
 
-/* Estado activo para Favorito */
-.petme-btn-favorite.active {
-    background-color: #ff6666; /* Un color rojo suave para indicar activo */
-    border-color: #ff6666;
+/* --- Botón de Acción Flotante (FAB) --- */
+.petme-fab-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 1050;
+    background-color: var(--petme-dark-cyan);
     color: var(--petme-white);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 3px solid var(--petme-yellow);
+    transition: all 0.3s ease-in-out;
+}
+
+.petme-fab-btn:hover {
+    background-color: var(--petme-dark-slate-gray);
+    color: var(--petme-yellow);
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Estilos para el Modal */
+.modal-header.bg-petme {
+    background-color: var(--petme-dark-cyan) !important;
+    color: var(--petme-white) !important;
+    border-bottom: 2px solid var(--petme-yellow);
+}
+.btn-close-white {
+    filter: invert(1);
+}
+
+/* --- Animación de Entrada de Tarjetas (CSS Keyframes) --- */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.pet-card-col {
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* --- Footer --- */
+.petme-footer {
+    background-color: var(--petme-dark-slate-gray);
+    color: var(--petme-white);
+    position: relative; 
+    width: 100%;
+    margin-top: 2rem; 
+}
+
+/* Ajuste de FAB en escritorio */
+@media (min-width: 768px) {
+    .petme-fab-btn {
+        right: calc((100vw - 1200px) / 2 + 20px);
+        bottom: 40px;
+    }
 }
