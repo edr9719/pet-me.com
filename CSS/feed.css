@@ -37,7 +37,7 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #f8fafc;
+  background-color: var(--petme-primary-hover);
   color: var(--text-light-primary);
   line-height: 1.5;
 }
@@ -54,6 +54,37 @@ body {
   flex: 1;
   justify-content: center;
   padding: 40px 16px;
+  position: relative;
+}
+
+/* Mobile Filter Button */
+.mobile-filter-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 12px 20px;
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.mobile-filter-btn:hover {
+  background-color: var(--petme-primary-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-filter-btn .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .grid-container {
@@ -83,7 +114,7 @@ body {
 }
 
 .sidebar-content {
-  background-color: #ffff66;
+  background-color: #037f74;
   border: 1px solid var(--border-light);
   border-radius: 12px;
   padding: 20px;
@@ -93,7 +124,7 @@ body {
 .sidebar-title {
   font-size: 18px;
   font-weight: 700;
-  color: #023d54;
+  color: var(--petme-accent);
   margin: 0 0 16px 0;
 }
 
@@ -112,7 +143,7 @@ body {
 .filter-section-title {
   font-size: 13px;
   font-weight: 600;
-  color: #023d54;
+  color: var(--petme-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0 0 8px 16px;
@@ -166,7 +197,7 @@ body {
 .filter-text {
   font-size: 14px;
   font-weight: 500;
-  color: #023d54;
+  color: #ffffff;
   margin: 0;
 }
 
@@ -289,8 +320,8 @@ body {
   max-width: 480px;
   height: 40px;
   padding: 0 24px;
-  background-color: var(--petme-primary);
-  color: var(--petme-text);
+  background-color: var(--petme-accent);
+  color: var(--petme-bg);
   font-size: 14px;
   font-weight: 700;
   border: none;
@@ -389,8 +420,39 @@ body {
     gap: 16px;
   }
 
+  .mobile-filter-btn {
+    display: flex;
+  }
+
   .sidebar {
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .sidebar.active {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .sidebar .sidebar-sticky {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .sidebar .sidebar-content {
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .sidebar-right {
@@ -436,67 +498,6 @@ body {
 
   .action-count {
     font-size: 13px;
-  }
-}
-
-/* Dark Mode Support (Optional - can be removed if not needed) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #0f172a;
-    color: var(--text-dark-primary);
-  }
-
-  .pet-card {
-    background-color: var(--surface-dark);
-    box-shadow: 0 0 12px var(--shadow-dark);
-  }
-
-  .pet-card-header {
-    border-bottom-color: var(--border-dark);
-  }
-
-  .profile-name {
-    color: var(--text-dark-primary);
-  }
-
-  .profile-location {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-name {
-    color: var(--text-dark-primary);
-  }
-
-  .pet-details {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-description {
-    color: var(--text-dark-secondary);
-  }
-
-  .pet-card-footer {
-    border-top-color: var(--border-dark);
-  }
-
-  .action-btn {
-    color: var(--text-dark-secondary);
-  }
-
-  .action-btn:hover {
-    color: var(--text-dark-primary);
-  }
-
-  .filter-link {
-    color: #023d54;
-  }
-
-  .filter-link:hover {
-    background-color: #1f2937;
-  }
-
-  .filter-text {
-    color: #023d54;
   }
 }
 
