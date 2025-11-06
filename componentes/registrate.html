@@ -6,13 +6,13 @@
     <title>PetMe | Regístrate</title>
     <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
 
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
 
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,7 +20,6 @@
       rel="stylesheet"
     />
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="/CSS/registrate.css" />
     <link rel="stylesheet" href="/CSS/variables.css" />
   </head>
@@ -34,7 +33,6 @@
           <div
             class="petme-register-horizontal rounded-4 overflow-hidden shadow-lg p-4"
           >
-            <!-- Sección del formulario -->
             <div class="petme-register-form text-center">
               <img
                 src="/Img/icono pet me.png"
@@ -46,66 +44,108 @@
                 Sé parte de Pet-Me ingresando tus datos
               </p>
 
-              <form id="registerForm">
+              <form id="registerForm" novalidate>
                 <div class="d-flex gap-2 mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Nombre(s)"
-                    name="nombre"
-                    required
-                  />
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Apellido(s)"
-                    name="apellido"
-                    required
-                  />
+                  <div class="w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre(s)"
+                      id="nombre"
+                      name="nombre"
+                    />
+                    <div class="invalid-feedback text-start">
+                      Por favor, ingresa tu nombre.
+                    </div>
+                  </div>
+                  <div class="w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Apellido(s)"
+                      id="apellidos"
+                      name="apellidos"
+                    />
+                    <div class="invalid-feedback text-start">
+                      Por favor, ingresa tus apellidos.
+                    </div>
+                  </div>
                 </div>
 
-                <input
-                  type="email"
-                  class="form-control mb-3"
-                  placeholder="Correo electrónico"
-                  name="email"
-                  required
-                />
+                <div class="mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Correo electrónico"
+                    id="email"
+                    name="email"
+                  />
+                  <div class="invalid-feedback text-start">
+                    Por favor, ingresa un correo válido.
+                  </div>
+                </div>
 
                 <div class="d-flex gap-2 mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Nombre de usuario"
-                    name="nombreUsuario"
-                    required
-                  />
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Contraseña"
-                    name="contraseña"
-                    required
-                  />
-                </div>
+                  <div class="w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre de usuario"
+                      id="username"
+                      name="username"
+                    />
+                    <div class="invalid-feedback text-start">
+                      El nombre de usuario es requerido.
+                    </div>
+                  </div>
+                  
+                  <div class="w-100">
+                    <div class="input-group">
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Contraseña"
+                        id="password"
+                        name="password"
+                      />
+                      <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                    <div id="password-hint" class="form-text d-none">
+                      Debe tener 8+ caracteres, 1 mayúscula, 1 minúscula y 1 número.
+                    </div>
+                    <div id="password-feedback" class="invalid-feedback text-start">
+                      La contraseña es requerida.
+                    </div>
+                  </div>
+                  </div>
 
                 <h6 class="text-start mt-3 mb-2">Ubicación</h6>
                 <div class="d-flex gap-2 mb-3">
-                  <select
-                    class="form-select"
-                    id="form-select"
-                    name="estado"
-                    required
-                  >
-                    <option selected disabled>Selecciona un estado</option>
-                  </select>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Ciudad"
-                    name="ciudad"
-                    required
-                  />
+                  <div class="w-100">
+                    <select
+                      class="form-select"
+                      id="estado"
+                      name="estado"
+                    >
+                      </select>
+                    <div class="invalid-feedback text-start">
+                      Debes seleccionar un estado.
+                    </div>
+                  </div>
+                  <div class="w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Ciudad"
+                      id="ciudad"
+                      name="ciudad"
+                    />
+                    <div class="invalid-feedback text-start">
+                      La ciudad es requerida.
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-check mb-3 text-start">
@@ -114,7 +154,6 @@
                     class="form-check-input"
                     id="terminos"
                     name="terminos"
-                    required
                   />
                   <label
                     class="form-check-label"
@@ -124,6 +163,9 @@
                     Acepto los
                     <a href="#" class="text-info">términos y condiciones</a>
                   </label>
+                  <div class="invalid-feedback">
+                    Debes aceptar los términos y condiciones.
+                  </div>
                 </div>
 
                 <button
@@ -151,7 +193,6 @@
       <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/JavaScript/registrate.js"></script>
   </body>
