@@ -53,58 +53,59 @@ function formatearFecha(fecha) {
 
 // Función para crear el HTML de una tarjeta de publicación
 function crearTarjetaPublicacion(publicacion, index) {
-  const detalles = `${publicacion.edad} · ${publicacion.sexo} · ${publicacion.ubicacion}`;
-
-  let emoji;
-  if (publicacion.especie === 'Perro') {
-    emoji = '🐶';
-  } else if (publicacion.especie === 'Gato') {
-    emoji = '🐱';
-  } else {
-    emoji = '🐾';
-  }
-
-  // Calcula el delay de la animación para un efecto escalonado (0.1s de retraso)
   const delay = index * 0.1;
+  const especieEmoji = {
+    Perro: "🐶",
+    Gato: "🐱",
+    Conejo: "🐰",
+    Otro: "🐾",
+  };
+  const emoji = especieEmoji[publicacion.especie] || "🐾";
+  const detalles = `${publicacion.especie}, ${publicacion.edad}`;
 
   return `
-        <div class="col-12 col-md-6 col-lg-4 mb-4 pet-card-col" style="animation-delay: ${delay}s;">
-            <div class="card pet-card">
-                <img src="${
-                  publicacion.imagen
-                }" class="card-img-top pet-img" alt="${publicacion.nombre}" />
-                <div class="card-body">
-                    <h5 class="card-title pet-name">${emoji} ${
-    publicacion.nombre
-  }</h5>
-                    <p class="card-text pet-details">${detalles}</p>
-                    <p class="card-text pet-description">${
-                      publicacion.descripcion
-                    }</p>
-                    <p class="card-text text-muted" style="font-size: 0.75rem;">Publicado el: ${formatearFecha(
-                      publicacion.fecha
-                    )}</p>
-                    <div class="d-flex justify-content-between">
-                        <button class="btn pet-action-btn petme-btn-favorite" data-pet-id="${
-                          publicacion.id
-                        }">
-                            <i class="bi bi-heart-fill"></i> Favorito
-                        </button>
-                        <button class="btn pet-action-btn petme-btn-contact" data-pet-id="${
-                          publicacion.id
-                        }">
-                            Contactar
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div class="pet-card" style="animation-delay: ${delay}s;">
+      <div class="pet-card-header">
+        <div class="profile-pic" style="background-image: url('https://via.placeholder.com/100');"></div>
+        <div>
+          <p class="profile-name">Happy Tails Shelter</p>
+          <p class="profile-location">${publicacion.ubicacion}</p>
         </div>
-    `;
+      </div>
+      <div class="pet-image" style="background-image: url('${publicacion.imagen}');"></div>
+      <div class="pet-card-body">
+        <div class="pet-info-header">
+          <div>
+            <p class="pet-name">${emoji} ${publicacion.nombre}</p>
+            <p class="pet-details">${detalles}</p>
+          </div>
+          <button class="btn-adopt">
+            <span>Adopt Me</span>
+          </button>
+        </div>
+        <p class="pet-description">${publicacion.descripcion}</p>
+      </div>
+      <div class="pet-card-footer">
+        <button class="action-btn like-btn">
+          <span class="material-symbols-outlined">favorite</span>
+          <p class="action-count">0</p>
+        </button>
+        <button class="action-btn comment-btn">
+          <span class="material-symbols-outlined">chat_bubble</span>
+          <p class="action-count">0</p>
+        </button>
+        <button class="action-btn share-btn">
+          <span class="material-symbols-outlined">share</span>
+          <p class="action-count">0</p>
+        </button>
+      </div>
+    </div>
+  `;
 }
 
 // Función principal para renderizar todas las publicaciones
 function renderizarPublicaciones() {
-  const contenedor = document.querySelector('.pet-cards-container');
+  const contenedor = document.querySelector('.pet-cards-wrapper');
   if (!contenedor) return;
 
   // Mapea y une el HTML, luego lo inyecta
@@ -136,7 +137,7 @@ function agregarEventosBotones() {
 /**
  * Maneja el envío del formulario para crear una nueva publicación (corregido para file input).
  */
-function handleNewPost(event) {
+/*function handleNewPost(event) {
   event.preventDefault();
 
   const form = document.getElementById('newPostForm');
@@ -166,12 +167,18 @@ function handleNewPost(event) {
     imagen: imagenURL,
     fecha: new Date().toISOString(),
   };
-
   // 1. Agrega la nueva publicación al inicio del array (unshift)
   publicaciones.unshift(nuevaPublicacion);
+  localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
 
   // 2. Vuelve a renderizar todo el feed
-  renderizarPublicaciones();
+  const guardados = localStorage.getItem("postsGuardados");
+  if (guardados) {
+  publicaciones = JSON.parse(guardados);
+  }
+  console.log("Publicación creada:", nuevaPublicacion);
+
+renderizarPublicaciones();
 
   // 3. Cierra el modal de Bootstrap
   const modalElement = document.getElementById('newPostModal');
@@ -182,11 +189,59 @@ function handleNewPost(event) {
 
   // 4. Limpia el formulario
   form.reset();
-}
+} */
+function handleNewPost(event) {
+  event.preventDefault();
 
+  const form = document.getElementById('newPostForm');
+  const imagenInput = document.getElementById('post-imagen');
+
+  const procesarPublicacion = (imagenURL) => {
+    const nuevaPublicacion = {
+      id: Date.now(),
+      nombre: document.getElementById('post-nombre').value.trim(),
+      descripcion: document.getElementById('post-descripcion').value.trim(),
+      especie: document.getElementById('post-especie').value,
+      sexo: document.getElementById('post-sexo').value,
+      tamaño: 'Mediano',
+      edad: document.getElementById('post-edad').value.trim(),
+      ubicacion: document.getElementById('post-ubicacion').value.trim(),
+      imagen: imagenURL,
+      fecha: new Date().toISOString(),
+    };
+
+    publicaciones.unshift(nuevaPublicacion);
+    localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
+    renderizarPublicaciones();
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
+    if (modal) modal.hide();
+
+    form.reset();
+  };
+
+  if (imagenInput.files && imagenInput.files[0]) {
+    convertirImagenABase64(imagenInput.files[0], procesarPublicacion);
+  } else {
+    procesarPublicacion('/Img/default.jpg');
+  }
+}
+// Para convertir a base64 
+  function convertirImagenABase64(file, callback) {
+  const reader = new FileReader();
+  reader.onloadend = () => callback(reader.result); // reader.result es la imagen en base64
+  reader.readAsDataURL(file);
+}
 // Inicialización de Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Renderiza las publicaciones iniciales
+    // 1. Cargar publicaciones guardadas desde localStorage
+  const guardados = localStorage.getItem("postsGuardados");
+  if (guardados) {
+    publicaciones = JSON.parse(guardados);
+  }
+  console.log("Publicaciones cargadas:", publicaciones);
+
+  // 2. Renderiza el feed
   renderizarPublicaciones();
 
   // 2. Agrega el listener para el formulario de nueva publicación
@@ -211,4 +266,47 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+// BOTONES LIKE-COMMENT
+  document.querySelectorAll('.like-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const icon = btn.querySelector('span');
+    const countEl = btn.querySelector('.action-count');
+    let count = parseInt(countEl.textContent.replace(/[^\d]/g, ''));
+
+    const isLiked = btn.classList.toggle('liked');
+    countEl.textContent = isLiked ? `${count + 1}` : `${count - 1}`;
+
+    // Cambia el estilo del ícono
+    icon.textContent = 'favorite';
+    icon.classList.toggle('filled', isLiked);
+  });
+});
+
+
+ document.querySelectorAll('.comment-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Aquí puedes abrir un modal, mostrar un textarea, etc.
+    alert('Abrir sección de comentarios 📝');
+  });
+});
+document.querySelectorAll('.share-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const countEl = btn.querySelector('.action-count');
+    let count = parseInt(countEl.textContent);
+    countEl.textContent = `${count + 1}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Adopta esta ratita madre 🐭',
+        url: window.location.href
+      }).catch(err => console.log('Error al compartir:', err));
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Enlace copiado al portapapeles 📋');
+    }
+  });
+});
+
+
+  
 });
