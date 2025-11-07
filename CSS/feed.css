@@ -540,7 +540,7 @@ body {
 .suggestion-view {
   font-size: 14px;
   font-weight: 600;
-  color: var(--petme-primary);
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.2s;
 }
