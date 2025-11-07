@@ -28,79 +28,83 @@
 
   <body class="petme-bg">
     <!-- ====== SECCIÓN PRINCIPAL DE LOGIN ====== -->
-    <main
-      class="container-fluid vh-100 d-flex align-items-center justify-content-center"
-    >
-      <div class="row justify-content-center w-100">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-          <!-- Contenedor con background y border-radius -->
-          <div class="petme-login-container">
-            <div class="petme-login-card p-4">
-              <!-- Logo -->
-              <div class="text-center mb-4">
-                <img
-                  src="/Img/icono pet me.png"
-                  alt="Logo de PetMe"
-                  class="petme-logo"
-                />
-              </div>
+    <main class="container-fluid petme-bg d-flex align-items-center justify-content-center">
+  <div class="row w-100 align-items-center">
+    
+    <!-- Imagen y texto -->
+    <section class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center text-center petme-left-content">
+      <img 
+        src="/Img/Login petme (1).png" 
+        alt="Mascotas felices en PetMe" 
+        class="img-fluid mb-4" style="max-height: 500px;"
+      />
+      <h1 class="petme-left-title mb-2">¡Bienvenido a PetMe!</h1>
+      <p class="petme-pf text-white-50 mb-1"> Una red social para adopción de mascotas. </p>
+      <p class="petme-pf text-white fw-bold">Conectando patitas con corazones.</p>
+    </section>
 
-              <!-- Título y subtítulo -->
-              <div class="text-center mb-4">
-                <h2 class="petme-title mb-2">Bienvenido!</h2>
-                <p class="petme-subtitle mb-0">Inicia sesión para continuar</p>
-              </div>
-
-              <!-- Formulario -->
-              <form id="loginForm">
-                <div class="mb-3">
-                  <label for="email" class="form-label petme-label"
-                    >Correo electrónico</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control petme-input"
-                    id="email"
-                    name="email"
-                    placeholder="tucorreo@ejemplo.com"
-                    required
-                  />
-                  <div class="invalid-feedback" id="emailError"></div>
-                </div>
-
-                <div class="mb-4">
-                  <label for="password" class="form-label petme-label"
-                    >Contraseña</label
-                  >
-                  <input
-                    type="password"
-                    class="form-control petme-input"
-                    id="password"
-                    name="password"
-                    placeholder="••••••••"
-                    required
-                  />
-                  <div class="invalid-feedback" id="passwordError"></div>
-                </div>
-
-                <div class="d-grid mb-3">
-                  <button type="submit" class="btn petme-btn">
-                    Iniciar sesión
-                  </button>
-                </div>
-
-                <div class="text-center">
-                  <p class="petme-small-text mb-0">
-                    ¿No tienes una cuenta?
-                    <a href="/componentes/registrate.html" class="petme-link">Regístrate</a>
-                  </p>
-                </div>
-              </form>
-            </div>
+    <!-- Contenedor con background y border-radius -->
+    <section class="col-12 col-md-6 d-flex justify-content-center">
+      <div class="petme-login-container">
+        <div class="petme-login-card p-4">
+          <!-- Logo -->
+          <div class="text-center mb-4">
+            <img
+              src="/Img/icono pet me.png"
+              alt="Logo de PetMe"
+              class="petme-logo"
+            />
           </div>
+          <!-- Título y subtítulo -->
+          <div class="text-center mb-4">
+            <h2 class="petme-title mb-2">Bienvenido!</h2>
+            <p class="petme-subtitle mb-0">Inicia sesión para continuar</p>
+          </div>
+          <!-- Formulario -->
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="email" class="form-label petme-label">Correo electrónico</label>
+              <input
+                type="email"
+                class="form-control petme-input"
+                id="email"
+                name="email"
+                placeholder="tucorreo@ejemplo.com"
+                required
+              />
+              <div class="invalid-feedback" id="emailError"></div>
+            </div>
+
+            <div class="mb-4">
+              <label for="password" class="form-label petme-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control petme-input"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+              />
+              <div class="invalid-feedback" id="passwordError"></div>
+            </div>
+
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn petme-btn">Iniciar sesión</button>
+            </div>
+
+            <div class="text-center">
+              <p class="petme-small-text mb-0">
+                ¿No tienes una cuenta?
+                <a href="/componentes/registrate.html" class="petme-link">Regístrate</a>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
-    </main>
+    </section>
+
+  </div>
+</main>
 
     <!-- Footer -->
     <footer class="petme-footer text-center py-3">
