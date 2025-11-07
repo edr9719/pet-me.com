@@ -22,62 +22,114 @@
     rel="stylesheet"/>
     <!-- Custom CSS -->
   <link rel="stylesheet" href="/CSS/contacto.css" />
+  <link rel="stylesheet" href="/CSS/navbar.css" />
   </head>
 
   <body class="text-white">
     <!--Navbar-->
-<nav class="navbar navbar-dark bg-petme fixed-top">
-  <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+        <nav class="navbar navbar-dark bg-petme fixed-top">
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
       <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
-      <span></span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="offcanvas-header">
-        <img src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+    <!-- Enlaces desktop -->
+    <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="/componentes/contacto.html">
+          <i class="bi bi-envelope"></i> Contáctanos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+          <i class="bi bi-info-circle"></i> Acerca de Nosotros
+        </a>
+      </li>
+    </ul>
+
+    <!-- Búsqueda desktop -->
+    <div class="search-container d-flex me-3 d-none d-lg-flex">
+      <div class="input-group" style="max-width: 280px; width: 100%;">
+        <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search">
+        <button class="btn search-btn" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
       </div>
-      <div class="offcanvas-body">
-  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
-        <i class="bi bi-house-door"></i> Inicio
+    </div>
+
+    <!-- Íconos desktop -->
+    <div class="d-flex align-items-center d-none d-lg-flex">
+      <a class="nav-link mx-2" href="/componentes/feed.html">
+        <i class="bi bi-house-door" style="font-size: 1.5rem; color: white;"></i>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
-        <i class="bi bi-person"></i> Perfil
+      <a class="nav-link mx-2" href="/componentes/chat.html">
+        <i class="bi bi-chat-left-text" style="font-size: 1.5rem; color: white;"></i>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/chat.html">
-        <i class="bi bi-chat-left-text"></i> Chat
+      <a class="nav-link mx-2" href="/componentes/notificaciones.html">
+        <i class="bi bi-bell" style="font-size: 1.5rem; color: white;"></i>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active d-flex align-items-center gap-2" href="/componentes/contacto.html">
-        <i class="bi bi-envelope"></i> Contáctanos
+      <a class="nav-link me-3" href="/componentes/perfil.html">
+        <i class="bi bi-person-circle"style="font-size: 1.5rem; color: white;"></i>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
-        <i class="bi bi-info-circle"></i> Acerca de Nosotros
-      </a>
-    </li>
-  </ul>
-  <form class="d-flex mt-3" role="search">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-    <button class="btn btn-success" type="submit">
-      <i class="bi bi-search"></i>
-    </button>
-  </form>
-</div>
+    </div>
+
+    <!-- Móvil: búsqueda + hamburguesa -->
+    <div class="d-flex align-items-center d-lg-none">
+      <div class="search-container me-3">
+        <div class="input-group" style="max-width: 150px;">
+          <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search">
+          <button class="btn search-btn" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
   </div>
-</nav>    
+</nav>
+
+<!-- Offcanvas (menú hamburguesa) -->
+<div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar">
+    <div class="offcanvas-header">
+        <img id="offcanvas-logo" src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+            <i class="bi bi-house-door"></i> Inicio
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/chat.html">
+            <i class="bi bi-chat-left-text"></i> Messages
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/notificaciones.html">
+            <i class="bi bi-bell"></i> Notificaciones
+            </a>
+        </li>
+        <hr class="my-2">
+        <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
+        </a>
+        </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+        <i class="bi bi-info-circle"></i> Acerca de Nosotros
+        </a>
+    </li>
+    </ul>
+    </div>
+</div>
+<!--Navbar -->
+
 <!-- Imagen con texto -->
     <div class="container py-5">
       <div class="row petme-form-wrapper shadow-lg">
