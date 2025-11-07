@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = document.getElementById('email');
     const username = document.getElementById('username');
     const password = document.getElementById('password');
-    const estado = document.getElementById('estado'); // Usamos el ID correcto
+    const estado = document.getElementById('estado'); 
     const ciudad = document.getElementById('ciudad');
     const terminos = document.getElementById('terminos');
     const togglePassword = document.getElementById('togglePassword');
@@ -67,34 +67,46 @@ document.addEventListener('DOMContentLoaded', function () {
             
             console.log('Formulario VÁLIDO. Guardando y redirigiendo...');
 
-            //  GUARDAR EN LOCALSTORAGE 
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const inputs = form.querySelectorAll('input[name]');
-            const select = document.getElementById('estado'); // ID correcto
-            
-            const user = {};
-            inputs.forEach((input) => {
-                if (input.name && input.type !== 'checkbox') { 
-                    user[input.name] = input.value;
-                }
-            });
-            user[select.name] = select.value;
-            user.id = Date.now();
-            users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
+            // ... (Validar Formulario es true)
 
-            
-            window.location.href = '/componentes/feed.html';
+// --- GUARDAR EN LOCALSTORAGE ---
+const users = JSON.parse(localStorage.getItem('users')) || [];
+const inputs = form.querySelectorAll('input[name]');
+const select = document.getElementById('estado');
 
-        } else {
-        
-            console.log('Formulario INVÁLIDO. Revisa los campos.');
-        }
-    });
+const newUser = {}; 
+inputs.forEach((input) => {
+    if (input.name && input.type !== 'checkbox') {
+        newUser[input.name] = input.value;
+    }
+});
+newUser[select.name] = select.value;
+newUser.id = Date.now();
 
+// --- VALIDACIÓN DE DUPLICADOS ---
+// Buscamos si ya existe un usuario con ese email
+const userExists = users.find(user => user.email === newUser.email);
 
+if (userExists) {
+    // Si 'userExists' no es 'undefined', el usuario ya existe
+    console.log('Formulario INVÁLIDO. El email ya está registrado.');
+    alert('Este correo electrónico ya está registrado. Por favor, usa otro.');
     
-    
+    mostrarError(email); 
+
+} else {
+    // Si no existe (es undefined), lo agregamos
+    console.log('Formulario VÁLIDO. Guardando y redirigiendo...');
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    // Redirigir
+    window.location.href = '/index.html';
+}
+        } 
+    }); 
+
+
     function validarFormulario() {
         limpiarErrores();
         let esValido = true;
@@ -190,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const feedbackDiv = document.getElementById('password-feedback');
         if (feedbackDiv) {
-             feedbackDiv.textContent = 'La contraseña es requerida.';
+            feedbackDiv.textContent = 'La contraseña es requerida.';
         }
     }
 
