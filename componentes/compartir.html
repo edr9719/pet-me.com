@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal para Publicaciones de Mascotas</title>
+    <!-- Icono petme -->
+    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon">
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <span>
+      <!-- Botón para abrir el modal (este estaría en tu página principal) -->
+      <div class="container text-center mb-5">
+        <button
+          class="btn btn-warning btn-lg"
+          data-bs-toggle="modal"
+          data-bs-target="#createPostModal"
+        >
+          <i class="bi bi-plus-circle me-2"></i>Crear Publicación
+        </button>
+      </div>
+
+      <!-- Modal para crear publicación -->
+      <div
+        class="modal fade"
+        id="createPostModal"
+        tabindex="-1"
+        aria-labelledby="createPostModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Header del modal -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="createPostModalLabel">
+                <i class="bi bi-pencil-square me-2"></i>Crear Publicación
+              </h5>
+              <button
+                type="button"
+                class="btn-warning"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Cuerpo del modal -->
+            <div class="modal-body p-4 btn-warning">
+              <!-- Información del usuario y mascota -->
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80"
+                  alt="Avatar"
+                  class="pet-avatar me-3"
+                />
+                <div>
+                  <h6 class="mb-0">Max el Golden</h6>
+                  <div class="dropdown d-inline-block">
+                    <button
+                      class="btn btn-warning pet-feeling dropdown-toggle py-10"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                    >
+                      <i class="bi bi-globe me-1 btn-warning"></i>Público
+                    </button>
+                    <ul class="dropdown-menu btn-warning">
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="bi bi-globe me-2"></i>Público</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="bi bi-people me-2"></i>Amigos</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Área de texto -->
+              <div class="mb-3">
+                <textarea
+                  class="form-control border-0 btn-warning"
+                  rows="4"
+                  placeholder="¿Qué está haciendo tu mascota hoy?"
+                ></textarea>
+              </div>
+
+              <!-- Vista previa de imagen -->
+              <div
+                class="image-preview mb-3"
+                id="imagePreview"
+                data-bs-toggle="modal"
+                data-bs-target="#imageUploadModal"
+              >
+                <div class="text-center text-muted">
+                  <i
+                    class="bi bi-camera display-4 d-block mb-2 btn-warning"
+                  ></i>
+                  <span>Agregar foto o video</span>
+                </div>
+              </div>
+
+              <!-- Opciones de publicación -->
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <div class="post-option text-center">
+                    <i class="bi bi-geo-alt text-success fs-4 d-block mb-1"></i>
+                    <small>Check-in</small>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="post-option text-center">
+                    <i
+                      class="bi bi-emoji-smile text-warning fs-4 d-block mb-1"
+                    ></i>
+                    <small>Estado/Actividad</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sentimientos/Actividades -->
+              <div class="mb-3">
+                <h6 class="mb-2">¿Cómo se siente tu amigo?</h6>
+                <div class="d-flex flex-wrap gap-2 btn-warning">
+                  <span class="badge bg-light text-dark p-2">😊 Contento</span>
+                  <span class="badge bg-light text-dark p-2">🐶 Juguetón</span>
+                  <span class="badge bg-light text-dark p-2"
+                    >🍖 Hambriento</span
+                  >
+                  <span class="badge bg-light text-dark p-2">😴 Cansado</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer del modal -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-warning"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="button" class="btn btn-publish text-black">
+                Publicar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para subir imagen (secundario) -->
+      <div
+        class="modal fade"
+        id="imageUploadModal"
+        tabindex="-1"
+        aria-labelledby="imageUploadModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imageUploadModalLabel">
+                Agregar multimedia
+              </h5>
+              <button
+                type="button"
+                class="btn-warning"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body text-center p-5">
+              <i class="bi bi-images display-1 text-primary mb-3"></i>
+              <h5>Sube fotos o videos de tu mascota</h5>
+              <p class="text-muted">
+                Selecciona desde tu dispositivo o toma una foto nueva
+              </p>
+              <div class="d-grid gap-2 mt-4">
+                <button class="btn btn-warning">
+                  <i class="bi bi-upload me-2"></i>Subir desde dispositivo
+                </button>
+                <button class="btn btn-warning">
+                  <i class="bi bi-camera me-2"></i>Tomar foto
+                </button>
+                <script></script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/JavaScript/modal.js"></script>
+  </body>
+</html>

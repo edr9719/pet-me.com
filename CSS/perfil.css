@@ -1,0 +1,127 @@
+body{
+    padding-top: 80px;
+}
+
+/* Estilos para el navbar */
+
+/*-- Mejora de NavBar-->*/
+.bg-petme {
+    background-color: #02968A !important;
+}
+
+#offcanvasDarkNavbar {
+    font-family: 'Poppins', sans-serif;
+}
+.offcanvas-body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 1. ESTILO DEL ENCABEZADO "MENÚ" */
+.offcanvas-header {
+    background-color: #023D54; 
+    border-bottom: 2px solid #FFFF66; 
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+/* 2. ESTILO DEL TÍTULO "Menú" */
+.offcanvas-title {
+    color: #FFFF66 !important; 
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 3. ESTILO DEL CUERPO DEL MENÚ */
+.offcanvas-body {
+    background-color: #023D54; 
+    font-family: 'Poppins', sans-serif;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* 4. AJUSTE DE ESPACIADO PARA LOS ELEMENTOS DE LA LISTA */
+.offcanvas .nav-item {
+    padding-left: 1rem; 
+    padding-right: 1rem;
+}
+
+/* 5. ESTILO DE LOS ENLACES (VISIBILIDAD INICIAL) */
+.offcanvas .nav-link {
+    color: #FFFFFF !important; 
+    font-size: 1.1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* 6. EFECTO HOVER: Inversión de Colores (Texto oscuro sobre fondo amarillo) */
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link.active {
+    color: #023D54 !important; 
+    background-color: #FFFF66; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    border-radius: 5px;
+}
+
+/* SELECTOR PARA EL CAMPO DE TEXTO DE BÚSQUEDA */
+.offcanvas form.d-flex input[type="search"] {
+    border: 2px solid #02968A;
+    border-radius: 0.25rem; 
+    box-shadow: none !important; 
+    background-color: white; 
+    color: #023D54; 
+}
+
+/* EFECTO DE FOCO (al hacer click) */
+.offcanvas form.d-flex input[type="search"]:focus {
+    border-color: #FFFF66;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5);
+}
+
+/* SELECTOR PARA EL BOTÓN DE BÚSQUEDA */
+.offcanvas form.d-flex button[type="submit"] {
+    background-color: #02968A;
+    border-color: #02968A;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease; 
+}
+
+/* EFECTO HOVER (al pasar el cursor) */
+.offcanvas form.d-flex button[type="submit"]:hover {
+    background-color: #94DEA5;
+    border-color: #94DEA5;
+    color: #023D54; 
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}/*mio*/
+
+.nav-link i {
+    font-size: 1.2rem;
+}
+.nav-link.gap-2 {
+    gap: 0.5rem;
+}
+
+/* Logo Crece*/
+.navbar-brand img {
+    transition: transform 0.3s ease-in-out;
+}
+.navbar-brand img:hover {
+    transform: scale(1.15);
+}
+
+/* Estilo base para el logo en el offcanvas */
+.offcanvas-header img {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    height: 25px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.0);
+}
+
+/* Efecto hover */
+.offcanvas-header img:hover {
+    opacity: 1;
+    transform: rotate(5deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}

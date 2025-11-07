@@ -1,1 +1,287 @@
+/* Estilos acerca de nosotros */
+nav {
+  background-color: var(--petme-bg);
+}
+body {
+  padding-top: 50px;
+}
 
+/* Estilo general para el encabezado */
+header.bg-white {
+  background-color: #fafafa !important;
+}
+
+/* Título "Acerca De Nosotros" */
+h1.text-center {
+  color: #008080;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Contenedor del texto con marca de agua */
+.about-text.has-watermark {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative; /* Necesario para posicionar el watermark */
+  overflow: hidden; /* Evita que el watermark se salga */
+}
+
+/* Marca de agua (logo de Pet-Me) */
+.about-text.has-watermark::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px; /* Ajusta según tamaño del logo */
+  height: 200px;
+  background: url('/Img/icono\ pet\ me.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.40; /* Muy baja opacidad → efecto sutil */
+  transform: translate(-50%, -50%);
+  z-index: 0; 
+  pointer-events: none;
+}
+
+/* Texto principal */
+.about-text .lead {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-align: center;
+  position: relative; 
+}
+
+/* Palabras clave resaltadas */
+.text-accent {
+  color: #023D54;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+  .about-text {
+    padding: 15px;
+    margin: 0 10px;
+  }
+  
+  .about-text .lead {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Reduce el tamaño del watermark en móvil */
+  .about-text.has-watermark::before {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+h1 {
+  color: var(--petme-primary);
+  font-family: 'Poppins', serif;
+  font-style: bold;
+  margin: 15px;
+}
+
+.lead {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: var(--petme-bg);
+  margin: 30px;
+}
+
+.carousel-caption h5 {
+  font-size: 22px;
+  font-family: 'Poppins', serif;
+  color: var(--petme-text);
+}
+
+.carousel-caption p {
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--petme-text);
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 45px;
+  color: var(--petme-bg);
+}
+
+.white-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 45px;
+  color: var(--petme-text);
+}
+
+.card {
+  margin: 25px;
+  background-attachment: fixed;
+  border-color: var(--petme-text);
+  box-shadow: 0 0 10px 5px var(--petme-bg);
+}
+
+.card-body h5 {
+  color: var(--petme-primary);
+  font-family: 'Poppins', serif;
+}
+
+.card-body p {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--petme-bg);
+}
+
+.diagonal-blue-bg {
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  padding: 150px 0; /* Padding superior e inferior para espacio */
+
+  /* Esta es la propiedad clave para el efecto de desnivel */
+  /* La inclinación ahora va desde la esquina superior izquierda a la inferior derecha */
+  clip-path: polygon(0 0, 100% 9%, 100% 100%, 0 100%);
+}
+
+@media (max-width: 992px) {
+  .diagonal-blue-bg {
+    padding-top: 50px;
+    /* Puedes cambiar los valores del polígono para ajustar la inclinación */
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
+  }
+}
+
+/* Estilos para controles del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 8%;
+}
+
+/* Estilos para el navbar */
+/*-- Mejora de NavBar-->*/
+.bg-petme {
+    background-color: #02968A !important;
+}
+
+#offcanvasDarkNavbar {
+    font-family: 'Poppins', sans-serif;
+}
+.offcanvas-body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 1. ESTILO DEL ENCABEZADO "MENÚ" */
+.offcanvas-header {
+    background-color: #023D54; 
+    border-bottom: 2px solid #FFFF66; 
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+/* 2. ESTILO DEL TÍTULO "Menú" */
+.offcanvas-title {
+    color: #FFFF66 !important; 
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 3. ESTILO DEL CUERPO DEL MENÚ */
+.offcanvas-body {
+    background-color: #023D54; 
+    font-family: 'Poppins', sans-serif;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* 4. AJUSTE DE ESPACIADO PARA LOS ELEMENTOS DE LA LISTA */
+.offcanvas .nav-item {
+    padding-left: 1rem; 
+    padding-right: 1rem;
+}
+
+/* 5. ESTILO DE LOS ENLACES (VISIBILIDAD INICIAL) */
+.offcanvas .nav-link {
+    color: #FFFFFF !important; 
+    font-size: 1.1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* 6. EFECTO HOVER: Inversión de Colores (Texto oscuro sobre fondo amarillo) */
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link.active {
+    color: #023D54 !important; 
+    background-color: #FFFF66; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    border-radius: 5px;
+}
+
+/* SELECTOR PARA EL CAMPO DE TEXTO DE BÚSQUEDA */
+.offcanvas form.d-flex input[type="search"] {
+    border: 2px solid #02968A;
+    border-radius: 0.25rem; 
+    box-shadow: none !important; 
+    background-color: white; 
+    color: #023D54; 
+}
+
+/* EFECTO DE FOCO (al hacer click) */
+.offcanvas form.d-flex input[type="search"]:focus {
+    border-color: #FFFF66;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5);
+}
+
+/* SELECTOR PARA EL BOTÓN DE BÚSQUEDA */
+.offcanvas form.d-flex button[type="submit"] {
+    background-color: #02968A;
+    border-color: #02968A;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease; 
+}
+
+/* EFECTO HOVER (al pasar el cursor) */
+.offcanvas form.d-flex button[type="submit"]:hover {
+    background-color: #94DEA5;
+    border-color: #94DEA5;
+    color: #023D54; 
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}/*mio*/
+
+.nav-link i {
+  font-size: 1.2rem;
+}
+.nav-link.gap-2 {
+  gap: 0.5rem;
+}
+
+/* Logo*/
+.navbar-brand img {
+  transition: transform 0.3s ease-in-out;
+}
+.navbar-brand img:hover {
+  transform: scale(1.15);
+}
+
+/* Estilo base para el logo en el offcanvas */
+.offcanvas-header img {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 25px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.0);
+}
+
+/* Efecto hover */
+.offcanvas-header img:hover {
+  opacity: 1;
+  transform: rotate(5deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}

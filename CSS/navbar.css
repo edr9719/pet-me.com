@@ -1,0 +1,148 @@
+/* navbar.css */
+.bg-petme {
+  background-color: #02968A !important;
+}
+
+/* Fuente y fondo del offcanvas */
+#offcanvasDarkNavbar,
+.offcanvas-body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.offcanvas-header {
+  background-color: #023D54;
+  border-bottom: 2px solid #FFFF66;
+  padding: 1rem 0;
+}
+
+.offcanvas-body {
+  background-color: #023D54;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Estilo de los enlaces */
+.offcanvas .nav-item {
+  padding: 0 1rem;
+}
+
+.offcanvas .nav-link {
+  color: #FFFFFF !important;
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+}
+
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link.active {
+  color: #023D54 !important;
+  background-color: #FFFF66;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Barra de búsqueda */
+.search-input {
+  border: 2px solid #02968A !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+  background-color: white !important;
+  color: #023D54 !important;
+  padding: 0 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Suaviza la transición */
+}
+
+/* Placeholder */
+.search-input::placeholder {
+  color: #888;
+}
+
+/* Hover: borde amarillo al pasar el cursor */
+.search-input:hover {
+  border-color: #FFFF66 !important;
+}
+
+/* Focus: borde amarillo + sombra al hacer clic */
+.search-input:focus {
+  border-color: #FFFF66 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5) !important;
+  outline: none;
+}
+
+.search-btn {
+  background-color: #02968A !important;
+  border: 2px solid #02968A !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+  color: white !important;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+}
+
+.search-btn:hover {
+  background-color: #94DEA5 !important;
+  border-color: #94DEA5 !important;
+  color: #023D54 !important;
+}
+
+/* Íconos */
+.nav-link i {
+  font-size: 1.5rem;
+}
+
+/* Animación de hover para los íconos de la navbar */
+.navbar .nav-link i {
+  color: white; /* Color por defecto: blanco */
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+
+.navbar .nav-link i:hover {
+  transform: scale(1.2);
+  color: #FFFF66 !important; /* Amarillo brillante al hacer hover */
+}
+
+/* Logo */
+.navbar-brand img {
+  transition: transform 0.3s ease-in-out;
+  height: 60px;
+}
+.navbar-brand img:hover {
+  transform: scale(1.15);
+}
+
+.offcanvas-header img {
+  height: 25px;
+  border-radius: 4px;
+  transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s;
+}
+
+.offcanvas-header img:hover {
+  transform: rotate(5deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Animación offcanvas */
+.offcanvas {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.25);
+}
+
+.offcanvas.offcanvas-end {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.offcanvas.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .search-container {
+    max-width: 180px !important;
+  }
+}
+
+body {
+    /* El valor debe ser mayor a la altura de tu navbar fija (aprox. 60px) */
+    padding-top: 90px; 
+}

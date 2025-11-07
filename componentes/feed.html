@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PetMe - Find Your New Best Friend</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+      <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+
+     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    
+    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon">
+      <!-- Custom CSS -->
+    <link rel="stylesheet" href="/CSS/feed.css" />
+    <link rel="stylesheet" href="/CSS/navbar.css" />
+
+  </head>
+  <body>
+     <!-- 🔷 NAVBAR -->
+   <nav class="navbar navbar-dark bg-petme fixed-top">
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+      <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
+    </a>
+
+    <!-- Enlaces desktop -->
+    <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="/componentes/contacto.html">
+          <i class="bi bi-envelope"></i> Contáctanos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+          <i class="bi bi-info-circle"></i> Acerca de Nosotros
+        </a>
+      </li>
+    </ul>
+
+    <!-- Búsqueda desktop -->
+    <div class="search-container d-flex me-3 d-none d-lg-flex">
+      <div class="input-group" style="max-width: 280px; width: 100%;">
+        <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search">
+        <button class="btn search-btn" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Íconos desktop -->
+    <div class="d-flex align-items-center d-none d-lg-flex">
+      <a class="nav-link mx-2" href="/componentes/feed.html">
+        <i class="bi bi-house-door" style="font-size: 1.5rem; color: white;"></i>
+      </a>
+      <a class="nav-link mx-2" href="/componentes/chat.html">
+        <i class="bi bi-chat-left-text" style="font-size: 1.5rem; color: white;"></i>
+      </a>
+      <a class="nav-link mx-2" href="/componentes/notificaciones.html">
+        <i class="bi bi-bell" style="font-size: 1.5rem; color: white;"></i>
+      </a>
+      <a class="nav-link me-3" href="/componentes/perfil.html">
+        <i class="bi bi-person-circle"style="font-size: 1.5rem; color: white;"></i>
+      </a>
+    </div>
+
+    <!-- Móvil: búsqueda + hamburguesa -->
+    <div class="d-flex align-items-center d-lg-none">
+      <div class="search-container me-3">
+        <div class="input-group" style="max-width: 150px;">
+          <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search">
+          <button class="btn search-btn" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Offcanvas (menú hamburguesa) -->
+<div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar">
+    <div class="offcanvas-header">
+        <img id="offcanvas-logo" src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+            <i class="bi bi-house-door"></i> Inicio
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/chat.html">
+            <i class="bi bi-chat-left-text"></i> Messages
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/notificaciones.html">
+            <i class="bi bi-bell"></i> Notificaciones
+            </a>
+        </li>
+        <hr class="my-2">
+        <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
+        </a>
+        </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+        <i class="bi bi-info-circle"></i> Acerca de Nosotros
+        </a>
+    </li>
+    </ul>
+    </div>
+</div>
+  <!-- 🔷 NAVBAR -->
+
+
+
+    <div class="design-root">
+      <main class="main-container">
+        <!-- Mobile Filter Button -->
+        <button class="mobile-filter-btn flex " id="mobileFilterBtn">
+          <span class="material-symbols-outlined">tune</span>
+          <span>Filters</span>
+        </button>
+
+        <div class="grid-container">
+          <aside class="sidebar" id="mobileSidebar">
+            <div class="sidebar-sticky">
+              <div class="sidebar-content">
+                <h3 class="sidebar-title">Filtros</h3>
+                <div class="filter-links">
+                  <a class="filter-link active" href="#">
+                    <span class="material-symbols-outlined icon-filled"
+                      >grid_view</span
+                    >
+                    <p class="filter-text">Mascotas</p>
+                  </a>
+
+                  <div class="filter-section">
+                    <p class="filter-section-title">Especie</p>
+                    <a class="filter-link" href="#">
+                      <span class="filter-icon">🐕</span>
+                      <p class="filter-text">Perros</p>
+                    </a>
+                    <a class="filter-link" href="#">
+                      <span class="filter-icon">🐈</span>
+                      <p class="filter-text">Gatos</p>
+                    </a>
+                  </div>
+
+                  <div class="filter-section">
+                    <p class="filter-section-title">Edad</p>
+                    <a class="filter-link" href="#">
+                      <span class="material-symbols-outlined">child_care</span>
+                      <p class="filter-text">Jovén</p>
+                    </a>
+                    <a class="filter-link" href="#">
+                      <span class="material-symbols-outlined">favorite</span>
+                      <p class="filter-text">Adulto</p>
+                    </a>
+                    <a class="filter-link" href="#">
+                      <span class="material-symbols-outlined">elderly</span>
+                      <p class="filter-text">Mayor</p>
+                    </a>
+                  </div>
+
+                  <div class="filter-section">
+                    <p class="filter-section-title">Tamaño</p>
+                    <a class="filter-link" href="#">
+                      <span class="filter-text-only">S</span>
+                      <p class="filter-text">Pequeño</p>
+                    </a>
+                    <a class="filter-link" href="#">
+                      <span class="filter-text-only">M</span>
+                      <p class="filter-text">Mediano</p>
+                    </a>
+                    <a class="filter-link" href="#">
+                      <span class="filter-text-only">L</span>
+                      <p class="filter-text">Grande</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="main-content">
+            <div class=" pet-cards-wrapper">
+              <!-- Pet Card 1 -->
+              <div class="pet-card">
+                <div class="pet-card-header">
+                  <div
+                    class="profile-pic"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgdbvCaoOxo9lbpOTSDeUiwt1qRoOjYN0-JZndw0AziRlbPUj5CcoStqKipg2Ci31UlHkIK6ahd5kXawEG3LTaaD1R58tHQhEedRY6nO6xc0Oxj5pwJeOqX1Q8wQulMl87BFZ0ODvs7Rk5eOnqVvKOSsuZkrwdV7iEE8QQpWxqP4jMotoNyYEcl9PpNO1uJ0tV7yw6S7DGTDz8R5EK_uybeCy1bMGGkTCYUtK-SFe8JVnbVZ9YQoRoLR3TwbJDFovlFr2Yp0K1skA');
+                    "
+                  ></div>
+                  <div>
+                    <p class="profile-name">Lorenzo Rodríguez</p>
+                    <p class="profile-location">Guadalajara, Jal </p>
+                  </div>
+                </div>
+                <div
+                  class="pet-image"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9pCy4eYFtk4k_liy0MROqN-10VAv3_mIkD7v5L9T8ThucoMWy7giz5uo6F2iFYvweuqTzayvR82YXPnBR4qDpF7ybBaZKAQLkeRcUN4KcNHyOVih6CN1LQpEuIPoZFU1rTP1uUPQrqJEknrhyvsFcuq_SYN4TU685qCXjOCP_XNxbT4A9UGgsUhsRGyOvTqq2YvNf22NBaN8w7sOUL6iAiTWhF8RPaVwta4gUzWEuLZcxwd10LS7iZjct1i9IlZ2fTouC_ABQCH0');
+                  "
+                ></div>
+                <div class="pet-card-body">
+                  <div class="pet-info-header">
+                    <div>
+                      <p class="pet-name">Buddy</p>
+                      <p class="pet-details">Golden Retriever, 2 años</p>
+                    </div>
+                    <button class="btn-adopt">
+                      <span>Adopt Me</span>
+                    </button>
+                  </div>
+                  <p class="pet-description">
+                    Buddy es un chico súper simpático y juguetón que busca un hogar cariñoso.
+                    Le encantan los largos paseos y jugar a buscar la pelota.
+                  </p>
+                </div>
+                <div class="pet-card-footer">
+                  <button class="action-btn like-btn">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <p class="action-count">1.2k</p>
+                  </button>
+                  <button class="action-btn comment-btn">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <p class="action-count">48</p>
+                  </button>
+                  <button class="action-btn share-btn">
+                    <span class="material-symbols-outlined">share</span>
+                    <p class="action-count">15</p>
+                  </button>
+                </div>
+              </div>
+              <!-- Pet Card 2 -->
+              <div class="pet-card">
+                <div class="pet-card-header">
+                  <div
+                    class="profile-pic"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCjCzSg5T9Bdo21OMkr81WUCVr8cu0G2VM4OL8O-W5BKRUbZ5r7XFivtch3bm69QPZMfklPmg5ITHX_-MuEI6NzCiMIijcr9m3fCkgOKZ2A3KOhmJ9F7ocNWh7Z3bAWj9xevEWci1e5--Z2I-1CSNecX0l6-DIQ2tHPTZhhZK6KgcnH1T79_TJCCKfQBu9Bsxht9JkvZw6HdKeTCPKqwroYLcJ-wWTlK6zkKlmTgn2dkRnt3JXZsmsvOO9cEX12WJtEg2yys-sHVs');
+                    "
+                  ></div>
+                  <div>
+                    <p class="profile-name">Jane Sánchez</p>
+                    <p class="profile-location">Gustavo A. Madero , CDMX</p>
+                  </div>
+                </div>
+                <div
+                  class="pet-image"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqlIfUUnIGd6Ycj7AS_y8pLLKYWWFQayDSP_xlnRLOim0BxNrfnunG96pkqLGxQV3WuCBz8WamnIFiI4wWRZOZDVSaCYgJadJuNlizFwfbwMCE_9NbYFBAhoPoC_S8OtGQILkcMeLDZy54Xy5cwKU2kflan-FDWzjfNiMFsvV_hk9FLasDDFUkQytn9JHWr2MJ3XkjzBmJjs_qxTzvOtxfM0Hrnbk4E1GVzlw-q6t4Wj__pEW3jWSkiwS0vps5AKypC-nlWHx2GWY');
+                  "
+                ></div>
+                <div class="pet-card-body">
+                  <div class="pet-info-header">
+                    <div>
+                      <p class="pet-name">Luna</p>
+                      <p class="pet-details">Gatita, 1 año de edad</p>
+                    </div>
+                    <button class="btn-adopt">
+                      <span>Adopt Me</span>
+                    </button>
+                  </div>
+                  <p class="pet-description">
+                    Luna es una gata curiosa y dulce a la que le encanta acurrucarse. Es
+                    genial con los niños y otras mascotas.
+                  </p>
+                </div>
+                <div class="pet-card-footer">
+                  <button class="action-btn like-btn">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <p class="action-count">980</p>
+                  </button>
+                  <button class="action-btn comment-btn">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <p class="action-count">21</p>
+                  </button>
+                  <button class="action-btn share-btn">
+                    <span class="material-symbols-outlined">share</span>
+                    <p class="action-count">8</p>
+                  </button>
+                </div>
+              </div>
+              <!-- Pet Card 3 -->
+              <div class="pet-card">
+                <div class="pet-card-header">
+                  <div
+                    class="profile-pic"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwbFA_bftYH0bu81YGJzioTnXesXPUo-Z-VzvKrmU0vkRTRW7kvbItM8cz2DL1gUtpmKYaj09--n-3bsInab0n9kob87xMaQ9JFmUMk0DHDY2bSFGcRCMKnqOIwWu4hVaNAneUJNzxQTFihoFMNEE9d3IjX5vZKhIJCcN5yh4RCknQVqIjnWTH6nZ_0b79ovfAHnKTtYVoS5Bzr-xzPdE3Est5fYpcTkVLb78A4VKHTw1V4ts1lTO_si6GgpDq9iz5wgVlipzUZhk');
+                    "
+                  ></div>
+                  <div>
+                    <p class="profile-name">José López</p>
+                    <p class="profile-location">Iztapalapa, EdoMex</p>
+                  </div>
+                </div>
+                <div
+                  class="pet-image"
+                  style="
+                    background-image: url('/Img/chilaquil.jpg');
+                  "
+                ></div>
+                <div class="pet-card-body">
+                  <div class="pet-info-header">
+                    <div>
+                      <p class="pet-name">Chilaquil</p>
+                      <p class="pet-details">Chihuha, 6 meses de edad</p>
+                    </div>
+                    <button class="btn-adopt">
+                      <span>Adopt Us</span>
+                    </button>
+                  </div>
+                  <p class="pet-description">
+                    Es una leyenda en el barrio.
+                  </p>
+                </div>
+                <div class="pet-card-footer">
+                  <button class="action-btn like-btn">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <p class="action-count">450</p>
+                  </button>
+                  <button class="action-btn comment-btn">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <p class="action-count">12</p>
+                  </button>
+                  <button class="action-btn share-btn">
+                    <span class="material-symbols-outlined">share</span>
+                    <p class="action-count">5</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <aside class="sidebar-right">
+            <div class="sidebar-sticky">
+              <div class="sidebar-content">
+                <h3 class="sidebar-title">Área de publicidad</h3>
+                <div class="suggestions-list">
+                  <div class="suggestion-item">
+                    <div class="suggestion-info">
+                      <p class="suggestion-name">Promocina tu marca aquí</p>
+                      <img src="/Img/aqui.png" alt="Logo" style="height: 250px;">
+                      <p class="suggestion-breed"></p>
+                    </div>
+                    <a href="#" class="suggestion-view"></a>
+                  </div>
+                  <div class="suggestion-item">
+                    <div class="suggestion-info">
+                      <p class="suggestion-name"></p>
+                      <p class="suggestion-breed"></p>
+                    </div>
+                    <a href="/componentes/contacto.html" class="suggestion-view">Contáctanos</a>
+                  </div>
+                  <div class="suggestion-item">
+                    <div class="suggestion-info">
+                      <p class="suggestion-name"></p>
+                      <p class="suggestion-breed"></p>
+                    </div>
+                    <a href="#" class="suggestion-view"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+   <!--Para el modal de KEVS--> 
+        <button class="btn petme-fab-btn" data-bs-toggle="modal" data-bs-target="#newPostModal" aria-label="Crear Nueva Publicación" id="add-post-btn">
+            <span class="material-symbols-outlined">add_circle</span>
+             Crear publicación
+        </button>
+         <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-petme text-white">
+                    <h5 class="modal-title" id="newPostModalLabel">🐾 Crear Nueva Adopción</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newPostForm">
+                        <div class="mb-3">
+                            <label for="post-nombre" class="form-label">Nombre de la Mascota</label>
+                            <input type="text" class="form-control" id="post-nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="post-descripcion" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-especie" class="form-label">Especie</label>
+                            <select class="form-select" id="post-especie" required>
+                                <option value="">Seleccionar</option>
+                                <option value="Perro">Perro</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="post-sexo" class="form-label">Sexo</label>
+                                <select class="form-select" id="post-sexo" required>
+                                    <option value="">Seleccionar</option>
+                                    <option value="Hembra">Hembra</option>
+                                    <option value="Macho">Macho</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="post-edad" class="form-label">Edad (ej: 6 meses)</label>
+                                <input type="text" class="form-control" id="post-edad" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="post-ubicacion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-imagen" class="form-label">Cargar Imagen</label>
+                            <input type="file" class="form-control" id="post-imagen" accept="image/*">
+                            <div class="form-text">Selecciona una imagen de tu dispositivo.</div>
+                        </div>
+                        <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn petme-btn-contact" id="publish-btn" form="newPostForm">Publicar</button>
+                </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Bootstrap JS (con Popper incluido) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/JavaScript/feed.js"></script>
+  </body>
+</html>
+
