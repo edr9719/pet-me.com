@@ -40,6 +40,7 @@ body {
   background-color: var(--petme-primary-hover);
   color: var(--text-light-primary);
   line-height: 1.5;
+  padding-top: 90px;
 }
 
 /* Layout Container */
@@ -558,94 +559,6 @@ body {
     --petme-white: #FFFFFF;
 }
 
-/* * Estructura General y Párrafos */
-body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    background-color: var(--petme-medium-aquamarine);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 80px;
-}
-
-.app-container {
-    background-color: var(--petme-white);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 450px;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-}
-
-/* Media Query para Escritorio: Hacer la app más grande y centrada */
-@media (min-width: 768px) {
-    body {
-        align-items: flex-start; 
-    }
-    .app-container {
-        min-height: 90vh;
-        max-width: 1200px;
-        margin-top: 5vh;
-        border-radius: 10px;
-    }
-}
-
-
-/* --- Navbar (Barra Superior) --- */
-
-.bg-petme {
-    background-color: var(--petme-dark-cyan) !important;
-}
-
-.navbar-brand img {
-    transition: transform 0.3s ease-in-out;
-}
-
-.navbar-brand img:hover {
-    transform: scale(1.15);
-}
-
-/* Estilo del Offcanvas (Menú Lateral) */
-.offcanvas-header {
-    background-color: var(--petme-dark-slate-gray);
-    border-bottom: 2px solid var(--petme-yellow);
-}
-.offcanvas-title {
-    color: var(--petme-yellow) !important;
-    font-family: 'Poppins', sans-serif;
-}
-.offcanvas-body {
-    background-color: var(--petme-dark-slate-gray);
-    font-family: 'Poppins', sans-serif;
-}
-.offcanvas .nav-link {
-    color: var(--petme-white) !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.offcanvas .nav-link:hover,
-.offcanvas .nav-link.active {
-    color: var(--petme-dark-slate-gray) !important;
-    background-color: var(--petme-yellow);
-    border-radius: 5px;
-}
-.offcanvas form.d-flex button[type="submit"] {
-    background-color: var(--petme-dark-cyan);
-    border-color: var(--petme-dark-cyan);
-    color: var(--petme-white);
-    transition: all 0.2s ease-in-out;
-}
-.offcanvas form.d-flex button[type="submit"]:hover {
-    background-color: var(--petme-medium-aquamarine);
-    border-color: var(--petme-medium-aquamarine);
-    color: var(--petme-dark-slate-gray);
-    transform: scale(1.05);
-}
-
 /* --- Controles del Feed (Localización y Botones) --- */
 .petme-icon-location {
     color: var(--petme-dark-cyan);
@@ -720,28 +633,62 @@ body {
 }
 
 /* --- Botón de Acción Flotante (FAB) --- */
-.petme-fab-btn {
+/* Nuevo CSS para el Botón FAB rectangular/píldora */
+.petme-fab-btn.petme-fab-pill {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
     z-index: 1050;
-    background-color: var(--petme-dark-cyan);
+
+    /* Propiedades de Diseño y Contenido */
+    display: flex; /* Permite alinear elementos */
+    flex-direction: row; /* Elementos en línea */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espacio entre el ícono (+) y el texto */
+    
+    /* Forma y Tamaño */
+    padding: 12px 20px; /* Relleno interno para la forma rectangular/píldora */
+    width: auto; /* El ancho se ajusta al contenido (ícono + texto) */
+    height: 48px; /* Altura fija para ser compacto */
+    
+    border-radius: 30px; /* Borde muy redondeado (forma de píldora) */
+    
+    /* Colores y Efectos */
+    background-color: var(--petme-dark-cyan); /* Color base */
     color: var(--petme-white);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 1.8rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    border: 3px solid var(--petme-yellow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--petme-yellow); /* Borde para resaltarlo */
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
-.petme-fab-btn:hover {
-    background-color: var(--petme-dark-slate-gray);
-    color: var(--petme-yellow);
-    transform: scale(1.1) rotate(5deg);
+.petme-fab-btn.petme-fab-pill:hover {
+    background-color: var(--petme-dark-slate-gray); /* Color oscuro al pasar el ratón */
+    transform: scale(1.03); 
 }
 
+/* Estilo para el Ícono (+) */
+.petme-fab-btn i.petme-plus-icon {
+    font-size: 1.2rem; /* Tamaño del signo de más */
+    color: var(--petme-yellow); /* Color amarillo para resaltarlo */
+}
+
+/* Estilo para el Texto "Crear" */
+.petme-fab-btn span.petme-fab-text {
+    font-size: 16px; 
+    font-weight: 700;
+    color: var(--petme-white);
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* Estilo opcional para el logo (si lo usas al final) */
+.petme-fab-btn img.petme-fab-logo {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+}
 /* Estilos para el Modal */
 .modal-header.bg-petme {
     background-color: var(--petme-dark-cyan) !important;
