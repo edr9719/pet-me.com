@@ -548,3 +548,268 @@ body {
 .suggestion-view:hover {
   color: var(--petme-primary-hover);
 }
+/*AQUÍ COMENZAMOS CON LA FUSIÓN DE FEED Y MODAL
+/* Definición de variables de color con tu paleta */
+:root {
+    --petme-dark-slate-gray: #023D54; /* Fondo principal oscuro, botones de contacto */
+    --petme-dark-cyan: #02968A; /* Navbar, iconos de ubicación */
+    --petme-medium-aquamarine: #94DEA5; /* Fondo claro */
+    --petme-yellow: #FFFF66; /* Botón Favorito, acentos */
+    --petme-white: #FFFFFF;
+}
+
+/* * Estructura General y Párrafos */
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: var(--petme-medium-aquamarine);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.app-container {
+    background-color: var(--petme-white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Media Query para Escritorio: Hacer la app más grande y centrada */
+@media (min-width: 768px) {
+    body {
+        align-items: flex-start; 
+    }
+    .app-container {
+        min-height: 90vh;
+        max-width: 1200px;
+        margin-top: 5vh;
+        border-radius: 10px;
+    }
+}
+
+
+/* --- Navbar (Barra Superior) --- */
+
+.bg-petme {
+    background-color: var(--petme-dark-cyan) !important;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.15);
+}
+
+/* Estilo del Offcanvas (Menú Lateral) */
+.offcanvas-header {
+    background-color: var(--petme-dark-slate-gray);
+    border-bottom: 2px solid var(--petme-yellow);
+}
+.offcanvas-title {
+    color: var(--petme-yellow) !important;
+    font-family: 'Poppins', sans-serif;
+}
+.offcanvas-body {
+    background-color: var(--petme-dark-slate-gray);
+    font-family: 'Poppins', sans-serif;
+}
+.offcanvas .nav-link {
+    color: var(--petme-white) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link.active {
+    color: var(--petme-dark-slate-gray) !important;
+    background-color: var(--petme-yellow);
+    border-radius: 5px;
+}
+.offcanvas form.d-flex button[type="submit"] {
+    background-color: var(--petme-dark-cyan);
+    border-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+    transition: all 0.2s ease-in-out;
+}
+.offcanvas form.d-flex button[type="submit"]:hover {
+    background-color: var(--petme-medium-aquamarine);
+    border-color: var(--petme-medium-aquamarine);
+    color: var(--petme-dark-slate-gray);
+    transform: scale(1.05);
+}
+
+/* --- Controles del Feed (Localización y Botones) --- */
+.petme-icon-location {
+    color: var(--petme-dark-cyan);
+}
+.location-city {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--petme-dark-slate-gray);
+}
+.petme-filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    background-color: var(--petme-medium-aquamarine);
+    color: var(--petme-dark-slate-gray);
+    transition: all 0.2s ease-in-out;
+}
+.petme-filter-btn:hover {
+    background-color: var(--petme-yellow);
+    transform: translateY(-2px);
+}
+.petme-update-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    background-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+    transition: all 0.2s ease-in-out;
+}
+.petme-update-btn:hover {
+    background-color: var(--petme-dark-slate-gray);
+    transform: scale(1.03);
+}
+
+
+/* --- Tarjetas de Mascotas (Pet Cards) --- */
+.pet-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.pet-img {
+    height: 200px;
+    object-fit: cover;
+}
+.pet-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--petme-dark-slate-gray);
+}
+.pet-action-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    transition: all 0.2s ease-in-out;
+}
+.petme-btn-favorite {
+    background-color: var(--petme-yellow);
+    color: var(--petme-dark-slate-gray);
+}
+.petme-btn-favorite:hover {
+    background-color: #CCCC00;
+    transform: scale(1.05);
+}
+.petme-btn-contact {
+    background-color: var(--petme-dark-slate-gray);
+    color: var(--petme-white);
+}
+.petme-btn-contact:hover {
+    background-color: var(--petme-dark-cyan);
+    transform: scale(1.05);
+}
+
+/* --- Botón de Acción Flotante (FAB) --- */
+.petme-fab-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    background-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 3px solid var(--petme-yellow);
+    transition: all 0.3s ease-in-out;
+}
+
+.petme-fab-btn:hover {
+    background-color: var(--petme-dark-slate-gray);
+    color: var(--petme-yellow);
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Estilos para el Modal */
+.modal-header.bg-petme {
+    background-color: var(--petme-dark-cyan) !important;
+    color: var(--petme-white) !important;
+    border-bottom: 2px solid var(--petme-yellow);
+}
+.btn-close-white {
+    filter: invert(1);
+}
+
+/* --- Animación de Entrada de Tarjetas (CSS Keyframes) --- */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.pet-card-col {
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* --- Footer --- */
+.petme-footer {
+    background-color: var(--petme-dark-slate-gray);
+    color: var(--petme-white);
+    position: relative; 
+    width: 100%;
+    margin-top: 2rem; 
+}
+
+/* Ajuste de FAB en escritorio */
+@media (min-width: 768px) {
+    .petme-fab-btn {
+        right: calc((100vw - 1200px) / 2 + 20px);
+        bottom: 40px;
+    }
+
+    /* Botones de actividad   */
+    .like-btn.liked span {
+  color: red;
+}
+.like-btn.active {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  transition: all 0.2s ease;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 24;
+  color: red;
+}
+
+
+
+}
