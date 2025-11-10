@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
 
+// --- OJO ---
+const togglePassword = document.getElementById('togglePassword');
+
+if (togglePassword) {
+    const passwordIcon = document.getElementById('passwordIcon');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        if (passwordIcon) {
+            passwordIcon.classList.toggle('bi-eye-slash-fill');
+            passwordIcon.classList.toggle('bi-eye-fill');
+        }
+    });
+}
+// ---OJO ---
+
     loginForm.addEventListener('submit', function (event) {
         event.preventDefault(); 
         
@@ -35,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function mostrarError(input, errorDiv, mensaje) {
         input.classList.add('is-invalid');
         errorDiv.textContent = mensaje;
+        errorDiv.classList.add('d-block');
     }
 
     function limpiarErrores() {
@@ -42,8 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
         emailInput.classList.remove('is-invalid');
         
         emailError.textContent = '';
+        emailError.classList.remove('d-block');
         
         passwordInput.classList.remove('is-invalid');
         passwordError.textContent = '';
+        passwordError.classList.remove('d-block');
     }
 });
