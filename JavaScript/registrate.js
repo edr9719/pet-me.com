@@ -101,7 +101,7 @@ if (userExists) {
     localStorage.setItem('users', JSON.stringify(users));
 
     // Redirigir
-    window.location.href = '/index.html';
+    window.location.href = '/componentes/InicioSesion.html';
 }
         } 
     }); 
