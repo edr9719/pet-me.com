@@ -61,7 +61,21 @@ function crearTarjetaPublicacion(publicacion, index) {
     Otro: "🐾",
   };
   const emoji = especieEmoji[publicacion.especie] || "🐾";
-  const detalles = `${publicacion.especie}, ${publicacion.edad}`;
+  // --- Mostrar edad con unidad y tamaño ---
+let edadTexto = publicacion.edad;
+
+// Si el valor de edad es numérico, le agregamos "años" por defecto
+if (publicacion.edad && !isNaN(publicacion.edad)) {
+  edadTexto = `${publicacion.edad} años`;
+}
+
+// Si el texto ya incluye "mes" o "año", se deja tal cual
+if (publicacion.edad && /mes|año/i.test(publicacion.edad)) {
+  edadTexto = publicacion.edad;
+}
+
+// Armamos el detalle completo (especie, edad y tamaño)
+const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
 
   return `
     <div class="pet-card" style="animation-delay: ${delay}s;">
@@ -212,7 +226,7 @@ function handleNewPost(event) {
       descripcion: document.getElementById('post-descripcion').value.trim(),
       especie: document.getElementById('post-especie').value,
       sexo: document.getElementById('post-sexo').value,
-      tamaño: 'Mediano',
+      tamaño: document.getElementById('post-tamaño').value,
       edad: document.getElementById('post-edad').value.trim(),
       ubicacion: document.getElementById('post-ubicacion').value.trim(),
       imagen: imagenURL,
@@ -257,6 +271,40 @@ document.addEventListener('DOMContentLoaded', () => {
   if (newPostForm) {
     newPostForm.addEventListener('submit', handleNewPost);
   }
+  
+  // --- Vista previa de imagen ---
+const imagenInput = document.getElementById('post-imagen');
+const previewContainer = document.getElementById('preview-container');
+const previewImage = document.getElementById('preview-image');
+
+// Mostrar previsualización cuando se elige una imagen
+if (imagenInput) {
+  imagenInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
+        previewContainer.classList.remove('d-none');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Si se borra la imagen seleccionada
+      previewContainer.classList.add('d-none');
+      previewImage.src = '';
+    }
+  });
+}
+
+// --- Limpia la vista previa al cerrar el modal ---
+const modalElement = document.getElementById('newPostModal');
+if (modalElement) {
+  modalElement.addEventListener('hidden.bs.modal', () => {
+    previewContainer.classList.add('d-none');
+    previewImage.src = '';
+    imagenInput.value = '';
+  });
+}
 
   // 3. Mobile filter toggle
   const mobileFilterBtn = document.getElementById('mobileFilterBtn');
