@@ -444,15 +444,7 @@
 
           <!-- SUBIR IMAGEN -->
           <div class="petme-upload mt-3 text-center p-3 rounded">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            <label for="post-imagen" class="d-block cursor-pointer text-secondary">
-=======
             <label for="post-imagen" class="d-block cursor-pointer text-secondary" tabindex="0">
->>>>>>> Stashed changes
-=======
-            <label for="post-imagen" class="d-block cursor-pointer text-secondary" tabindex="0">
->>>>>>> Stashed changes
               <span class="material-symbols-outlined fs-1">photo_camera</span><br>
               Agregar foto o video
             </label>
@@ -460,14 +452,7 @@
             <div id="preview-container" class="mt-3 d-none">
               <img id="preview-image" src="#" class="img-fluid rounded shadow">
             </div>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
             <div id="alerta-post" class="mt-2"></div>
->>>>>>> Stashed changes
-=======
-            <div id="alerta-post" class="mt-2"></div>
->>>>>>> Stashed changes
           </div>
 
           <!-- BOTÓN PARA MOSTRAR CAMPOS EXTRA -->
@@ -509,8 +494,18 @@
                 <option value="meses">Meses</option>
                 <option value="años">Años</option> 
                 </select> 
-              </div> 
               </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="post-tamaño" class="form-label">Tamaño</label>
+                <select id="post-tamaño" class="form-select" required>
+                <option value="">Selecciona un tamaño</option>
+                <option value="Pequeño">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+                </select>
+              </div> 
+              
               <div class="col-md-6 mb-3">
                 <label for="post-ubicacion" class="form-label text-light">Ubicación</label>
                 <input type="text" class="form-control" id="post-ubicacion" placeholder="Ciudad, Estado" required>
@@ -527,27 +522,6 @@
   </div>
 </div>
 
-<!-- SCRIPT DE PREVISUALIZACIÓN -->
-<script>
-  const fileInput = document.getElementById('post-imagen');
-  const previewContainer = document.getElementById('preview-container');
-  const previewImage = document.getElementById('preview-image');
-
-  fileInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        previewImage.src = event.target.result;
-        previewContainer.classList.remove('d-none');
-      };
-      reader.readAsDataURL(file);
-    } else {
-      previewContainer.classList.add('d-none');
-    }
-    
-  });
-</script>
 
 
 <!-- Bootstrap JS (con Popper incluido) -->
