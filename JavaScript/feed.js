@@ -9,7 +9,7 @@ let publicaciones = [
     tamaño: 'Mediano',
     edad: '6 meses',
     ubicacion: 'CDMX',
-    imagen: '/IMG/bla.jpg',
+    imagen: '/Img/adop2.webp',
     fecha: '2025-10-30T15:00:01',
   },
   {
@@ -195,7 +195,16 @@ function handleNewPost(event) {
 
   const form = document.getElementById('newPostForm');
   const imagenInput = document.getElementById('post-imagen');
-
+  const alerta = document.getElementById('alerta-post');
+  // Validación: imagen obligatoria
+  if (!imagenInput.files || imagenInput.files.length === 0) {
+    alerta.innerHTML = `
+      <div class="alert alert-warning" role="alert">
+        Por favor, selecciona una imagen para publicar. 🐾
+      </div>
+    `;
+    return;
+  }
   const procesarPublicacion = (imagenURL) => {
     const nuevaPublicacion = {
       id: Date.now(),
@@ -218,13 +227,12 @@ function handleNewPost(event) {
     if (modal) modal.hide();
 
     form.reset();
+    alerta.innerHTML = "";
   };
 
-  if (imagenInput.files && imagenInput.files[0]) {
+  
     convertirImagenABase64(imagenInput.files[0], procesarPublicacion);
-  } else {
-    procesarPublicacion('/Img/default.jpg');
-  }
+  
 }
 // Para convertir a base64 
   function convertirImagenABase64(file, callback) {
