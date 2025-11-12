@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Olvidaste tu contraseña?</title>
+
+    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
+  
+    <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"/>
+    
+    <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+    rel="stylesheet"/>
+    <!-- Custom CSS -->
+  <link rel="stylesheet" href="/CSS/OlvidasteContraseña.css" />
+  <link rel="stylesheet" href="/CSS/navbar.css" />
+</head>
+<body class="text-white">
+    <!--Navbar-->
+        <nav class="navbar navbar-dark bg-petme fixed-top">
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+      <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
+    </a>
+    <button type="button" 
+        class="btn petme-nav-btn" 
+        onclick="window.location.href='/componentes/InicioSesion.html'">
+    Iniciar Sesión
+</button>
+  </div>
+</nav>
+
+<!--Navbar -->
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    
+    <div class="card petme-card-recovery" style="max-width: 450px; width: 100%;">
+        
+        <div class="card-header petme-card-header text-white">
+            <h4 class="mb-0">Recuperación de Contraseña</h4>
+        </div>
+        
+        <div class="card-body">
+            <h6 class="card-subtitle mb-3">Ingresa tu correo asociado a tu cuenta PetMe.</h6>
+            
+            <form id="recoveryForm">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="recovery-input" placeholder="tucorreo@ejemplo.com" required>
+                </div>
+                
+                <div id="recovery-feedback" class="form-text text-danger" style="display: none;">
+                    No se encontró ninguna cuenta con esa información.
+                </div>
+            </form>
+        </div>
+        
+        <div class="card-footer d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/componentes/InicioSesion.html'">Cancelar</button>
+            
+            <button type="submit" form="recoveryForm" class="btn petme-btn-primary">Buscar</button>
+        </div>
+    </div>
+</div>
+    <script src="/JavaScript/OlvidasteContraseña.js"></script>
+</body>
+</html>

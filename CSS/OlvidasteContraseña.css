@@ -1,0 +1,108 @@
+/* Definiciones de color de PetMe para este componente */
+:root {
+    --petme-dark-slate-gray: #023D54; /* Fondo principal oscuro */
+    --petme-dark-cyan: #02968A;       /* Navbar y Fondo de Botón Principal */
+    --petme-medium-aquamarine: #94DEA5; /* Fondo claro del Body (el verde) */
+    --petme-yellow: #FFFF66;          /* Acento y Botones Amarillos */
+    --petme-white: #FFFFFF;
+    --petme-container-bg: #0E182B;
+}
+
+/* Estilo del Body para centrar la Card */
+body {
+    background-color: var(--petme-dark-slate-gray); /* 👈 CAMBIO CLAVE: Fondo oscuro */
+    color: var(--petme-white); /* 👈 CAMBIO CLAVE: Texto claro para contraste */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 80px; 
+}
+
+/* Estilos de la Card de Recuperación */
+.petme-card-recovery {
+    background-color: #0e182b; /* 👈 Fondo de la card más oscuro que el body, como en login */
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada en fondo oscuro */
+}
+
+/* Encabezado de la Card */
+.card-header.bg-petme {
+    background-color: #0e182b !important; /* 👈 Fondo del header igual al de la card, o puedes usar cyan */
+    color: var(--petme-white);
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+    border-bottom: 2px solid var(--petme-dark-cyan); /* Borde verde como acento */
+}
+
+/* Estilo del texto "Ingresa tu correo asociado..." */
+.card-subtitle {
+    color: var(--petme-white) !important; /* Asegura que el subtítulo sea blanco */
+    opacity: 0.8; /* Un poco más tenue */
+}
+
+
+/* Estilo de los Inputs */
+.form-control {
+    background-color: var(--petme-container-bg); /* Fondo del input oscuro */
+    color: var(--petme-white); /* Texto del input blanco */
+    border-color: #02968A; /* Borde claro y sutil */
+}
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Placeholder más claro */
+}
+.form-control:focus {
+    background-color: var(--petme-dark-slate-gray); /* Mantener fondo oscuro al enfocar */
+    color: var(--petme-white);
+    border-color: var(--petme-dark-cyan); /* Borde verde azulado al enfocar */
+    box-shadow: 0 0 0 0.25rem rgba(2, 150, 138, 0.25); 
+}
+
+/* Estilo del Botón Principal (Buscar) */
+.petme-btn-primary {
+    background-color: var(--petme-dark-cyan);
+    color: var(--petme-white);
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.petme-btn-primary:hover {
+    background-color: var(--petme-medium-aquamarine); /* Oscurece al pasar el ratón */
+    color: var(--petme-white);
+}
+
+/* Estilo de los Inputs */
+.form-control:focus {
+    border-color: var(--petme-dark-cyan);
+    box-shadow: 0 0 0 0.25rem #FFFF66; /* Sombra enfocada de tu color primario */
+}
+
+    /* Estilo de Boton para la NAVBAR*/
+.petme-nav-btn {
+    /* Color de fondo: Amarillo de acento */
+    background-color: var(--petme-yellow); 
+    
+    /* Color del texto: Verde oscuro de PetMe */
+    color: var(--petme-dark-slate-gray) !important; 
+    
+    /* Forma: Botón píldora */
+    border-radius: 20px; 
+    
+    /* Espaciado: Compacto */
+    padding: 6px 15px; 
+    font-weight: 700;
+    text-decoration: none !important; /* Asegura que no tenga subrayado */
+    
+    /* Efecto al pasar el ratón */
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.petme-nav-btn:hover {
+    /* Invertir colores o usar un tono más oscuro */
+    color: var(--petme-accent) !important;
+    border-color: var(--petme-white);
+    transform: translateY(-1px);
+}
