@@ -730,8 +730,9 @@ body {
 }
 
 .petme-textarea:focus {
+  background-color: var(--petme-bg);
   box-shadow:var(--petme-btn-shadow);
-  border:2px var(--petme-primary-hover);
+  border:4px var(--petme-accent);
   color: var(--petme-text);
 }
 
