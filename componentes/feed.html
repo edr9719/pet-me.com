@@ -389,7 +389,7 @@
         </div>
       </main>
     </div>
-   <!--Para el modal de KEVS--> 
+  <!--Para el modal de KEVS--> 
         <button class="btn petme-fab-btn petme-fab-pill" 
         data-bs-toggle="modal" 
         data-bs-target="#newPostModal" 
@@ -401,65 +401,129 @@
     <span class="petme-fab-text">Crear</span>
     
     </button>
-         <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-petme text-white">
-                    <h5 class="modal-title" id="newPostModalLabel">🐾 Crear Nueva Adopción</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="newPostForm">
-                        <div class="mb-3">
-                            <label for="post-nombre" class="form-label">Nombre de la Mascota</label>
-                            <input type="text" class="form-control" id="post-nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="post-descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="post-descripcion" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="post-especie" class="form-label">Especie</label>
-                            <select class="form-select" id="post-especie" required>
-                                <option value="">Seleccionar</option>
-                                <option value="Perro">Perro</option>
-                                <option value="Gato">Gato</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="post-sexo" class="form-label">Sexo</label>
-                                <select class="form-select" id="post-sexo" required>
-                                    <option value="">Seleccionar</option>
-                                    <option value="Hembra">Hembra</option>
-                                    <option value="Macho">Macho</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="post-edad" class="form-label">Edad (ej: 6 meses)</label>
-                                <input type="text" class="form-control" id="post-edad" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="post-ubicacion" class="form-label">Ubicación</label>
-                            <input type="text" class="form-control" id="post-ubicacion" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="post-imagen" class="form-label">Cargar Imagen</label>
-                            <input type="file" class="form-control" id="post-imagen" accept="image/*">
-                            <div class="form-text">Selecciona una imagen de tu dispositivo.</div>
-                        </div>
-                        <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn petme-btn-contact" id="publish-btn" form="newPostForm">Publicar</button>
-                </div>
-                    </form>
-                </div>
-                </div>
+
+<div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content petme-card">
+      <div class="modal-header bg-petme text-white">
+        <h5 class="modal-title" id="newPostModalLabel">🐾 Crear huellita</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <form id="newPostForm">
+          <!-- CABECERA -->
+          <div class="d-flex align-items-center mb-3">
+            <img src="https://placekitten.com/80/80" alt="User profile" class="rounded-circle me-3" width="60" height="60">
+            <div>
+              <h6 class="mb-0 fw-bold text-light">Pet-Me</h6>
+              <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle petme-visibility-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  🌐 Público
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Público</a></li>
+                  <li><a class="dropdown-item" href="#">Solo yo</a></li>
+                </ul>
+              </div>
             </div>
+          </div>
+
+          <!-- MENSAJE -->
+          <div class="mb-3">
+            <label for="post-descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control petme-textarea" id="post-descripcion" rows="3" placeholder="Cuéntanos sobre tu mascota" required></textarea>
+          </div>
+
+          <!-- SUBIR IMAGEN -->
+          <div class="petme-upload mt-3 text-center p-3 rounded">
+            <label for="post-imagen" class="d-block cursor-pointer text-secondary">
+              <span class="material-symbols-outlined fs-1">photo_camera</span><br>
+              Agregar foto o video
+            </label>
+            <input type="file" id="post-imagen" class="d-none" accept="image/*,video/*">
+            <div id="preview-container" class="mt-3 d-none">
+              <img id="preview-image" src="#" class="img-fluid rounded shadow">
+            </div>
+          </div>
+
+          <!-- BOTÓN PARA MOSTRAR CAMPOS EXTRA -->
+          <div class="petme-options d-flex flex-wrap justify-content-between mt-3">
+            <button class="btn petme-option" type="button" data-bs-toggle="collapse" data-bs-target="#extraFields">
+              <span class="material-symbols-outlined">pets</span> Datos Mascota
+            </button>
+          </div>
+
+          <!-- CAMPOS EXTRA -->
+          <div class="collapse mt-3" id="extraFields">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="post-nombre" class="form-label text-light">Nombre de la Mascota</label>
+                <input type="text" class="form-control" id="post-nombre" placeholder="Ej: Tommy" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="post-especie" class="form-label text-light">Especie</label>
+                <select class="form-select" id="post-especie" required>
+                  <option value="">Seleccionar</option>
+                  <option value="Perro">Perro</option>
+                  <option value="Gato">Gato</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="post-sexo" class="form-label text-light">Sexo</label>
+                <select class="form-select" id="post-sexo" required>
+                  <option value="">Seleccionar</option>
+                  <option value="Hembra">Hembra</option>
+                  <option value="Macho">Macho</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3"> 
+                <label for="post-edad" class="form-label">Edad</label> 
+                <div class="input-group"> 
+                <input type="number" class="form-control" id="post-edad" placeholder="Ej: 6" required> 
+                <select class="form-select" id="post-tiempo" required> 
+                <option value="meses">Meses</option>
+                <option value="años">Años</option> 
+                </select> 
+              </div> 
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="post-ubicacion" class="form-label text-light">Ubicación</label>
+                <input type="text" class="form-control" id="post-ubicacion" placeholder="Ciudad, Estado" required>
+              </div>
+            </div>
+          </div>
+
+        <!-- BOTÓN PUBLICAR -->
+        <div class="text-end mt-4">
+          <button class="btn petme-btn-contact px-4">Publicar</button>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- SCRIPT DE PREVISUALIZACIÓN -->
+<script>
+  const fileInput = document.getElementById('post-imagen');
+  const previewContainer = document.getElementById('preview-container');
+  const previewImage = document.getElementById('preview-image');
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
+        previewContainer.classList.remove('d-none');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewContainer.classList.add('d-none');
+    }
+  });
+</script>
 
 
 <!-- Bootstrap JS (con Popper incluido) -->

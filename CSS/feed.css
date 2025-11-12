@@ -715,6 +715,64 @@ body {
     opacity: 0;
 }
 
+/*  MODAL   */
+.petme-card {
+  background-color: var(--petme-bg);
+  border-radius: 20px;
+  box-shadow: var(--petme-btn-shadow);
+  color: var(--petme-text);
+}
+
+.petme-textarea {
+  background-color: var(--petme-primary-hover);
+  border:2px var(--petme-primary-hover);
+  border-radius: 10px;
+}
+
+.petme-textarea:focus {
+  box-shadow:var(--petme-btn-shadow);
+  border:2px var(--petme-primary-hover);
+  color: var(--petme-text);
+}
+
+.petme-upload {
+  background-color: var(--petme-bg);
+  border: 2px dashed var(--petme-primary-hover);
+  transition: all 0.3s ease;
+}
+
+.petme-upload:hover {
+  background-color: var(--petme-bg);
+  transform: scale(1.02);
+}
+
+.petme-option {
+  background-color: transparent;
+  color: var(--petme-primary);
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.petme-option:hover {
+  color: var(--petme-primary-hover);
+  transform: scale(1.05);
+}
+
+.petme-visibility-btn {
+  background-color: var(--petme-container-bg);
+  color: var(--petme-text);
+  border: none;
+  border-radius: 8px;
+}
+
+.btn.petme-btn-contact {
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+}
+
 /* --- Footer --- */
 .petme-footer {
     background-color: var(--petme-dark-slate-gray);
