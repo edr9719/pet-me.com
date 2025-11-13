@@ -77,6 +77,7 @@ body {
   font-size: 1rem;
   font-family: var(--petme-font-primary); /* Poppins para inputs */
   transition: all 0.3s ease;
+
 }
 
 .petme-input:focus {
@@ -88,6 +89,38 @@ body {
 
 .petme-input::placeholder {
   color: var(--petme-placeholder) !important;
+}
+
+.input-group input[type="password"] {
+    /* 1. Eliminar borde y radio a la derecha del input */
+    border-right: none !important; 
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+/* Modificación al botón de toggle (input-group-text) */
+.input-group-text {
+    border-left: none !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+/* ---------- AJUSTE PARA EL BOTÓN MOSTRAR/OCULTAR CONTRASEÑA ---------- */
+.input-group-text {
+    background-color: var(--petme-primary) !important; 
+    border: 2px solid var(--petme-primary) !important;
+    color: var(--petme-text) !important; 
+    border-radius: 0 0.5rem 0.5rem 0 !important; 
+    padding: 0.75rem !important; 
+
+    /*ELIMINAR EL BORDE DE LA IZQUIERDA */
+    border-left: none !important;
+    
+    /*ELIMINAR EL RADIO DE ESQUINA DE LA IZQUIERDA */
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+
+    /* Asegurar que el radio de la DERECHA esté redondeado */
+    border-radius: 0 0.5rem 0.5rem 0 !important; 
 }
 
 /* ---------- BOTÓN PRINCIPAL ---------- */
@@ -132,6 +165,20 @@ body {
 
 .petme-link:hover {
   color: var(--petme-accent) !important;
+  text-decoration: underline !important;
+  filter: brightness(1.1);
+}
+
+.petme-Second-link {
+  color: var(--petme-accent) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-family: var(--petme-font-primary); /* Poppins para enlaces */
+  transition: all 0.3s ease;
+}
+
+.petme-Second-link:hover {
+  color: var(#ffffff) !important;
   text-decoration: underline !important;
   filter: brightness(1.1);
 }
@@ -258,3 +305,26 @@ body {
   width: 5rem;
   height: 5rem;
 } 
+
+
+/* Ocultar botones/íconos predeterminados en campos de contraseña agregados por los navegadores */
+
+/* Para Chrome y navegadores basados en WebKit */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+/* Ocultar el ícono de "mostrar contraseña" en Edge/IE */
+input[type="password"]::-webkit-reveal {
+    display: none !important;
+}
+
+/* Ocultar el control de botón en Firefox */
+input[type="password"]::-moz-placeholder {
+}
+
+/* Regla para intentar asegurar que la caja de texto no tenga espacio para el ícono predeterminado */
+input[type="password"] {
+    padding-right: 0 !important;
+}

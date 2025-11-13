@@ -130,3 +130,25 @@ p{
     font-size: 1rem;
 }
 }
+
+/* Ocultar botones/íconos predeterminados en campos de contraseña agregados por los navegadores */
+
+/* Para Chrome y navegadores basados en WebKit */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+/* Ocultar el ícono de "mostrar contraseña" en Edge/IE */
+input[type="password"]::-webkit-reveal {
+    display: none !important;
+}
+
+/* Ocultar el control de botón en Firefox */
+input[type="password"]::-moz-placeholder {
+}
+
+/* Regla para intentar asegurar que la caja de texto no tenga espacio para el ícono predeterminado */
+input[type="password"] {
+    padding-right: 0 !important;
+}

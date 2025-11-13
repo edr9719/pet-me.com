@@ -389,24 +389,21 @@
         </div>
       </main>
     </div>
-  <!--Para el modal de KEVS--> 
-        <button class="btn petme-fab-btn petme-fab-pill" 
+ <!--Para el modal de KEVS--> 
+ <button class="btn petme-fab-btn petme-fab-pill petme-fab-image-bg" 
         data-bs-toggle="modal" 
         data-bs-target="#newPostModal" 
         aria-label="Crear Nueva Publicación" 
         id="add-post-btn">
-    
-    <i class="bi bi-plus-lg petme-plus-icon"></i> 
-    
-    <span class="petme-fab-text">Crear</span>
-    
-    </button>
+</button>
+
 
 <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content petme-card">
       <div class="modal-header bg-petme text-white">
-        <h5 class="modal-title" id="newPostModalLabel">🐾 Crear huellita</h5>
+        <img src="/Img/icono.png" alt="Logo PetMe" class="me-3" style="height: 30px;">
+        <h5 class="modal-title" id="newPostModalLabel">Crear huellita</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
@@ -416,7 +413,7 @@
           <div class="d-flex align-items-center mb-3">
             <img src="https://placekitten.com/80/80" alt="User profile" class="rounded-circle me-3" width="60" height="60">
             <div>
-              <h6 class="mb-0 fw-bold text-light">Pet-Me</h6>
+              <img src="/Img/pet me.png" alt="Logo PetMe" class="me-3" style="height: 15px;">
               <div class="dropdown">
                 <button class="btn btn-sm dropdown-toggle petme-visibility-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   🌐 Público
@@ -466,8 +463,8 @@
                 <label for="post-especie" class="form-label text-light">Especie</label>
                 <select class="form-select" id="post-especie" required>
                   <option value="">Seleccionar</option>
-                  <option value="Perro">Perro</option>
-                  <option value="Gato">Gato</option>
+                  <option value="Perro">Perro🐶</option>
+                  <option value="Gato">Gato🐱</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -475,8 +472,8 @@
                 <label for="post-sexo" class="form-label text-light">Sexo</label>
                 <select class="form-select" id="post-sexo" required>
                   <option value="">Seleccionar</option>
-                  <option value="Hembra">Hembra</option>
-                  <option value="Macho">Macho</option>
+                  <option value="Hembra">Hembra♀️</option>
+                  <option value="Macho">Macho♂️</option>
                 </select>
               </div>
               <div class="col-md-6 mb-3"> 
@@ -501,6 +498,9 @@
               
               <div class="col-md-6 mb-3">
                 <label for="post-ubicacion" class="form-label text-light">Ubicación</label>
+                <div class="input-group">
+                <span class="input-group-text">
+                <i class="bi bi-geo-alt"></i></span>
                 <input type="text" class="form-control" id="post-ubicacion" placeholder="Ciudad, Estado" required>
               </div>
             </div>
