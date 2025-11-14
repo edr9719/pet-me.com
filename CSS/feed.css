@@ -807,6 +807,19 @@ body {
     'opsz' 24;
   color: red;
 }
+.comment-section {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.comment-item {
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
 
 }
 

@@ -113,6 +113,11 @@ const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
           <p class="action-count">0</p>
         </button>
       </div>
+      <div class="comment-section d-none mt-3">
+      <textarea class="comment-input form-control mb-2" placeholder="Escribe tu comentario..."></textarea>
+      <button class="submit-comment btn btn-sm btn-primary">Enviar</button>
+      <div class="comment-list mt-2"></div>
+    </div>
     </div>
   `;
 }
@@ -128,6 +133,7 @@ function renderizarPublicaciones() {
 
   // Añadir eventos después de la renderización
   agregarEventosBotones();
+  agregarEventosComentarios();
 }
 
 // Función para agregar la lógica de los botones
@@ -147,6 +153,33 @@ function agregarEventosBotones() {
     });
   });
 }
+function agregarEventosComentarios() {
+  document.querySelectorAll('.comment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pet-card');
+      const commentSection = card.querySelector('.comment-section');
+      commentSection.classList.toggle('d-none');
+    });
+  });
+
+  document.querySelectorAll('.submit-comment').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pet-card');
+      const input = card.querySelector('.comment-input');
+      const list = card.querySelector('.comment-list');
+      const texto = input.value.trim();
+
+      if (texto.length > 0) {
+        const comentario = document.createElement('div');
+        comentario.classList.add('comment-item');
+        comentario.innerHTML = `<strong>Kepler:</strong> ${texto}`;
+        list.appendChild(comentario);
+        input.value = '';
+      }
+    });
+  });
+}
+
 
 /**
  * Maneja el envío del formulario para crear una nueva publicación (corregido para file input).
@@ -231,6 +264,7 @@ function handleNewPost(event) {
       ubicacion: document.getElementById('post-ubicacion').value.trim(),
       imagen: imagenURL,
       fecha: new Date().toISOString(),
+      comentarios: [],
     };
 
     publicaciones.unshift(nuevaPublicacion);
