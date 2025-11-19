@@ -823,6 +823,25 @@ body {
 
 }
 
+/*  FILTRO DE EDAD */
+/* ================ */
+
+.filter-range-control {
+    padding: 10px;
+    background-color: #f7f7f7; 
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+#ageValue {
+    font-weight: 600;
+    color: #4CAF50; 
+    font-size: 0.95rem;
+}
+
+.form-range {
+    height: 25px; 
+}
 
 /* --- ANULACIÓN DEL FOCO AZUL DE BOOTSTRAP EN MODAL --- */
 .modal-body .form-control:focus,
