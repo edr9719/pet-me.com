@@ -166,19 +166,11 @@
 
                   <div class="filter-section">
                     <p class="filter-section-title">Edad</p>
-                    <a class="filter-link" href="#">
-                      <span class="material-symbols-outlined">child_care</span>
-                      <p class="filter-text">Jovén</p>
-                    </a>
-                    <a class="filter-link" href="#">
-                      <span class="material-symbols-outlined">favorite</span>
-                      <p class="filter-text">Adulto</p>
-                    </a>
-                    <a class="filter-link" href="#">
-                      <span class="material-symbols-outlined">elderly</span>
-                      <p class="filter-text">Mayor</p>
-                    </a>
-                  </div>
+                    <div class="filter-range-control p-2">
+                        <input type="range" id="ageSlider" min="0" max="5" value="0" step="0.5" class="form-range">
+                        <p class="filter-text mb-0 mt-2 text-center" id="ageValue">Elige la edad</p>
+                    </div>
+                </div>
 
                   <div class="filter-section">
                     <p class="filter-section-title">Tamaño</p>

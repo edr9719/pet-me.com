@@ -398,5 +398,76 @@ document.querySelectorAll('.share-btn').forEach(btn => {
 });
 
 
+// ======Deslizante de edad
+
+
+const ageSlider = document.getElementById('ageSlider');
+const ageValueDisplay = document.getElementById('ageValue');
+
+if (ageSlider && ageValueDisplay) {
+    // Función para convertir el valor decimal del slider a un texto de edad legible
+    function updateAgeDisplay(value) {
+        let text = '';
+        
+        // 0.0: Cualquier edad (valor por defecto)
+        if (value === 0) {
+            text = 'Cualquier edad';
+        // 0.5: 6 meses
+        } else if (value === 0.5) {
+            text = 'Hasta 6 meses';
+        // 1.0: 1 año
+        } else if (value === 1) {
+            text = 'Hasta 1 año';
+        // 5.0: 5 años o más
+        } else if (value === 5) {
+            text = 'Hasta 5 años o más';
+        // 1.5, 2.0, 2.5, etc.
+        } else {
+            const years = Math.floor(value);
+            const months = (value % 1) * 12; 
+            
+            if (months === 0) {
+                text = `Hasta ${years} años`;
+            } else {
+                text = `Hasta ${years} años y ${months} meses`;
+            }
+        }
+        
+        ageValueDisplay.textContent = text;
+        
+      
+    }
+
+    // Inicializa el valor mostrado al cargar la página
+    updateAgeDisplay(parseFloat(ageSlider.value));
+
+    // Escucha los cambios en el slider y actualiza el texto
+    ageSlider.addEventListener('input', (event) => {
+        const currentValue = parseFloat(event.target.value);
+        updateAgeDisplay(currentValue);
+    });
+}
+
+
+const fileInput = document.getElementById('post-imagen');
+const previewContainer = document.getElementById('preview-container');
+const previewImage = document.getElementById('preview-image');
+
+if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                previewImage.src = event.target.result;
+                previewContainer.classList.remove('d-none');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.classList.add('d-none');
+        }
+    });
+}
+// Fin de deslizante
   
 });
