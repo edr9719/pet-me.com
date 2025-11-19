@@ -39,88 +39,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/CSS/navbar.css" />
     <link rel="stylesheet" href="/CSS/variables.css" />
-
-    <style>
-      body {
-        font-family: 'Nunito', sans-serif;
-        background-color: #f8fafc;
-        padding-top: 80px;
-      }
-
-      h1,
-      h2,
-      .font-display {
-        font-family: 'Be Vietnam Pro', sans-serif;
-      }
-
-      .profile-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .profile-img {
-        width: 112px;
-        height: 112px;
-        border-radius: 50%;
-        border: 4px solid rgba(43, 140, 238, 0.2);
-        object-fit: cover;
-      }
-
-      .text-muted-custom {
-        color: #6b7280;
-      }
-
-      .nav-tabs .nav-link {
-        color: #6b7280;
-        font-weight: 600;
-        border: none;
-        border-bottom: 3px solid transparent;
-      }
-
-      .nav-tabs .nav-link.active {
-        color: #0d141b;
-        border-bottom: 3px solid var(--petme-primary);
-        background: transparent;
-      }
-
-      .pet-card {
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-      .pet-card img {
-        aspect-ratio: 3/4;
-        object-fit: cover;
-        width: 100%;
-      }
-
-      .status-adopted {
-        color: #10b981;
-        font-weight: 600;
-      }
-
-      .btn-primary-custom {
-        background-color: var(--petme-primary);
-        border: none;
-        font-weight: 600;
-      }
-
-      .btn-primary-custom:hover {
-        background-color: var(--petme-primary-hover);
-      }
-
-      .btn-secondary-custom {
-        background-color: rgba(43, 140, 238, 0.2);
-        color: var(--petme-primary);
-        border: none;
-        font-weight: 600;
-      }
-
-      .btn-secondary-custom:hover {
-        background-color: rgba(43, 140, 238, 0.3);
-      }
-    </style>
+    <link rel="stylesheet" href="/CSS/perfil.css" />
   </head>
   <body>
     <!-- NAVBAR -->
@@ -302,11 +221,23 @@
         <div class="col-lg-3 col-md-4">
           <div class="profile-card p-4">
             <div class="text-center">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14A7bXmBe8CLBoV__fxoy8ExxgwcRPk71o7ZD7K0CaDc2A7bHuMISgI9ZRVxQZeXOg5-xMAO7tvAy-zi6pgVW6WuPzO7L0x7SjKBWcyKmt-Pj1n9zqhiB4oxs7yLirk2fkN1b22bFG-rY4ZNPRQDu6bO-kdVwIF3xB2jr9i2zNrD0irf4z05vrrswJjcgBni2EDiq5dKPWl5Uu9IuVCY9gjalIhiGZPTLMuiag54WbG8QlorQ166wNbICjuQm5CGeN1l3BefLvcUm"
-                alt="Juana Pérez"
-                class="profile-img mb-3"
-              />
+              <div class="profile-img-container mb-3">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14A7bXmBe8CLBoV__fxoy8ExxgwcRPk71o7ZD7K0CaDc2A7bHuMISgI9ZRVxQZeXOg5-xMAO7tvAy-zi6pgVW6WuPzO7L0x7SjKBWcyKmt-Pj1n9zqhiB4oxs7yLirk2fkN1b22bFG-rY4ZNPRQDu6bO-kdVwIF3xB2jr9i2zNrD0irf4z05vrrswJjcgBni2EDiq5dKPWl5Uu9IuVCY9gjalIhiGZPTLMuiag54WbG8QlorQ166wNbICjuQm5CGeN1l3BefLvcUm"
+                  alt="Juana Pérez"
+                  class="profile-img"
+                  id="profileImage"
+                />
+                <label for="profileImageInput" class="edit-profile-img-btn">
+                  <i class="bi bi-pencil-fill"></i>
+                </label>
+                <input
+                  type="file"
+                  id="profileImageInput"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
               <h1 class="h4 font-display fw-bold">Juana Pérez</h1>
               <p class="text-muted-custom small text-center">
                 Amante de los perros y madre de acogida con experiencia en San
@@ -341,7 +272,11 @@
             </div>
 
             <div class="mt-4 d-flex flex-column gap-2">
-              <button class="btn btn-primary-custom w-100">
+              <button
+                class="btn btn-primary-custom w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#editProfileModal"
+              >
                 Editar Perfil
               </button>
               <button class="btn btn-secondary-custom w-100">Mensaje</button>
@@ -355,15 +290,19 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs px-4 pt-3 border-0">
               <li class="nav-item">
-                <a class="nav-link active" href="#">Adoptados</a>
+                <a class="nav-link active" href="#" id="adoptadosTab"
+                  >Adoptados</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Publicaciones</a>
+                <a class="nav-link" href="#" id="publicacionesTab"
+                  >Publicaciones</a
+                >
               </li>
             </ul>
 
-            <!-- Pet Grid -->
-            <div class="p-4">
+            <!-- Adoptados Content -->
+            <div class="p-4" id="adoptadosContent">
               <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                 <!-- Pet Card 1 -->
                 <div class="col">
@@ -444,6 +383,226 @@
                 </div>
               </div>
             </div>
+
+            <!-- Publicaciones Content (Hidden by default) -->
+            <div class="p-4" id="publicacionesContent" style="display: none">
+              <div class="row g-4">
+                <!-- Post Card 1 -->
+                <div class="col-12">
+                  <div class="profile-card p-4">
+                    <div class="d-flex align-items-start gap-3">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjNrpI9Wk__Eo0FoiB4-3uNj6zWwmIdFyHldUT-j23vnO06K_MKeAEKPfrrBtvCpvShAJvkUDZqlEjr_QBNoU0p44fWKPXIsm2UqgwS31UDCQN_YprKc2iTcSPQ2nZF46lzzoRu3xZ_yS-Ldf-jP7HKP3WKisg6eydazwpi9SX_oqTtuhJUN71s3jSMQwTP_FXPDhVZniWIljJPLv2rpwAESUKFiXhThAup1JjHenNS0Sla4TYMQrp3exb1V4OU8yW9HY7qPB8fhn"
+                        alt="Buddy"
+                        class="rounded"
+                        style="width: 120px; height: 120px; object-fit: cover"
+                      />
+                      <div class="flex-grow-1">
+                        <h5 class="font-display fw-bold mb-2">
+                          ¡Buddy encontró un hogar! 🏠❤️
+                        </h5>
+                        <p class="text-muted-custom small mb-2">
+                          Hace 2 semanas
+                        </p>
+                        <p class="mb-0">
+                          Estoy muy feliz de anunciar que Buddy finalmente
+                          encontró una familia amorosa. Después de meses en
+                          adopción, este hermoso Golden Retriever ahora tiene un
+                          jardín enorme donde jugar y una familia que lo adora.
+                          ¡Gracias a todos por compartir su perfil!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Post Card 2 -->
+                <div class="col-12">
+                  <div class="profile-card p-4">
+                    <div class="d-flex align-items-start gap-3">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEZHnLxd79S6LEW7RtUi03jT2cexdUA63kwRCTPVfynuGJ_ZHJAS6iTWxZwt4AylJVDgQW4LJVddQqdnICcnZQemC4t_3ToL_MYqHAue_yIf_YHSgE1Qehlz0UVMUwQjzwp7VIL1dbl5Zz51IdVuk4EX8SnWC436RsmxLug_MNifBb2rA89YmpOXcCJSDL1u1RJF9Copt7JrOU2hXFJEq1rAPAOLSvTWL6nLXVsPUe83KbhAe698UF-USF6HuJOtZIVzOInytGXU5O"
+                        alt="Lucy"
+                        class="rounded"
+                        style="width: 120px; height: 120px; object-fit: cover"
+                      />
+                      <div class="flex-grow-1">
+                        <h5 class="font-display fw-bold mb-2">
+                          Lucy necesita un hogar temporal 🐕
+                        </h5>
+                        <p class="text-muted-custom small mb-2">Hace 1 mes</p>
+                        <p class="mb-0">
+                          Busco una familia de acogida para Lucy, una Beagle de
+                          5 años muy cariñosa. Es perfecta con niños y otros
+                          perros. Solo necesita un hogar temporal mientras
+                          encontramos su adopción definitiva. Si puedes ayudar,
+                          por favor contáctame.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Post Card 3 -->
+                <div class="col-12">
+                  <div class="profile-card p-4">
+                    <div class="d-flex align-items-start gap-3">
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8QOJvgZnsR5NVPXdaPHPUjJf9y5QAMNlQyxNMdGi60DAwnbb2ZYuuGlQ6DA2S7LG0KrxUhMp2362Nx9nXiORsZoFz3caKGY6eR1QSDKTLU-H0CfzdxI5L3poACbH6LDkXGBgdSPUbWUdFhkSkRW2szWuc9kwNelwcKT47SVYf-s3L4HW-TC1O9xXRQKmqh8O3DcTFrI0wBZR48zzFLeC_MoAOn5u_fMcAYLUqUXu18V_WauElk7cVTPpwZlnJWhrocoow3lFdkfG"
+                        alt="Max"
+                        class="rounded"
+                        style="width: 120px; height: 120px; object-fit: cover"
+                      />
+                      <div class="flex-grow-1">
+                        <h5 class="font-display fw-bold mb-2">
+                          Consejos para adoptar un Pastor Alemán 📝
+                        </h5>
+                        <p class="text-muted-custom small mb-2">Hace 2 meses</p>
+                        <p class="mb-0">
+                          Después de mi experiencia con Max, quiero compartir
+                          algunos consejos para quienes estén considerando
+                          adoptar un Pastor Alemán. Son perros increíbles pero
+                          necesitan mucho ejercicio y entrenamiento constante.
+                          ¡Vale totalmente la pena!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div
+      class="modal fade"
+      id="editProfileModal"
+      tabindex="-1"
+      aria-labelledby="editProfileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title font-display fw-bold"
+              id="editProfileModalLabel"
+            >
+              Editar Perfil
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editProfileForm">
+              <!-- Nombre -->
+              <div class="mb-3">
+                <label for="editNombre" class="form-label fw-semibold"
+                  >Nombre</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editNombre"
+                  value="Juana"
+                  required
+                />
+              </div>
+
+              <!-- Apellido -->
+              <div class="mb-3">
+                <label for="editApellido" class="form-label fw-semibold"
+                  >Apellido</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editApellido"
+                  value="Pérez"
+                  required
+                />
+              </div>
+
+              <!-- Description -->
+              <div class="mb-3">
+                <label for="editDescription" class="form-label fw-semibold"
+                  >Descripción</label
+                >
+                <textarea
+                  class="form-control"
+                  id="editDescription"
+                  rows="3"
+                  required
+                >
+Amante de los perros y madre de acogida con experiencia en San Francisco.</textarea
+                >
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="editEmail" class="form-label fw-semibold"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  value="juana.perez@example.com"
+                  required
+                />
+              </div>
+
+              <!-- Phone -->
+              <div class="mb-3">
+                <label for="editPhone" class="form-label fw-semibold"
+                  >Teléfono</label
+                >
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="editPhone"
+                  value="+1 (555) 123-4567"
+                  required
+                />
+              </div>
+
+              <!-- Location -->
+              <div class="mb-3">
+                <label for="editLocation" class="form-label fw-semibold"
+                  >Ubicación</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editLocation"
+                  value="San Francisco, CA"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary-custom"
+              id="saveProfileBtn"
+            >
+              Guardar Cambios
+            </button>
           </div>
         </div>
       </div>
@@ -455,5 +614,103 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Profile Edit Script -->
+    <script>
+      document
+        .getElementById('saveProfileBtn')
+        .addEventListener('click', function () {
+          // Get form values
+          const nombre = document.getElementById('editNombre').value;
+          const apellido = document.getElementById('editApellido').value;
+          const fullName = nombre + ' ' + apellido;
+          const description = document.getElementById('editDescription').value;
+          const email = document.getElementById('editEmail').value;
+          const phone = document.getElementById('editPhone').value;
+          const location = document.getElementById('editLocation').value;
+
+          // Update profile display
+          document.querySelector('.profile-card h1').textContent = fullName;
+          document.querySelector(
+            '.profile-card .text-muted-custom'
+          ).textContent = description;
+          document.querySelectorAll(
+            '.profile-card .d-flex.align-items-center span.small'
+          )[0].textContent = email;
+          document.querySelectorAll(
+            '.profile-card .d-flex.align-items-center span.small'
+          )[1].textContent = phone;
+          document.querySelectorAll(
+            '.profile-card .d-flex.align-items-center span.small'
+          )[2].textContent = location;
+
+          // Close modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById('editProfileModal')
+          );
+          modal.hide();
+
+          // Optional: Save to localStorage or send to backend
+          const profileData = {
+            nombre,
+            apellido,
+            description,
+            email,
+            phone,
+            location,
+          };
+          localStorage.setItem('userProfile', JSON.stringify(profileData));
+        });
+
+      // Handle profile image upload
+      document
+        .getElementById('profileImageInput')
+        .addEventListener('change', function (e) {
+          const file = e.target.files[0];
+          if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const imageUrl = event.target.result;
+              document.getElementById('profileImage').src = imageUrl;
+
+              // Save to localStorage
+              localStorage.setItem('profileImage', imageUrl);
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // Load saved profile image on page load
+      window.addEventListener('DOMContentLoaded', function () {
+        const savedImage = localStorage.getItem('profileImage');
+        if (savedImage) {
+          document.getElementById('profileImage').src = savedImage;
+        }
+      });
+
+      // Tab switching functionality
+      const adoptadosTab = document.getElementById('adoptadosTab');
+      const publicacionesTab = document.getElementById('publicacionesTab');
+      const adoptadosContent = document.getElementById('adoptadosContent');
+      const publicacionesContent = document.getElementById(
+        'publicacionesContent'
+      );
+
+      adoptadosTab.addEventListener('click', function (e) {
+        e.preventDefault();
+        adoptadosTab.classList.add('active');
+        publicacionesTab.classList.remove('active');
+        adoptadosContent.style.display = 'block';
+        publicacionesContent.style.display = 'none';
+      });
+
+      publicacionesTab.addEventListener('click', function (e) {
+        e.preventDefault();
+        publicacionesTab.classList.add('active');
+        adoptadosTab.classList.remove('active');
+        publicacionesContent.style.display = 'block';
+        adoptadosContent.style.display = 'none';
+      });
+    </script>
   </body>
 </html>

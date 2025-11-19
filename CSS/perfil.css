@@ -1,127 +1,234 @@
-body{
-    padding-top: 80px;
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #94dea5;
+  padding-top: 80px;
+}
+
+h1,
+h2,
+.font-display {
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  border: 4px solid rgba(43, 140, 238, 0.2);
+  object-fit: cover;
+}
+
+.profile-img-container {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-profile-img-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--petme-primary);
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-profile-img-btn:hover {
+  background-color: var(--petme-primary-hover);
+}
+
+.edit-profile-img-btn i {
+  color: white;
+  font-size: 16px;
+}
+
+.text-muted-custom {
+  color: #6b7280;
+}
+
+.nav-tabs .nav-link {
+  color: #6b7280;
+  font-weight: 600;
+  border: none;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: #0d141b;
+  border-bottom: 3px solid var(--petme-primary);
+  background: transparent;
+}
+
+.pet-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pet-card img {
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  width: 100%;
+}
+
+.status-adopted {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.btn-primary-custom {
+  background-color: var(--petme-primary);
+  border: none;
+  font-weight: 600;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--petme-primary-hover);
+}
+
+.btn-secondary-custom {
+  background-color: rgba(43, 140, 238, 0.2);
+  color: var(--petme-primary);
+  border: none;
+  font-weight: 600;
+}
+
+.btn-secondary-custom:hover {
+  background-color: rgba(43, 140, 238, 0.3);
 }
 
 /* Estilos para el navbar */
 
 /*-- Mejora de NavBar-->*/
 .bg-petme {
-    background-color: #02968A !important;
+  background-color: #02968a !important;
 }
 
 #offcanvasDarkNavbar {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .offcanvas-body {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* 1. ESTILO DEL ENCABEZADO "MENÚ" */
 .offcanvas-header {
-    background-color: #023D54; 
-    border-bottom: 2px solid #FFFF66; 
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+  background-color: #023d54;
+  border-bottom: 2px solid #ffff66;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 /* 2. ESTILO DEL TÍTULO "Menú" */
 .offcanvas-title {
-    color: #FFFF66 !important; 
-    font-family: 'Poppins', sans-serif;
+  color: #ffff66 !important;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* 3. ESTILO DEL CUERPO DEL MENÚ */
 .offcanvas-body {
-    background-color: #023D54; 
-    font-family: 'Poppins', sans-serif;
-    padding-left: 0;
-    padding-right: 0;
+  background-color: #023d54;
+  font-family: 'Poppins', sans-serif;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* 4. AJUSTE DE ESPACIADO PARA LOS ELEMENTOS DE LA LISTA */
 .offcanvas .nav-item {
-    padding-left: 1rem; 
-    padding-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* 5. ESTILO DE LOS ENLACES (VISIBILIDAD INICIAL) */
 .offcanvas .nav-link {
-    color: #FFFFFF !important; 
-    font-size: 1.1rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 /* 6. EFECTO HOVER: Inversión de Colores (Texto oscuro sobre fondo amarillo) */
 .offcanvas .nav-link:hover,
 .offcanvas .nav-link.active {
-    color: #023D54 !important; 
-    background-color: #FFFF66; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
-    border-radius: 5px;
+  color: #023d54 !important;
+  background-color: #ffff66;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
 }
 
 /* SELECTOR PARA EL CAMPO DE TEXTO DE BÚSQUEDA */
-.offcanvas form.d-flex input[type="search"] {
-    border: 2px solid #02968A;
-    border-radius: 0.25rem; 
-    box-shadow: none !important; 
-    background-color: white; 
-    color: #023D54; 
+.offcanvas form.d-flex input[type='search'] {
+  border: 2px solid #02968a;
+  border-radius: 0.25rem;
+  box-shadow: none !important;
+  background-color: white;
+  color: #023d54;
 }
 
 /* EFECTO DE FOCO (al hacer click) */
-.offcanvas form.d-flex input[type="search"]:focus {
-    border-color: #FFFF66;
-    box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5);
+.offcanvas form.d-flex input[type='search']:focus {
+  border-color: #ffff66;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5);
 }
 
 /* SELECTOR PARA EL BOTÓN DE BÚSQUEDA */
-.offcanvas form.d-flex button[type="submit"] {
-    background-color: #02968A;
-    border-color: #02968A;
-    color: white;
-    font-weight: 600;
-    transition: background-color 0.3s ease; 
+.offcanvas form.d-flex button[type='submit'] {
+  background-color: #02968a;
+  border-color: #02968a;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 /* EFECTO HOVER (al pasar el cursor) */
-.offcanvas form.d-flex button[type="submit"]:hover {
-    background-color: #94DEA5;
-    border-color: #94DEA5;
-    color: #023D54; 
+.offcanvas form.d-flex button[type='submit']:hover {
+  background-color: #94dea5;
+  border-color: #94dea5;
+  color: #023d54;
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}/*mio*/
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFF66' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+} /*mio*/
 
 .nav-link i {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 .nav-link.gap-2 {
-    gap: 0.5rem;
+  gap: 0.5rem;
 }
 
 /* Logo Crece*/
 .navbar-brand img {
-    transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 .navbar-brand img:hover {
-    transform: scale(1.15);
+  transform: scale(1.15);
 }
 
 /* Estilo base para el logo en el offcanvas */
 .offcanvas-header img {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    height: 25px;
-    border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.0);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  height: 25px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0);
 }
 
 /* Efecto hover */
 .offcanvas-header img:hover {
-    opacity: 1;
-    transform: rotate(5deg);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transform: rotate(5deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
