@@ -448,26 +448,6 @@ if (ageSlider && ageValueDisplay) {
     });
 }
 
-
-const fileInput = document.getElementById('post-imagen');
-const previewContainer = document.getElementById('preview-container');
-const previewImage = document.getElementById('preview-image');
-
-if (fileInput) {
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                previewImage.src = event.target.result;
-                previewContainer.classList.remove('d-none');
-            };
-            reader.readAsDataURL(file);
-        } else {
-            previewContainer.classList.add('d-none');
-        }
-    });
-}
 // Fin de deslizante
   
 });
