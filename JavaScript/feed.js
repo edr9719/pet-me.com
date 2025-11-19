@@ -94,7 +94,7 @@ const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
             <p class="pet-details">${detalles}</p>
           </div>
           <button class="btn-adopt">
-            <span>Adopt Me</span>
+            <span>Adóptame</span>
           </button>
         </div>
         <p class="pet-description">${publicacion.descripcion}</p>
