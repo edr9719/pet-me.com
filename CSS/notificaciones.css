@@ -1,0 +1,80 @@
+/* ================================================= */
+/* 🔔 ESTILOS DEL MODAL DE NOTIFICACIONES */
+/* ================================================= */
+
+:root {
+    --petme-bg: #023d54;
+    --petme-text: #ffffff;
+    --petme-dark-cyan: #02968A;
+    --petme-primary-hover: #94dea5;
+    --petme-accent: #ffff66;
+    --petme-border: #037f74;
+    --petme-container-bg: #0e182b; 
+    --petme-white: #FFFFFF; 
+    }
+
+
+/* Contenedor principal del Modal */
+.modal-content.petme-modal-content {
+    /* Usamos un color oscuro similar al fondo de tu tarjeta de login */
+    background-color: var(); /* Por defecto: #0e182b */
+    color: var(--petme-white);
+    border-radius: 12px;
+    border: 1px solid var(--petme-border);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Encabezado del Modal */
+.modal-header.petme-modal-header {
+    background-color: var(--petme-dark-cyan);
+    color: var(--petme-accent); /* Título en amarillo para destacar */
+    border-bottom: 2px solid var(--petme-accent); /* Línea verde azulado */
+    padding: 15px 20px;
+}
+
+/* Título de la notificación */
+#notificacionesModalLabel {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--petme-accent); /* Título principal amarillo */
+}
+
+/* Cuerpo del Modal (Contenido de las notificaciones) */
+.modal-body.petme-modal-body {
+    background-color: var(--petme-dark-cyan);
+    padding: 20px;
+}
+
+/* Estilo individual de cada notificación */
+.petme-modal-body .d-flex {
+    transition: background-color 0.2s;
+    border-color: rgba(255, 255, 255, 0.1) !important; /* Bordes de separación suaves */
+}
+
+/* Efecto hover en notificaciones */
+.petme-modal-body .d-flex:hover {
+    background-color: #ffff66a5; /* Resaltar al pasar el ratón */
+    cursor: pointer;
+}
+
+/* Texto principal de la notificación */
+.petme-modal-body p.fw-bold {
+    color: var(--petme-white);
+}
+
+/* Footer del Modal */
+.modal-footer.petme-modal-footer {
+    background-color: var(--petme-dark-cyan);
+    border-top: none;
+    padding: 10px 20px;
+}
+
+/* Estilo del botón "Marcar todas como leídas" */
+.petme-modal-footer .btn-link.petme-link {
+    color: var(--petme-white);
+    font-size: 0.9rem;
+}
+
+.petme-modal-footer .btn-link.petme-link:hover {
+    color: var(--petme-yellow) !important; /* Cambia a amarillo al pasar el ratón */
+}

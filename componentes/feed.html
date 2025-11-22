@@ -24,6 +24,7 @@
       <!-- Custom CSS -->
     <link rel="stylesheet" href="/CSS/feed.css" />
     <link rel="stylesheet" href="/CSS/navbar.css" />
+    <link rel="stylesheet" href="/CSS/notificaciones.css" />
 
   </head>
   <body>
@@ -67,8 +68,11 @@
       <a class="nav-link mx-2" href="/componentes/chat.html">
         <i class="bi bi-chat-left-text" style="font-size: 1.5rem; color: white;"></i>
       </a>
-      <a class="nav-link mx-2" href="/componentes/notificaciones.html">
-        <i class="bi bi-bell" style="font-size: 1.5rem; color: white;"></i>
+      <a class="nav-link mx-2" 
+          data-bs-toggle="modal" 
+          data-bs-target="#notificacionesModal" 
+          href="#"> 
+      <i class="bi bi-bell" id="mainBellIcon" style="font-size: 1.5rem; color: white;"></i> 
       </a>
       <a class="nav-link me-3" href="/componentes/perfil.html">
         <i class="bi bi-person-circle"style="font-size: 1.5rem; color: white;"></i>
@@ -111,8 +115,11 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/notificaciones.html">
-            <i class="bi bi-bell"></i> Notificaciones
+            <a class="nav-link d-flex align-items-center gap-2" 
+              data-bs-toggle="modal" 
+              data-bs-target="#notificacionesModal"
+              href="#">
+              <i class="bi bi-bell"></i> Notificaciones
             </a>
         </li>
         <hr class="my-2">
@@ -124,6 +131,11 @@
     <li class="nav-item">
         <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
         <i class="bi bi-info-circle"></i> Acerca de Nosotros
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
+        <i class="bi bi-person-circle"></i> Perfil
         </a>
     </li>
     </ul>
@@ -614,6 +626,43 @@
         </form>
 
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Notificaciones -->
+<div class="modal fade" id="notificacionesModal" tabindex="-1" aria-labelledby="notificacionesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">   <div class="modal-content petme-modal-content">
+    <div class="modal-header petme-modal-header">
+      <h5 class="modal-title" id="notificacionesModalLabel">
+      <i class="bi bi-bell-fill me-2"></i> Notificaciones
+      </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>
+
+        <div class="modal-body petme-modal-body">
+            
+            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
+                  <i class="bi bi-heart-fill me-3 text-warning" style="font-size: 1.5rem;"></i>
+                  <div>
+                    <p class="mb-0 fw-bold text-white">¡A Buddy le gusta tu foto! 🐾</p>
+                    <small class="text-white-50">Hace 5 minutos</small>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
+                  <i class="bi bi-chat-dots-fill me-3 text-info" style="font-size: 1.5rem;"></i>
+              <div>
+                  <p class="mb-0 fw-bold text-white">Mensaje de Jane Sánchez</p>
+                  <small class="text-white-50">Consulta sobre adopción.</small>
+              </div>
+            </div>
+
+          </div>
+
+              <div class="modal-footer petme-modal-footer justify-content-center">
+            <button type="button" class="btn btn-sm btn-link petme-link text-white-50">Marcar todas como leídas</button>
+        </div>
     </div>
   </div>
 </div>
