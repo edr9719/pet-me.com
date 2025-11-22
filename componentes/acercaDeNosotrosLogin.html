@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/CSS/variables.css" />
+    <link rel="stylesheet" href="/CSS/acercaDeNosotros.css" />
+    <link rel="stylesheet" href="/CSS/navbar.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      href="/componentes/interfazUI/pictures/icono pet me.png"
+      type="image/x-icon"
+    />
+
+    <title>Acerca de Nosotros</title>
+    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-petme fixed-top">
+      <div class="container-fluid d-flex align-items-center">
+        <!-- Logo -->
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="/componentes/InicioSesion.html"
+        >
+          <img
+            src="/Img/icono pet me.png"
+            alt="Logo"
+            class="me-3"
+            style="height: 60px"
+          />
+        </a>
+
+        <!-- Enlaces desktop -->
+        <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center"
+              href="/componentes/contactoLogin.html"
+            >
+              <i class="bi bi-envelope"></i> Contáctanos
+            </a>
+          </li>
+        </ul>
+
+        <!-- Íconos desktop -->
+        <div class="d-flex align-items-center d-none d-lg-flex">
+          <a class="nav-link me-3" href="/componentes/InicioSesion.html">
+            <i
+              class="bi bi-person-circle"
+              style="font-size: 1.5rem; color: white"
+            ></i>
+          </a>
+        </div>
+
+        <!-- Móvil: búsqueda + hamburguesa -->
+        <div class="d-flex align-items-center d-lg-none">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasDarkNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Offcanvas (menú hamburguesa) -->
+    <div
+      class="offcanvas offcanvas-end bg-petme"
+      tabindex="-1"
+      id="offcanvasDarkNavbar"
+    >
+      <div class="offcanvas-header">
+        <img
+          id="offcanvas-logo"
+          src="/Img/pet me.png"
+          alt="Logo"
+          class="me-3"
+          style="height: 25px"
+        />
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/componentes/InicioSesion.html"
+            >
+              <i class="bi bi-house-door"></i> Inicio sesión
+            </a>
+          </li>
+          <hr class="my-2" />
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/componentes/contactoLogin.html"
+            >
+              <i class="bi bi-envelope"></i> Contáctanos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/componentes/acercaDeNosotrosLogin.html"
+            >
+              <i class="bi bi-info-circle"></i> Acerca de Nosotros
+            </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!--Navbar -->
+    <header class="bg-white py-5">
+      <div class="container">
+        <section>
+          <h1 class="text-center mb-4">Acerca De Nosotros</h1>
+          <div class="about-text has-watermark text-center">
+            <p class="lead">
+              PET ME es una plataforma dedicada a conectar animales en situación
+              de abandono con personas que desean brindarles un hogar lleno de
+              <strong class="text-accent">amor</strong>. Nuestro objetivo es
+              facilitar la adopción responsable mediante una experiencia digital
+              <strong class="text-accent">cálida</strong>, accesible y
+              emocionalmente significativa. A través de perfiles interactivos,
+              historias <strong class="text-accent">conmovedoras</strong> y
+              herramientas intuitivas, PET ME transforma el proceso de adopción
+              en un acto responsable de cuidado y compromiso.
+            </p>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <!-- Carrusel de mascotas -->
+    <div class="container my-4">
+      <div style="max-width: 800px; margin: 0 auto">
+        <div
+          id="carruselMascotas"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="/Img/adop2.webp"
+                class="d-block w-100 img-fluid"
+                alt="Perro y gato adoptados"
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Amigos Inseparables</h5>
+                <p>Descubre historias de adopción que transforman vidas.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/Img/adop1.jpg"
+                class="d-block w-100 img-fluid"
+                alt="Gato curioso"
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Ana y Roco</h5>
+                <p>Adopta vida y amor.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/Img/adop3.png"
+                class="d-block w-100 img-fluid"
+                alt="Perro de asistencia"
+                style="object-fit: contain; max-height: 500px"
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Lomito asustado.</h5>
+                <p>Cuando rescatamos, ellos nos rescatan.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carruselMascotas"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carruselMascotas"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section class="diagonal-blue-bg">
+      <div class="container">
+        <div class="row">
+          <section class="container py-5">
+            <h2 class="text-center mb-4 fw-bold white-title">Nuestro Equipo</h2>
+            <!-- Carrusel -->
+            <div
+              id="teamCarousel"
+              class="carousel slide"
+              data-bs-ride="carousel"
+              data-bs-interval="3500"
+              data-bs-pause="hover"
+            >
+              <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                  <div class="row justify-content-center px-4">
+                    <!--Targeta de Dante-->
+                    <div class="col-md-3 col-sm-6">
+                      <div class="card team-card text-center">
+                        <img
+                          src="/./Img/PXL_20240928_234209163.RAW-01.COVER.jpg"
+                          class="rounded-circle mx-auto mt-3"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                          alt="Product Owner"
+                        />
+                        <div class="card-body">
+                          <h5>Dante Alejandro Corona Rodríguez</h5>
+                          <p class="text-muted">Product Owner</p>
+                          <p>
+                            Soy un desarrollador apasionado por crear soluciones
+                            innovadoras que impacten y beneficien a la
+                            comunidad.
+                          </p>
+                          <div class="social-links">
+                            <a
+                              href="https://www.linkedin.com/in/dantecoronardz/"
+                              class="text-primary me-2"
+                              target="_blank"
+                            >
+                              <i class="bi bi-linkedin"></i
+                            ></a>
+                            <a
+                              href="https://github.com/Dante-Cor"
+                              class="text-dark"
+                              target="_blank"
+                              ><i class="bi bi-github"></i
+                            ></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Targeta de Paola-->
+                    <div class="col-md-3 col-sm-6">
+                      <div class="card team-card text-center">
+                        <img
+                          src="/Img/Pao Castillo.jpeg"
+                          class="rounded-circle mx-auto mt-3"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                          alt="Paola Castillo"
+                        />
+                        <div class="card-body">
+                          <h5>Paola Castillo</h5>
+                          <p class="text-muted">Desarrolladora</p>
+                          <p>
+                            Desarrolladora Java Fullstack, apasionada por los
+                            deportes: Flag y Americano, y una amante de los
+                            lomitos y los michis.
+                          </p>
+                          <div class="social-links">
+                            <a
+                              href="https://www.linkedin.com/in/paola-castrom/"
+                              class="text-primary me-2"
+                              target="_blank"
+                            >
+                              <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a
+                              href="https://github.com/ailedcastrom"
+                              class="text-dark"
+                              target="_blank"
+                            >
+                              <i class="bi bi-github"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Tarjeta Alan-->
+                    <div class="col-md-3 col-sm-6">
+                      <div
+                        class="card team-card text-center"
+                        style="cursor: default; pointer-events: auto"
+                      >
+                        <img
+                          src="../../Img/AlanR.png"
+                          class="rounded-circle mx-auto mt-3"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                          alt="Alan Ruiz"
+                        />
+                        <div class="card-body">
+                          <h5>Alan Ruiz</h5>
+                          <p class="text-muted">
+                            Desarrollador Java Full Stack
+                          </p>
+                          <p>
+                            Soy un desarrollador Java Full Stack, me gusta ser
+                            parte de proyectos innovadores.
+                          </p>
+                          <div class="social-links">
+                            <a
+                              href="https://www.linkedin.com/in/alanruiz95"
+                              target="_blank"
+                            >
+                              <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a
+                              href="https://www.linkedin.com/in/alanruiz95"
+                              class="text-dark"
+                              target="_blank"
+                            >
+                              <i class="bi bi-github"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Targeta de Mariana-->
+                    <div class="col-md-3 col-sm-6">
+                      <div class="card team-card text-center">
+                        <img
+                          src="/Img/mariana.jpg"
+                          class="rounded-circle mx-auto mt-3"
+                          alt="Mariana"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                        />
+                        <div class="card-body">
+                          <h5>Mariana Vázquez Valverde</h5>
+                          <p class="text-muted">Developer</p>
+                          <p>
+                            ¡Hola! te doy la bienvenida, soy desarrolladora y
+                            amo a los animales, en especial a los michis y
+                            lomitos, encuentra a tu compañerito.
+                          </p>
+                          <a
+                            href="https://www.linkedin.com/in/mariana-vazquez-valverde-388021380/"
+                            class="text-primary me-2"
+                            target="_blank"
+                          >
+                            <i class="bi bi-linkedin"></i>
+                          </a>
+                          <a
+                            href="https://github.com/catriana-intheshell26"
+                            class="text-dark"
+                            target="_blank"
+                          >
+                            <i class="bi bi-github"></i
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--Targeta de Moka-->
+                <div class="carousel-item">
+                  <div class="row justify-content-center">
+                    <div class="col-md-3 col-sm-6">
+                      <div class="card team-card text-center">
+                        <img
+                          src="/Img/Moka.jpeg"
+                          class="rounded-circle mx-auto mt-3"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                          alt="Moka"
+                        />
+                        <div class="card-body">
+                          <h5>Moka</h5>
+                          <p>Developer Front</p>
+                          <p>
+                            Me encantan los gatitos y ayudar, que mejor que
+                            hacerlo con mi equipo y esta web.
+                          </p>
+                          <div class="social-links">
+                            <a href="#" class="text-primary me-2"
+                              ><i class="bi bi-linkedin"></i
+                            ></a>
+                            <a href="#" class="text-dark"
+                              ><i class="bi bi-github"></i
+                            ></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Targeta de Edgar-->
+                    <div class="col-md-3 col-sm-6">
+                      <div class="card team-card text-center">
+                        <img
+                          src="/Img/Edgar.jpg"
+                          class="rounded-circle mx-auto mt-3"
+                          alt="Edgar García"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                        />
+                        <div class="card-body">
+                          <h5>Edgar García</h5>
+                          <p class="text-muted">Desarrollador / SCRUM Master</p>
+                          <p>
+                            Full-stack developer en PetMe. Amante de los perros,
+                            dueño de 5.
+                          </p>
+                          <div class="social-links">
+                            <a
+                              href="https://www.linkedin.com/in/edgar-garcia-aguilar/"
+                              class="text-primary me-2"
+                            >
+                              <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a
+                              href="https://github.com/edr9719"
+                              class="text-dark"
+                            >
+                              <i class="bi bi-github"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Targeta de Kevin-->
+                    <div class="col-md-3 col-sm-6">
+                      <div
+                        class="card team-card text-center"
+                        style="cursor: default; pointer-events: auto"
+                      >
+                        <img
+                          src="/Img/kevinQuirino.jpg"
+                          class="rounded-circle mx-auto mt-3"
+                          style="width: 120px; height: 120px; object-fit: cover"
+                          alt="Kevin Quirino"
+                        />
+                        <div class="card-body">
+                          <h5>Kevin Quirino Ibañez</h5>
+                          <p class="text-muted">Fullstack Developer</p>
+                          <p>
+                            Desarrollador Full-Stack con experiencia en
+                            desarrollo web y gestión exitosa de proyectos.
+                          </p>
+                          <div
+                            class="social-links"
+                            style="position: relative; z-index: 10"
+                          >
+                            <a
+                              href="https://www.linkedin.com/in/kevin-quirino-ibañez-4a45aa37b/"
+                              class="text-primary me-2"
+                              target="_blank"
+                              style="
+                                position: relative;
+                                z-index: 11;
+                                pointer-events: auto;
+                              "
+                              onclick="event.stopPropagation();"
+                            >
+                              <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a
+                              href="https://github.com/KevinQuirino"
+                              class="text-dark"
+                              target="_blank"
+                              style="
+                                position: relative;
+                                z-index: 11;
+                                pointer-events: auto;
+                              "
+                              onclick="event.stopPropagation();"
+                            >
+                              <i class="bi bi-github"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Controles -->
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#teamCarousel"
+                data-bs-slide="prev"
+              >
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#teamCarousel"
+                data-bs-slide="next"
+              >
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="petme-footer text-center py-3">
+      <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

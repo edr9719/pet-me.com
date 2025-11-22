@@ -190,7 +190,8 @@ body {
   font-size: 0.8rem;
   opacity: 0.8;
   font-family: var(--petme-font-secondary); /* Nunito para footer */
-  position: fixed;
+  position: relative;
+  margin-top: auto;
   bottom: 0;
   width: 100%;
 }
