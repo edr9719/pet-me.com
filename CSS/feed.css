@@ -101,9 +101,9 @@ body {
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -284,14 +284,14 @@ body {
 .pet-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px;
+  gap: 16px;
+  padding: 20px;
   border-bottom: 1px solid var(--border-light);
 }
 
 .profile-pic {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -300,14 +300,14 @@ body {
 }
 
 .profile-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-light-primary);
   margin: 0;
 }
 
 .profile-location {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-light-secondary);
   margin: 0;
 }
@@ -325,8 +325,8 @@ body {
 .pet-card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px;
+  gap: 16px;
+  padding: 24px;
   flex-grow: 1;
 }
 
@@ -338,7 +338,7 @@ body {
 }
 
 .pet-name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-light-primary);
   line-height: 1.2;
@@ -347,7 +347,7 @@ body {
 }
 
 .pet-details {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--text-light-secondary);
   margin: 4px 0 0 0;
@@ -357,13 +357,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 84px;
+  min-width: 100px;
   max-width: 480px;
-  height: 40px;
-  padding: 0 24px;
+  height: 48px;
+  padding: 0 32px;
   background-color: var(--petme-accent) !important;
   color: var(--petme-bg) !important;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   border: 2px solid var(--petme-accent) !important;
   border-radius: 8px;
