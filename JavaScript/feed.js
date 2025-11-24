@@ -55,32 +55,32 @@ function formatearFecha(fecha) {
 function crearTarjetaPublicacion(publicacion, index) {
   const delay = index * 0.1;
   const especieEmoji = {
-    Perro: "🐶",
-    Gato: "🐱",
-    Conejo: "🐰",
-    Otro: "🐾",
+    Perro: '🐶',
+    Gato: '🐱',
+    Conejo: '🐰',
+    Otro: '🐾',
   };
-  const emoji = especieEmoji[publicacion.especie] || "🐾";
+  const emoji = especieEmoji[publicacion.especie] || '🐾';
   // --- Mostrar edad con unidad y tamaño ---
-let edadTexto = publicacion.edad;
+  let edadTexto = publicacion.edad;
 
-// Si el valor de edad es numérico, le agregamos "años" por defecto
-if (publicacion.edad && !isNaN(publicacion.edad)) {
-  edadTexto = `${publicacion.edad} años`;
-}
+  // Si el valor de edad es numérico, le agregamos "años" por defecto
+  if (publicacion.edad && !isNaN(publicacion.edad)) {
+    edadTexto = `${publicacion.edad} años`;
+  }
 
-// Si el texto ya incluye "mes" o "año", se deja tal cual
-if (publicacion.edad && /mes|año/i.test(publicacion.edad)) {
-  edadTexto = publicacion.edad;
-}
+  // Si el texto ya incluye "mes" o "año", se deja tal cual
+  if (publicacion.edad && /mes|año/i.test(publicacion.edad)) {
+    edadTexto = publicacion.edad;
+  }
 
-// Armamos el detalle completo (especie, edad y tamaño)
-const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
+  // Armamos el detalle completo (especie, edad y tamaño)
+  const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
 
   return `
     <div class="pet-card" style="animation-delay: ${delay}s;">
       <div class="pet-card-header">
-        <div class="profile-pic" style="background-image: url('https://via.placeholder.com/100');"></div>
+        <div class="profile-pic" style="background-color: var(--petme-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">HT</div>
         <div>
           <p class="profile-name">Happy Tails Shelter</p>
           <p class="profile-location">${publicacion.ubicacion}</p>
@@ -93,7 +93,7 @@ const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
             <p class="pet-name">${emoji} ${publicacion.nombre}</p>
             <p class="pet-details">${detalles}</p>
           </div>
-          <button class="btn-adopt">
+          <button class="btn-adopt petme-btn-contact" data-pet-id="${publicacion.id}">
             <span>Adóptame</span>
           </button>
         </div>
@@ -124,7 +124,7 @@ const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
 
 // Función principal para renderizar todas las publicaciones
 function renderizarPublicaciones() {
-  const contenedor = document.querySelector('.pet-cards-wrapper');
+  const contenedor = document.querySelector('.main-content');
   if (!contenedor) return;
 
   // Mapea y une el HTML, luego lo inyecta
@@ -154,7 +154,7 @@ function agregarEventosBotones() {
   });
 }
 function agregarEventosComentarios() {
-  document.querySelectorAll('.comment-btn').forEach(btn => {
+  document.querySelectorAll('.comment-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.pet-card');
       const commentSection = card.querySelector('.comment-section');
@@ -162,7 +162,7 @@ function agregarEventosComentarios() {
     });
   });
 
-  document.querySelectorAll('.submit-comment').forEach(btn => {
+  document.querySelectorAll('.submit-comment').forEach((btn) => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.pet-card');
       const input = card.querySelector('.comment-input');
@@ -211,34 +211,34 @@ function handleNewPost(event) {
     };
 
     publicaciones.unshift(nuevaPublicacion);
-    localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
+    localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
     renderizarPublicaciones();
 
-    const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById('newPostModal')
+    );
     if (modal) modal.hide();
 
     form.reset();
-    alerta.innerHTML = "";
+    alerta.innerHTML = '';
   };
 
-  
-    convertirImagenABase64(imagenInput.files[0], procesarPublicacion);
-  
+  convertirImagenABase64(imagenInput.files[0], procesarPublicacion);
 }
-// Para convertir a base64 
-  function convertirImagenABase64(file, callback) {
+// Para convertir a base64
+function convertirImagenABase64(file, callback) {
   const reader = new FileReader();
   reader.onloadend = () => callback(reader.result); // reader.result es la imagen en base64
   reader.readAsDataURL(file);
 }
 // Inicialización de Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cargar publicaciones guardadas desde localStorage
-  const guardados = localStorage.getItem("postsGuardados");
+  // 1. Cargar publicaciones guardadas desde localStorage
+  const guardados = localStorage.getItem('postsGuardados');
   if (guardados) {
     publicaciones = JSON.parse(guardados);
   }
-  console.log("Publicaciones cargadas:", publicaciones);
+  console.log('Publicaciones cargadas:', publicaciones);
 
   // 2. Renderiza el feed
   renderizarPublicaciones();
@@ -248,40 +248,40 @@ document.addEventListener('DOMContentLoaded', () => {
   if (newPostForm) {
     newPostForm.addEventListener('submit', handleNewPost);
   }
-  
-  // --- Vista previa de imagen ---
-const imagenInput = document.getElementById('post-imagen');
-const previewContainer = document.getElementById('preview-container');
-const previewImage = document.getElementById('preview-image');
 
-// Mostrar previsualización cuando se elige una imagen
-if (imagenInput) {
-  imagenInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        previewImage.src = event.target.result;
-        previewContainer.classList.remove('d-none');
-      };
-      reader.readAsDataURL(file);
-    } else {
-      // Si se borra la imagen seleccionada
+  // --- Vista previa de imagen ---
+  const imagenInput = document.getElementById('post-imagen');
+  const previewContainer = document.getElementById('preview-container');
+  const previewImage = document.getElementById('preview-image');
+
+  // Mostrar previsualización cuando se elige una imagen
+  if (imagenInput) {
+    imagenInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          previewImage.src = event.target.result;
+          previewContainer.classList.remove('d-none');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Si se borra la imagen seleccionada
+        previewContainer.classList.add('d-none');
+        previewImage.src = '';
+      }
+    });
+  }
+
+  // --- Limpia la vista previa al cerrar el modal ---
+  const modalElement = document.getElementById('newPostModal');
+  if (modalElement) {
+    modalElement.addEventListener('hidden.bs.modal', () => {
       previewContainer.classList.add('d-none');
       previewImage.src = '';
-    }
-  });
-}
-
-// --- Limpia la vista previa al cerrar el modal ---
-const modalElement = document.getElementById('newPostModal');
-if (modalElement) {
-  modalElement.addEventListener('hidden.bs.modal', () => {
-    previewContainer.classList.add('d-none');
-    previewImage.src = '';
-    imagenInput.value = '';
-  });
-}
+      imagenInput.value = '';
+    });
+  }
 
   // 3. Mobile filter toggle
   const mobileFilterBtn = document.getElementById('mobileFilterBtn');
@@ -299,86 +299,83 @@ if (modalElement) {
       }
     });
   }
-// BOTONES LIKE-COMMENT
-  document.querySelectorAll('.like-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const icon = btn.querySelector('span');
-    const countEl = btn.querySelector('.action-count');
-    let count = parseInt(countEl.textContent.replace(/[^\d]/g, ''));
+  // BOTONES LIKE-COMMENT
+  document.querySelectorAll('.like-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const icon = btn.querySelector('span');
+      const countEl = btn.querySelector('.action-count');
+      let count = parseInt(countEl.textContent.replace(/[^\d]/g, ''));
 
-    const isLiked = btn.classList.toggle('liked');
-    countEl.textContent = isLiked ? `${count + 1}` : `${count - 1}`;
+      const isLiked = btn.classList.toggle('liked');
+      countEl.textContent = isLiked ? `${count + 1}` : `${count - 1}`;
 
-    // Cambia el estilo del ícono
-    icon.textContent = 'favorite';
-    icon.classList.toggle('filled', isLiked);
+      // Cambia el estilo del ícono
+      icon.textContent = 'favorite';
+      icon.classList.toggle('filled', isLiked);
+    });
   });
-});
 
-
- document.querySelectorAll('.comment-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Aquí puedes abrir un modal, mostrar un textarea, etc.
-    alert('Abrir sección de comentarios 📝');
+  document.querySelectorAll('.comment-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Aquí puedes abrir un modal, mostrar un textarea, etc.
+      alert('Abrir sección de comentarios 📝');
+    });
   });
-});
-document.querySelectorAll('.share-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const countEl = btn.querySelector('.action-count');
-    let count = parseInt(countEl.textContent);
-    countEl.textContent = `${count + 1}`;
+  document.querySelectorAll('.share-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const countEl = btn.querySelector('.action-count');
+      let count = parseInt(countEl.textContent);
+      countEl.textContent = `${count + 1}`;
 
-    if (navigator.share) {
-      navigator.share({
-        title: 'Adopta esta ratita madre 🐭',
-        url: window.location.href
-      }).catch(err => console.log('Error al compartir:', err));
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Enlace copiado al portapapeles 📋');
-    }
+      if (navigator.share) {
+        navigator
+          .share({
+            title: 'Adopta esta ratita madre 🐭',
+            url: window.location.href,
+          })
+          .catch((err) => console.log('Error al compartir:', err));
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Enlace copiado al portapapeles 📋');
+      }
+    });
   });
-});
 
+  // ======Deslizante de edad
 
-// ======Deslizante de edad
+  const ageSlider = document.getElementById('ageSlider');
+  const ageValueDisplay = document.getElementById('ageValue');
 
-
-const ageSlider = document.getElementById('ageSlider');
-const ageValueDisplay = document.getElementById('ageValue');
-
-if (ageSlider && ageValueDisplay) {
+  if (ageSlider && ageValueDisplay) {
     // Función para convertir el valor decimal del slider a un texto de edad legible
     function updateAgeDisplay(value) {
-        let text = '';
-        
-        // 0.0: Cualquier edad (valor por defecto)
-        if (value === 0) {
-            text = 'Cualquier edad';
+      let text = '';
+
+      // 0.0: Cualquier edad (valor por defecto)
+      if (value === 0) {
+        text = 'Cualquier edad';
         // 0.5: 6 meses
-        } else if (value === 0.5) {
-            text = 'Hasta 6 meses';
+      } else if (value === 0.5) {
+        text = 'Hasta 6 meses';
         // 1.0: 1 año
-        } else if (value === 1) {
-            text = 'Hasta 1 año';
+      } else if (value === 1) {
+        text = 'Hasta 1 año';
         // 5.0: 5 años o más
-        } else if (value === 5) {
-            text = 'Hasta 5 años o más';
+      } else if (value === 5) {
+        text = 'Hasta 5 años o más';
         // 1.5, 2.0, 2.5, etc.
+      } else {
+        const years = Math.floor(value);
+        const months = (value % 1) * 12;
+
+        if (months === 0) {
+          text = `Hasta ${years} años`;
         } else {
-            const years = Math.floor(value);
-            const months = (value % 1) * 12; 
-            
-            if (months === 0) {
-                text = `Hasta ${years} años`;
-            } else {
-                text = `Hasta ${years} años y ${months} meses`;
-            }
+          text = `Hasta ${years} años y ${months} meses`;
         }
-        
-        ageValueDisplay.textContent = text;
-        
-      
+      }
+
+      ageValueDisplay.textContent = text;
     }
 
     // Inicializa el valor mostrado al cargar la página
@@ -386,11 +383,10 @@ if (ageSlider && ageValueDisplay) {
 
     // Escucha los cambios en el slider y actualiza el texto
     ageSlider.addEventListener('input', (event) => {
-        const currentValue = parseFloat(event.target.value);
-        updateAgeDisplay(currentValue);
+      const currentValue = parseFloat(event.target.value);
+      updateAgeDisplay(currentValue);
     });
-}
+  }
 
-// Fin de deslizante
-  
+  // Fin de deslizante
 });
