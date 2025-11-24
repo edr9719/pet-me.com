@@ -1,6 +1,11 @@
-// =======================
-// 1. Datos iniciales
-// =======================
+// ==========================================
+// 1. VARIABLES GLOBALES Y DATOS
+// ==========================================
+
+// Array para guardar temporalmente las fotos que el usuario selecciona antes de subir
+let archivosSeleccionados = [];
+
+// Array de publicaciones (global)
 let publicaciones = [
   {
     id: 1730312001000,
@@ -11,12 +16,9 @@ let publicaciones = [
     tamaño: 'Mediano',
     edad: '6 meses',
     ubicacion: 'CDMX',
-    imagen: '/Img/adop2.webp',
+    imagen: '/Img/adop2.webp', // Soporte legacy (una sola foto)
+    imagenes: ['/Img/adop2.webp'], // Array estandarizado
     fecha: '2025-10-30T15:00:01',
-    comentarios: [],
-    likes: 0,
-    shares: 0,
-    liked: false
   },
   {
     id: 1730312002000,
@@ -28,11 +30,8 @@ let publicaciones = [
     edad: '2 años',
     ubicacion: 'Polanco',
     imagen: '/Img/istockphoto-820785324-612x612.pnj.webp',
+    imagenes: ['/Img/istockphoto-820785324-612x612.pnj.webp'],
     fecha: '2025-10-29T10:30:00',
-    comentarios: [],
-    likes: 0,
-    shares: 0,
-    liked: false
   },
   {
     id: 1730312003000,
@@ -44,59 +43,44 @@ let publicaciones = [
     edad: '2 años',
     ubicacion: 'Roma Norte',
     imagen: '/Img/photo-1609151354448-c4a53450c6e9.avif',
+    imagenes: ['/Img/photo-1609151354448-c4a53450c6e9.avif'],
     fecha: '2025-10-28T09:00:00',
-    comentarios: [],
-    likes: 0,
-    shares: 0,
-    liked: false
   },
 ];
 
-// =======================
-// 2. Utilidades
-// =======================
-function guardarPublicaciones() {
-  localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
-}
-
-function cargarPublicaciones() {
-  const guardados = localStorage.getItem("postsGuardados");
-  if (guardados) {
-    publicaciones = JSON.parse(guardados);
-    // Asegurar propiedades por si eran antiguas
-    publicaciones = publicaciones.map(p => ({
-      comentarios: [],
-      likes: 0,
-      shares: 0,
-      liked: false,
-      ...p,
-      comentarios: Array.isArray(p.comentarios) ? p.comentarios : []
-    }));
-  }
-}
+// ==========================================
+// 2. FUNCIONES DE UTILIDAD (FECHAS, ETC)
+// ==========================================
 
 function formatearFecha(fecha) {
-  return new Date(fecha).toLocaleDateString('es-MX', {
+  const date = new Date(fecha);
+  const options = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+  };
+  return date.toLocaleDateString('es-MX', options);
+}
+
+// Función auxiliar: Convertir File a Base64 usando Promesas
+// (Necesaria para manejar múltiples archivos a la vez)
+function convertirFileABase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
   });
 }
 
-function convertirImagenABase64(file, callback) {
-  const reader = new FileReader();
-  reader.onloadend = () => callback(reader.result);
-  reader.readAsDataURL(file);
-}
+// ==========================================
+// 3. RENDERIZADO DE TARJETAS (FEED)
+// ==========================================
 
-// =======================
-// 3. Renderizado
-// =======================
-function crearTarjetaPublicacion(pub, index) {
+function crearTarjetaPublicacion(publicacion, index) {
   const delay = index * 0.1;
-<<<<<<< Updated upstream
   const especieEmoji = {
     Perro: '🐶',
     Gato: '🐱',
@@ -104,504 +88,414 @@ function crearTarjetaPublicacion(pub, index) {
     Otro: '🐾',
   };
   const emoji = especieEmoji[publicacion.especie] || '🐾';
-  // --- Mostrar edad con unidad y tamaño ---
-  let edadTexto = publicacion.edad;
 
-  // Si el valor de edad es numérico, le agregamos "años" por defecto
+  // --- Formato de Edad ---
+  let edadTexto = publicacion.edad;
   if (publicacion.edad && !isNaN(publicacion.edad)) {
     edadTexto = `${publicacion.edad} años`;
   }
-
-  // Si el texto ya incluye "mes" o "año", se deja tal cual
   if (publicacion.edad && /mes|año/i.test(publicacion.edad)) {
     edadTexto = publicacion.edad;
   }
-
-  // Armamos el detalle completo (especie, edad y tamaño)
   const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
-=======
-  const especieEmoji = { Perro: "🐶", Gato: "🐱", Conejo: "🐰", Otro: "🐾" };
-  const emoji = especieEmoji[pub.especie] || "🐾";
-  const edadTexto = pub.edad;
-  const detalles = `${pub.especie}, ${edadTexto}, ${pub.tamaño}`;
->>>>>>> Stashed changes
 
+  // --- LÓGICA DE CARRUSEL (CORREGIDA PARA QUE NO SE MUEVA SOLO) ---
+  const listaImagenes = publicacion.imagenes || (publicacion.imagen ? [publicacion.imagen] : []);
+  const carouselId = `carousel-${publicacion.id}`;
+  let mediaHtml = '';
+
+  if (listaImagenes.length > 1) {
+    // CASO MULTIPLE: Carrusel estático (manual)
+    const indicadores = listaImagenes
+      .map(
+        (_, i) =>
+          `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${
+            i === 0 ? 'active' : ''
+          }" aria-label="Slide ${i + 1}"></button>`
+      )
+      .join('');
+
+    const items = listaImagenes
+      .map(
+        (img, i) => `
+        <div class="carousel-item ${i === 0 ? 'active' : ''}" style="height: 350px; background-color: #f0f0f0;">
+          <img src="${img}" class="d-block w-100" alt="Mascota" style="height: 100%; object-fit: cover;">
+        </div>
+      `
+      )
+      .join('');
+
+    // CAMBIO IMPORTANTE AQUÍ:
+    // 1. Quitamos 'data-bs-ride="carousel"' (esto causaba que iniciara solo).
+    // 2. Mantenemos 'data-bs-interval="false"' (esto asegura que no rote automáticamente nunca).
+    mediaHtml = `
+      <div id="${carouselId}" class="carousel slide" data-bs-interval="false"> 
+        <div class="carousel-indicators">${indicadores}</div>
+        <div class="carousel-inner">${items}</div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    `;
+  } else {
+    // CASO ÚNICO
+    const imgUrl = listaImagenes.length > 0 ? listaImagenes[0] : '/Img/placeholder.png';
+    mediaHtml = `<div class="pet-image" style="background-image: url('${imgUrl}'); height: 350px; background-size: cover; background-position: center;"></div>`;
+  }
+
+  // --- Retorno del HTML ---
   return `
-    <div class="pet-card" data-id="${pub.id}" style="animation-delay: ${delay}s;">
+    <div class="pet-card" style="animation-delay: ${delay}s;">
       <div class="pet-card-header">
         <div class="profile-pic" style="background-color: var(--petme-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">HT</div>
         <div>
           <p class="profile-name">Happy Tails Shelter</p>
-          <p class="profile-location">${pub.ubicacion}</p>
+          <p class="profile-location">${publicacion.ubicacion}</p>
         </div>
       </div>
-      <div class="pet-image" style="background-image: url('${pub.imagen}');"></div>
+      
+      ${mediaHtml}
+
       <div class="pet-card-body">
         <div class="pet-info-header">
           <div>
-            <p class="pet-name">${emoji} ${pub.nombre}</p>
+            <p class="pet-name">${emoji} ${publicacion.nombre}</p>
             <p class="pet-details">${detalles}</p>
           </div>
-<<<<<<< Updated upstream
           <button class="btn-adopt petme-btn-contact" data-pet-id="${publicacion.id}">
             <span>Adóptame</span>
           </button>
-=======
-          <button class="btn-adopt"><span>Adóptame</span></button>
->>>>>>> Stashed changes
         </div>
-        <p class="pet-description">${pub.descripcion}</p>
+        <p class="pet-description">${publicacion.descripcion}</p>
       </div>
       <div class="pet-card-footer">
-        <button class="action-btn like-btn ${pub.liked ? 'liked' : ''}">
-          <span class="material-symbols-outlined ${pub.liked ? 'filled' : ''}">favorite</span>
-          <p class="action-count">${pub.likes}</p>
+        <button class="action-btn like-btn">
+          <span class="material-symbols-outlined">favorite</span>
+          <p class="action-count">0</p>
         </button>
         <button class="action-btn comment-btn">
           <span class="material-symbols-outlined">chat_bubble</span>
-          <p class="action-count">${pub.comentarios.length}</p>
+          <p class="action-count">0</p>
         </button>
         <button class="action-btn share-btn">
           <span class="material-symbols-outlined">share</span>
-          <p class="action-count">${pub.shares}</p>
+          <p class="action-count">0</p>
         </button>
       </div>
       <div class="comment-section d-none mt-3">
         <textarea class="comment-input form-control mb-2" placeholder="Escribe tu comentario..."></textarea>
         <button class="submit-comment btn btn-sm btn-primary">Enviar</button>
-        <div class="comment-list mt-2">
-          ${pub.comentarios.map(c => `<div class="comment-item"><strong>Kepler:</strong> ${c}</div>`).join('')}
-        </div>
+        <div class="comment-list mt-2"></div>
       </div>
     </div>
   `;
 }
 
 function renderizarPublicaciones() {
-  const contenedor = document.querySelector('.main-content');
+  const contenedor = document.querySelector('.pet-cards-wrapper'); // Ajustado a la clase correcta de tu HTML nuevo
   if (!contenedor) return;
-  contenedor.innerHTML = publicaciones.map(crearTarjetaPublicacion).join('');
+
+  const htmlTarjetas = publicaciones.map(crearTarjetaPublicacion).join('');
+  contenedor.innerHTML = htmlTarjetas;
+
   agregarEventosBotones();
   agregarEventosComentarios();
 }
-// =======================
-// 4. Eventos (likes, shares)
-// =======================
-function agregarEventosBotones() {
-  // Favorito/contacto (si los usas en otra parte)
-  document.querySelectorAll('.petme-btn-favorite').forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const petId = e.currentTarget.dataset.petId;
-      e.currentTarget.classList.toggle('active');
-      console.log(`Mascota ${petId} favorita toggled.`);
-    });
-  });
 
+// ==========================================
+// 4. LÓGICA DE INTERACCIÓN (LIKES, COMMENTS)
+// ==========================================
+
+function agregarEventosBotones() {
+  // Botones de Adóptame
   document.querySelectorAll('.petme-btn-contact').forEach((button) => {
     button.addEventListener('click', (e) => {
       const petId = e.currentTarget.dataset.petId;
-      alert(`Iniciando contacto para mascota ${petId}.`);
+      alert(`Iniciando contacto para mascota ID: ${petId}. 🐶`);
     });
   });
-<<<<<<< Updated upstream
-}
-function agregarEventosComentarios() {
-  document.querySelectorAll('.comment-btn').forEach((btn) => {
-=======
 
-  // Likes persistentes
-  document.querySelectorAll('.like-btn').forEach(btn => {
->>>>>>> Stashed changes
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.pet-card');
-      const id = card.dataset.id;
-      const post = publicaciones.find(p => String(p.id) === String(id));
-      if (!post) return;
+  // Botones de Like
+  document.querySelectorAll('.like-btn').forEach((btn) => {
+    // Removemos listeners previos para evitar duplicados si se renderiza de nuevo
+    const nuevoBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(nuevoBtn, btn);
 
-      const icon = btn.querySelector('span.material-symbols-outlined');
-      const countEl = btn.querySelector('.action-count');
-      const isLiked = btn.classList.toggle('liked');
+    nuevoBtn.addEventListener('click', () => {
+      const icon = nuevoBtn.querySelector('span');
+      const countEl = nuevoBtn.querySelector('.action-count');
+      let count = parseInt(countEl.textContent.replace(/[^\d]/g, ''));
 
+      const isLiked = nuevoBtn.classList.toggle('liked');
+      countEl.textContent = isLiked ? `${count + 1}` : `${count - 1}`;
       icon.textContent = 'favorite';
       icon.classList.toggle('filled', isLiked);
+      
+      if(isLiked) icon.style.color = 'red';
+      else icon.style.color = '';
+    });
+  });
+  
+  // Botones Share
+  document.querySelectorAll('.share-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+        if (navigator.share) {
+          navigator.share({ title: 'PetMe', url: window.location.href }).catch(console.error);
+        } else {
+          navigator.clipboard.writeText(window.location.href);
+          alert('Enlace copiado! 📋');
+        }
+    });
+  });
+}
 
-      const current = parseInt(countEl.textContent) || 0;
-      const next = isLiked ? current + 1 : Math.max(0, current - 1);
-      countEl.textContent = String(next);
-
-      post.likes = next;
-      post.liked = isLiked;
-      guardarPublicaciones();
+function agregarEventosComentarios() {
+  // Toggle sección comentarios
+  document.querySelectorAll('.comment-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pet-card');
+      const commentSection = card.querySelector('.comment-section');
+      commentSection.classList.toggle('d-none');
     });
   });
 
-<<<<<<< Updated upstream
+  // Enviar comentario
   document.querySelectorAll('.submit-comment').forEach((btn) => {
-=======
-  // Shares persistentes
-  document.querySelectorAll('.share-btn').forEach(btn => {
->>>>>>> Stashed changes
     btn.addEventListener('click', () => {
       const card = btn.closest('.pet-card');
-      const id = card.dataset.id;
-      const post = publicaciones.find(p => String(p.id) === String(id));
-      if (!post) return;
+      const input = card.querySelector('.comment-input');
+      const list = card.querySelector('.comment-list');
+      const texto = input.value.trim();
 
-      const countEl = btn.querySelector('.action-count');
-      const current = parseInt(countEl.textContent) || 0;
-      const next = current + 1;
-      countEl.textContent = String(next);
-      post.shares = next;
-      guardarPublicaciones();
-
-      if (navigator.share) {
-        navigator.share({ title: 'Adopta esta ratita madre 🐭', url: window.location.href })
-          .catch(err => console.log('Error al compartir:', err));
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert('Enlace copiado al portapapeles 📋');
+      if (texto.length > 0) {
+        const comentario = document.createElement('div');
+        comentario.classList.add('comment-item', 'mb-2');
+        comentario.innerHTML = `<strong>Tú:</strong> ${texto}`;
+        list.appendChild(comentario);
+        input.value = '';
       }
     });
   });
 }
 
-// =======================
-// 5. Comentarios persistentes
-// =======================
-function agregarEventosComentarios() {
-  // Toggle sección
-  document.querySelectorAll('.comment-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.pet-card');
-      const section = card.querySelector('.comment-section');
-      section.classList.toggle('d-none');
+// ==========================================
+// 5. LÓGICA DE NUEVA PUBLICACIÓN (MULTIPLE)
+// ==========================================
+
+// A) Manejo de previsualización y eliminación de fotos
+function inicializarVistaPrevia() {
+  const imagenInput = document.getElementById('post-imagen');
+  const previewContainer = document.getElementById('preview-container');
+  const alerta = document.getElementById('alerta-post'); // Usaremos la alerta existente
+
+  if (imagenInput) {
+    imagenInput.addEventListener('change', (e) => {
+      const nuevosArchivos = Array.from(e.target.files);
+      const LIMITE = 3; // Definimos el límite máximo de fotos
+      let archivosAgregados = 0;
+      alerta.innerHTML = ''; // Limpiar alertas anteriores
+
+      // Iterar sobre los nuevos archivos
+      nuevosArchivos.forEach(file => {
+        // Solo agregar si es una imagen, si el límite no se ha alcanzado, y si hay espacio.
+        if (file.type.startsWith('image/') && archivosSeleccionados.length < LIMITE) {
+          archivosSeleccionados.push(file);
+          archivosAgregados++;
+        }
+      });
+
+      // Si se intentó subir más del límite, mostramos una alerta
+      if (archivosSeleccionados.length === LIMITE && nuevosArchivos.length > archivosAgregados) {
+        alerta.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            Máximo de fotos alcanzado: Solo puedes subir ${LIMITE} imágenes.
+          </div>
+        `;
+      }
+      
+      renderizarPrevisualizacion();
+      
+      // Limpiar input para permitir seleccionar más fotos si se desea (aunque se exceda el límite)
+      imagenInput.value = '';
     });
-  });
-
-  // Enviar comentario y persistir
-  document.querySelectorAll('.submit-comment').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.pet-card');
-      const id = card.dataset.id;
-      const post = publicaciones.find(p => String(p.id) === String(id));
-      if (!post) return;
-
-      const input = card.querySelector('.comment-input');
-      const list = card.querySelector('.comment-list');
-      const texto = input.value.trim();
-      if (!texto) return;
-
-      post.comentarios.push(texto);
-
-      // Actualizar UI
-      const div = document.createElement('div');
-      div.classList.add('comment-item');
-      div.innerHTML = `<strong>Kepler:</strong> ${texto}`;
-      list.appendChild(div);
-      input.value = '';
-
-      // Actualizar contador
-      const countEl = card.querySelector('.comment-btn .action-count');
-      countEl.textContent = String(post.comentarios.length);
-
-      guardarPublicaciones();
-    });
-  });
+  }
 }
 
-// =======================
-// 6. Nueva publicación
-// =======================
+function renderizarPrevisualizacion() {
+  const container = document.getElementById('preview-container');
+  if (!container) return;
+
+  container.innerHTML = ''; // Limpiar
+
+  if (archivosSeleccionados.length > 0) {
+    container.classList.remove('d-none');
+    
+    archivosSeleccionados.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        // Creamos un wrapper para la imagen y la X
+        const col = document.createElement('div');
+        col.className = 'col-4 position-relative'; 
+        
+        // Estilo inline para asegurar visualización correcta
+        col.innerHTML = `
+          <div style="position: relative; height: 100px; width: 100%;">
+            <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" alt="Preview">
+            <button type="button" 
+                    onclick="eliminarImagenDelArray(${index})"
+                    style="position: absolute; top: -5px; right: -5px; background: red; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+              ✕
+            </button>
+          </div>
+        `;
+        container.appendChild(col);
+      };
+      reader.readAsDataURL(file);
+    });
+  } else {
+    container.classList.add('d-none');
+  }
+}
+
+// Función global para poder llamarla desde el onclick del HTML generado
+window.eliminarImagenDelArray = function(index) {
+  archivosSeleccionados.splice(index, 1);
+  renderizarPrevisualizacion();
+};
+
+// B) Manejo del envío del formulario
 function handleNewPost(event) {
   event.preventDefault();
 
-  const form = document.getElementById('newPostForm');
-  const imagenInput = document.getElementById('post-imagen');
   const alerta = document.getElementById('alerta-post');
-
-  if (!imagenInput.files?.length) {
+  
+  // Validar que haya al menos una imagen en el array
+  if (archivosSeleccionados.length === 0) {
     alerta.innerHTML = `
       <div class="alert alert-warning" role="alert">
-        Por favor, selecciona una imagen para publicar. 🐾
-      </div>`;
+        Por favor, selecciona al menos una foto. 📸
+      </div>
+    `;
     return;
   }
 
-  convertirImagenABase64(imagenInput.files[0], (imagenURL) => {
-    const nuevaPublicacion = {
-      id: Date.now(),
-      nombre: form['post-nombre'].value.trim(),
-      descripcion: form['post-descripcion'].value.trim(),
-      especie: form['post-especie'].value,
-      sexo: form['post-sexo'].value,
-      tamaño: form['post-tamaño'].value,
-      edad: form['post-edad'].value.trim(),
-      ubicacion: form['post-ubicacion'].value.trim(),
-      imagen: imagenURL,
-      fecha: new Date().toISOString(),
-      comentarios: [],
-      likes: 0,
-      shares: 0,
-      liked: false
-    };
+  // Convertir todas las imágenes seleccionadas a Base64
+  Promise.all(archivosSeleccionados.map(convertirFileABase64))
+    .then((imagenesBase64) => {
+      const nuevaPublicacion = {
+        id: Date.now(),
+        nombre: document.getElementById('post-nombre').value.trim(),
+        descripcion: document.getElementById('post-descripcion').value.trim(),
+        especie: document.getElementById('post-especie').value,
+        sexo: document.getElementById('post-sexo').value,
+        tamaño: document.getElementById('post-tamaño').value,
+        edad: document.getElementById('post-edad').value.trim(),
+        ubicacion: document.getElementById('post-ubicacion').value.trim(),
+        // Guardamos Array
+        imagenes: imagenesBase64,
+        // Guardamos la primera como fallback
+        imagen: imagenesBase64[0], 
+        fecha: new Date().toISOString(),
+        comentarios: [],
+      };
 
-    publicaciones.unshift(nuevaPublicacion);
-<<<<<<< Updated upstream
-    localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
-    renderizarPublicaciones();
+      publicaciones.unshift(nuevaPublicacion);
+      localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
+      
+      renderizarPublicaciones();
 
-    const modal = bootstrap.Modal.getInstance(
-      document.getElementById('newPostModal')
-    );
-    if (modal) modal.hide();
+      // Cerrar modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
+      if (modal) modal.hide();
 
-    form.reset();
-    alerta.innerHTML = '';
-  };
-
-  convertirImagenABase64(imagenInput.files[0], procesarPublicacion);
+      // Limpieza
+      document.getElementById('newPostForm').reset();
+      archivosSeleccionados = [];
+      document.getElementById('preview-container').innerHTML = '';
+      document.getElementById('preview-container').classList.add('d-none');
+      alerta.innerHTML = '';
+      
+    })
+    .catch((err) => {
+      console.error(err);
+      alerta.innerHTML = '<div class="alert alert-danger">Error procesando imágenes</div>';
+    });
 }
-// Para convertir a base64
-function convertirImagenABase64(file, callback) {
-  const reader = new FileReader();
-  reader.onloadend = () => callback(reader.result); // reader.result es la imagen en base64
-  reader.readAsDataURL(file);
-}
-// Inicialización de Event Listeners
+
+// ==========================================
+// 6. INICIALIZACIÓN
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Cargar publicaciones guardadas desde localStorage
+  // A. Cargar datos
   const guardados = localStorage.getItem('postsGuardados');
   if (guardados) {
     publicaciones = JSON.parse(guardados);
   }
-  console.log('Publicaciones cargadas:', publicaciones);
-=======
-    guardarPublicaciones();
-    renderizarPublicaciones();
-
-    const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
-    modal?.hide();
-
-    form.reset();
-    alerta.innerHTML = "";
-  });
-}
-
-// =======================
-// 7. Inicialización y UI extra
-// =======================
-document.addEventListener('DOMContentLoaded', () => {
-  // Cargar publicaciones guardadas
-  cargarPublicaciones();
->>>>>>> Stashed changes
-
-  // Renderizar feed
+  
+  // B. Renderizar
   renderizarPublicaciones();
 
-  // Listener para nueva publicación
+  // C. Listeners Formulario
   const newPostForm = document.getElementById('newPostForm');
-<<<<<<< Updated upstream
   if (newPostForm) {
     newPostForm.addEventListener('submit', handleNewPost);
   }
-=======
-  newPostForm?.addEventListener('submit', handleNewPost);
->>>>>>> Stashed changes
+  
+  // D. Inicializar lógica de subida de archivos
+  inicializarVistaPrevia();
 
-  // --- Vista previa de imagen ---
-  const imagenInput = document.getElementById('post-imagen');
-  const previewContainer = document.getElementById('preview-container');
-  const previewImage = document.getElementById('preview-image');
-
-<<<<<<< Updated upstream
-  // Mostrar previsualización cuando se elige una imagen
-  if (imagenInput) {
-    imagenInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          previewImage.src = event.target.result;
-          previewContainer.classList.remove('d-none');
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // Si se borra la imagen seleccionada
-        previewContainer.classList.add('d-none');
-        previewImage.src = '';
-      }
-    });
-  }
-
-  // --- Limpia la vista previa al cerrar el modal ---
+  // E. Limpieza al cerrar modal
   const modalElement = document.getElementById('newPostModal');
   if (modalElement) {
     modalElement.addEventListener('hidden.bs.modal', () => {
-      previewContainer.classList.add('d-none');
-      previewImage.src = '';
-      imagenInput.value = '';
+      archivosSeleccionados = [];
+      document.getElementById('preview-container').classList.add('d-none');
+      document.getElementById('preview-container').innerHTML = '';
+      if(newPostForm) newPostForm.reset();
+      const alerta = document.getElementById('alerta-post');
+      if(alerta) alerta.innerHTML = '';
     });
   }
-=======
-  imagenInput?.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        previewImage.src = event.target.result;
-        previewContainer.classList.remove('d-none');
-      };
-      reader.readAsDataURL(file);
-    } else {
-      previewContainer.classList.add('d-none');
-      previewImage.src = '';
-    }
-  });
 
-  const modalElement = document.getElementById('newPostModal');
-  modalElement?.addEventListener('hidden.bs.modal', () => {
-    previewContainer.classList.add('d-none');
-    previewImage.src = '';
-    if (imagenInput) imagenInput.value = '';
-  });
->>>>>>> Stashed changes
-
-  // --- Mobile filter toggle ---
+  // F. Filtros Móvil (Sidebar)
   const mobileFilterBtn = document.getElementById('mobileFilterBtn');
   const mobileSidebar = document.getElementById('mobileSidebar');
 
-  mobileFilterBtn?.addEventListener('click', () => {
-    mobileSidebar?.classList.toggle('active');
-  });
+  if (mobileFilterBtn && mobileSidebar) {
+    mobileFilterBtn.addEventListener('click', () => {
+      mobileSidebar.classList.toggle('active');
+    });
+    mobileSidebar.addEventListener('click', (e) => {
+      if (e.target === mobileSidebar) {
+        mobileSidebar.classList.remove('active');
+      }
+    });
+  }
 
-  mobileSidebar?.addEventListener('click', (e) => {
-    if (e.target === mobileSidebar) {
-      mobileSidebar.classList.remove('active');
-    }
-  });
-
-  // --- Slider de edad ---
+  // G. Slider de Edad
   const ageSlider = document.getElementById('ageSlider');
   const ageValueDisplay = document.getElementById('ageValue');
 
   if (ageSlider && ageValueDisplay) {
     function updateAgeDisplay(value) {
       let text = '';
-      if (value === 0) {
-        text = 'Cualquier edad';
-      } else if (value === 0.5) {
-        text = 'Hasta 6 meses';
-      } else if (value === 1) {
-        text = 'Hasta 1 año';
-      } else if (value === 5) {
-        text = 'Hasta 5 años o más';
-      } else {
+      if (value === 0) text = 'Cualquier edad';
+      else if (value === 0.5) text = 'Hasta 6 meses';
+      else if (value === 1) text = 'Hasta 1 año';
+      else if (value === 5) text = 'Hasta 5 años o más';
+      else {
         const years = Math.floor(value);
         const months = (value % 1) * 12;
-        text = months === 0
-          ? `Hasta ${years} años`
-          : `Hasta ${years} años y ${months} meses`;
+        text = months === 0 ? `Hasta ${years} años` : `Hasta ${years} años y ${months} meses`;
       }
       ageValueDisplay.textContent = text;
     }
-
     updateAgeDisplay(parseFloat(ageSlider.value));
-    ageSlider.addEventListener('input', (event) => {
-      updateAgeDisplay(parseFloat(event.target.value));
-    });
+    ageSlider.addEventListener('input', (e) => updateAgeDisplay(parseFloat(e.target.value)));
   }
-<<<<<<< Updated upstream
-  // BOTONES LIKE-COMMENT
-  document.querySelectorAll('.like-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const icon = btn.querySelector('span');
-      const countEl = btn.querySelector('.action-count');
-      let count = parseInt(countEl.textContent.replace(/[^\d]/g, ''));
-
-      const isLiked = btn.classList.toggle('liked');
-      countEl.textContent = isLiked ? `${count + 1}` : `${count - 1}`;
-
-      // Cambia el estilo del ícono
-      icon.textContent = 'favorite';
-      icon.classList.toggle('filled', isLiked);
-    });
-  });
-
-  document.querySelectorAll('.comment-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      // Aquí puedes abrir un modal, mostrar un textarea, etc.
-      alert('Abrir sección de comentarios 📝');
-    });
-  });
-  document.querySelectorAll('.share-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const countEl = btn.querySelector('.action-count');
-      let count = parseInt(countEl.textContent);
-      countEl.textContent = `${count + 1}`;
-
-      if (navigator.share) {
-        navigator
-          .share({
-            title: 'Adopta esta ratita madre 🐭',
-            url: window.location.href,
-          })
-          .catch((err) => console.log('Error al compartir:', err));
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert('Enlace copiado al portapapeles 📋');
-      }
-    });
-  });
-
-  // ======Deslizante de edad
-
-  const ageSlider = document.getElementById('ageSlider');
-  const ageValueDisplay = document.getElementById('ageValue');
-
-  if (ageSlider && ageValueDisplay) {
-    // Función para convertir el valor decimal del slider a un texto de edad legible
-    function updateAgeDisplay(value) {
-      let text = '';
-
-      // 0.0: Cualquier edad (valor por defecto)
-      if (value === 0) {
-        text = 'Cualquier edad';
-        // 0.5: 6 meses
-      } else if (value === 0.5) {
-        text = 'Hasta 6 meses';
-        // 1.0: 1 año
-      } else if (value === 1) {
-        text = 'Hasta 1 año';
-        // 5.0: 5 años o más
-      } else if (value === 5) {
-        text = 'Hasta 5 años o más';
-        // 1.5, 2.0, 2.5, etc.
-      } else {
-        const years = Math.floor(value);
-        const months = (value % 1) * 12;
-
-        if (months === 0) {
-          text = `Hasta ${years} años`;
-        } else {
-          text = `Hasta ${years} años y ${months} meses`;
-        }
-      }
-
-      ageValueDisplay.textContent = text;
-    }
-
-    // Inicializa el valor mostrado al cargar la página
-    updateAgeDisplay(parseFloat(ageSlider.value));
-
-    // Escucha los cambios en el slider y actualiza el texto
-    ageSlider.addEventListener('input', (event) => {
-      const currentValue = parseFloat(event.target.value);
-      updateAgeDisplay(currentValue);
-    });
-  }
-
-  // Fin de deslizante
 });
-=======
-});
->>>>>>> Stashed changes

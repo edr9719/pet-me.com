@@ -412,14 +412,6 @@
                     style="height: 15px"
                   />
                   <div class="dropdown">
-                    <button
-                      class="btn btn-sm dropdown-toggle petme-visibility-btn"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      🌐 Público
-                    </button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Público</a></li>
                       <li><a class="dropdown-item" href="#">Solo yo</a></li>
@@ -444,30 +436,12 @@
 
               <!-- SUBIR IMAGEN -->
               <div class="petme-upload mt-3 text-center p-3 rounded">
-                <label
-                  for="post-imagen"
-                  class="d-block cursor-pointer text-secondary"
-                  tabindex="0"
-                >
-                  <span class="material-symbols-outlined fs-1"
-                    >photo_camera</span
-                  ><br />
-                  Agregar foto o video
+                <label for="post-imagen" class="d-block cursor-pointer text-secondary" tabindex="0">
+                  <span class="material-symbols-outlined fs-1">photo_library</span><br />
+                  Agregar fotos o videos
                 </label>
-                <input
-                  type="file"
-                  id="post-imagen"
-                  class="d-none"
-                  accept="image/*,video/*"
-                />
-                <div id="preview-container" class="mt-3 d-none">
-                  <img
-                    id="preview-image"
-                    src="#"
-                    class="img-fluid rounded shadow"
-                    alt="preview"
-                  />
-                </div>
+                  <input type="file" id="post-imagen" class="d-none" accept="image/*" multiple />
+                <div id="preview-container" class="mt-3 d-none row g-2"></div>
                 <div id="alerta-post" class="mt-2"></div>
               </div>
 
