@@ -180,63 +180,6 @@ function agregarEventosComentarios() {
   });
 }
 
-
-/**
- * Maneja el envío del formulario para crear una nueva publicación (corregido para file input).
- */
-/*function handleNewPost(event) {
-  event.preventDefault();
-
-  const form = document.getElementById('newPostForm');
-  const imagenInput = document.getElementById('post-imagen');
-
-  // Obtener la URL de la imagen (temporal o por defecto)
-  let imagenURL = '/Img/default.jpg';
-
-  // Si se seleccionó un archivo, creamos una URL temporal para mostrar la imagen
-  if (imagenInput.files && imagenInput.files[0]) {
-    imagenURL = URL.createObjectURL(imagenInput.files[0]);
-  }
-
-  // Crea un nuevo ID basado en la marca de tiempo
-  const newId = Date.now();
-
-  // Captura la información del formulario
-  const nuevaPublicacion = {
-    id: newId,
-    nombre: document.getElementById('post-nombre').value.trim(),
-    descripcion: document.getElementById('post-descripcion').value.trim(),
-    especie: document.getElementById('post-especie').value,
-    sexo: document.getElementById('post-sexo').value,
-    tamaño: 'Mediano', // Valor por defecto
-    edad: document.getElementById('post-edad').value.trim(),
-    ubicacion: document.getElementById('post-ubicacion').value.trim(),
-    imagen: imagenURL,
-    fecha: new Date().toISOString(),
-  };
-  // 1. Agrega la nueva publicación al inicio del array (unshift)
-  publicaciones.unshift(nuevaPublicacion);
-  localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
-
-  // 2. Vuelve a renderizar todo el feed
-  const guardados = localStorage.getItem("postsGuardados");
-  if (guardados) {
-  publicaciones = JSON.parse(guardados);
-  }
-  console.log("Publicación creada:", nuevaPublicacion);
-
-renderizarPublicaciones();
-
-  // 3. Cierra el modal de Bootstrap
-  const modalElement = document.getElementById('newPostModal');
-  const modal =
-    bootstrap.Modal.getInstance(modalElement) ||
-    new bootstrap.Modal(modalElement);
-  modal.hide();
-
-  // 4. Limpia el formulario
-  form.reset();
-} */
 function handleNewPost(event) {
   event.preventDefault();
 
