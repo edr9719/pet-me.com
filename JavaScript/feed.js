@@ -1,4 +1,6 @@
-// Array de publicaciones (global para poder modificarlo)
+// =======================
+// 1. Datos iniciales
+// =======================
 let publicaciones = [
   {
     id: 1730312001000,
@@ -11,6 +13,10 @@ let publicaciones = [
     ubicacion: 'CDMX',
     imagen: '/Img/adop2.webp',
     fecha: '2025-10-30T15:00:01',
+    comentarios: [],
+    likes: 0,
+    shares: 0,
+    liked: false
   },
   {
     id: 1730312002000,
@@ -23,6 +29,10 @@ let publicaciones = [
     ubicacion: 'Polanco',
     imagen: '/Img/istockphoto-820785324-612x612.pnj.webp',
     fecha: '2025-10-29T10:30:00',
+    comentarios: [],
+    likes: 0,
+    shares: 0,
+    liked: false
   },
   {
     id: 1730312003000,
@@ -35,25 +45,58 @@ let publicaciones = [
     ubicacion: 'Roma Norte',
     imagen: '/Img/photo-1609151354448-c4a53450c6e9.avif',
     fecha: '2025-10-28T09:00:00',
+    comentarios: [],
+    likes: 0,
+    shares: 0,
+    liked: false
   },
 ];
 
-// Función para formatear la fecha a un formato legible
+// =======================
+// 2. Utilidades
+// =======================
+function guardarPublicaciones() {
+  localStorage.setItem("postsGuardados", JSON.stringify(publicaciones));
+}
+
+function cargarPublicaciones() {
+  const guardados = localStorage.getItem("postsGuardados");
+  if (guardados) {
+    publicaciones = JSON.parse(guardados);
+    // Asegurar propiedades por si eran antiguas
+    publicaciones = publicaciones.map(p => ({
+      comentarios: [],
+      likes: 0,
+      shares: 0,
+      liked: false,
+      ...p,
+      comentarios: Array.isArray(p.comentarios) ? p.comentarios : []
+    }));
+  }
+}
+
 function formatearFecha(fecha) {
-  const date = new Date(fecha);
-  const options = {
+  return new Date(fecha).toLocaleDateString('es-MX', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-  };
-  return date.toLocaleDateString('es-MX', options);
+  });
 }
 
-// Función para crear el HTML de una tarjeta de publicación
-function crearTarjetaPublicacion(publicacion, index) {
+function convertirImagenABase64(file, callback) {
+  const reader = new FileReader();
+  reader.onloadend = () => callback(reader.result);
+  reader.readAsDataURL(file);
+}
+
+// =======================
+// 3. Renderizado
+// =======================
+function crearTarjetaPublicacion(pub, index) {
   const delay = index * 0.1;
+<<<<<<< Updated upstream
   const especieEmoji = {
     Perro: '🐶',
     Gato: '🐱',
@@ -76,72 +119,80 @@ function crearTarjetaPublicacion(publicacion, index) {
 
   // Armamos el detalle completo (especie, edad y tamaño)
   const detalles = `${publicacion.especie}, ${edadTexto}, ${publicacion.tamaño}`;
+=======
+  const especieEmoji = { Perro: "🐶", Gato: "🐱", Conejo: "🐰", Otro: "🐾" };
+  const emoji = especieEmoji[pub.especie] || "🐾";
+  const edadTexto = pub.edad;
+  const detalles = `${pub.especie}, ${edadTexto}, ${pub.tamaño}`;
+>>>>>>> Stashed changes
 
   return `
-    <div class="pet-card" style="animation-delay: ${delay}s;">
+    <div class="pet-card" data-id="${pub.id}" style="animation-delay: ${delay}s;">
       <div class="pet-card-header">
         <div class="profile-pic" style="background-color: var(--petme-primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">HT</div>
         <div>
           <p class="profile-name">Happy Tails Shelter</p>
-          <p class="profile-location">${publicacion.ubicacion}</p>
+          <p class="profile-location">${pub.ubicacion}</p>
         </div>
       </div>
-      <div class="pet-image" style="background-image: url('${publicacion.imagen}');"></div>
+      <div class="pet-image" style="background-image: url('${pub.imagen}');"></div>
       <div class="pet-card-body">
         <div class="pet-info-header">
           <div>
-            <p class="pet-name">${emoji} ${publicacion.nombre}</p>
+            <p class="pet-name">${emoji} ${pub.nombre}</p>
             <p class="pet-details">${detalles}</p>
           </div>
+<<<<<<< Updated upstream
           <button class="btn-adopt petme-btn-contact" data-pet-id="${publicacion.id}">
             <span>Adóptame</span>
           </button>
+=======
+          <button class="btn-adopt"><span>Adóptame</span></button>
+>>>>>>> Stashed changes
         </div>
-        <p class="pet-description">${publicacion.descripcion}</p>
+        <p class="pet-description">${pub.descripcion}</p>
       </div>
       <div class="pet-card-footer">
-        <button class="action-btn like-btn">
-          <span class="material-symbols-outlined">favorite</span>
-          <p class="action-count">0</p>
+        <button class="action-btn like-btn ${pub.liked ? 'liked' : ''}">
+          <span class="material-symbols-outlined ${pub.liked ? 'filled' : ''}">favorite</span>
+          <p class="action-count">${pub.likes}</p>
         </button>
         <button class="action-btn comment-btn">
           <span class="material-symbols-outlined">chat_bubble</span>
-          <p class="action-count">0</p>
+          <p class="action-count">${pub.comentarios.length}</p>
         </button>
         <button class="action-btn share-btn">
           <span class="material-symbols-outlined">share</span>
-          <p class="action-count">0</p>
+          <p class="action-count">${pub.shares}</p>
         </button>
       </div>
       <div class="comment-section d-none mt-3">
-      <textarea class="comment-input form-control mb-2" placeholder="Escribe tu comentario..."></textarea>
-      <button class="submit-comment btn btn-sm btn-primary">Enviar</button>
-      <div class="comment-list mt-2"></div>
-    </div>
+        <textarea class="comment-input form-control mb-2" placeholder="Escribe tu comentario..."></textarea>
+        <button class="submit-comment btn btn-sm btn-primary">Enviar</button>
+        <div class="comment-list mt-2">
+          ${pub.comentarios.map(c => `<div class="comment-item"><strong>Kepler:</strong> ${c}</div>`).join('')}
+        </div>
+      </div>
     </div>
   `;
 }
 
-// Función principal para renderizar todas las publicaciones
 function renderizarPublicaciones() {
   const contenedor = document.querySelector('.main-content');
   if (!contenedor) return;
-
-  // Mapea y une el HTML, luego lo inyecta
-  const htmlTarjetas = publicaciones.map(crearTarjetaPublicacion).join('');
-  contenedor.innerHTML = htmlTarjetas;
-
-  // Añadir eventos después de la renderización
+  contenedor.innerHTML = publicaciones.map(crearTarjetaPublicacion).join('');
   agregarEventosBotones();
   agregarEventosComentarios();
 }
-
-// Función para agregar la lógica de los botones
+// =======================
+// 4. Eventos (likes, shares)
+// =======================
 function agregarEventosBotones() {
+  // Favorito/contacto (si los usas en otra parte)
   document.querySelectorAll('.petme-btn-favorite').forEach((button) => {
     button.addEventListener('click', (e) => {
       const petId = e.currentTarget.dataset.petId;
-      e.currentTarget.classList.toggle('active'); // Simulación de estado favorito
+      e.currentTarget.classList.toggle('active');
       console.log(`Mascota ${petId} favorita toggled.`);
     });
   });
@@ -152,65 +203,150 @@ function agregarEventosBotones() {
       alert(`Iniciando contacto para mascota ${petId}.`);
     });
   });
+<<<<<<< Updated upstream
 }
 function agregarEventosComentarios() {
   document.querySelectorAll('.comment-btn').forEach((btn) => {
+=======
+
+  // Likes persistentes
+  document.querySelectorAll('.like-btn').forEach(btn => {
+>>>>>>> Stashed changes
     btn.addEventListener('click', () => {
       const card = btn.closest('.pet-card');
-      const commentSection = card.querySelector('.comment-section');
-      commentSection.classList.toggle('d-none');
+      const id = card.dataset.id;
+      const post = publicaciones.find(p => String(p.id) === String(id));
+      if (!post) return;
+
+      const icon = btn.querySelector('span.material-symbols-outlined');
+      const countEl = btn.querySelector('.action-count');
+      const isLiked = btn.classList.toggle('liked');
+
+      icon.textContent = 'favorite';
+      icon.classList.toggle('filled', isLiked);
+
+      const current = parseInt(countEl.textContent) || 0;
+      const next = isLiked ? current + 1 : Math.max(0, current - 1);
+      countEl.textContent = String(next);
+
+      post.likes = next;
+      post.liked = isLiked;
+      guardarPublicaciones();
     });
   });
 
+<<<<<<< Updated upstream
   document.querySelectorAll('.submit-comment').forEach((btn) => {
+=======
+  // Shares persistentes
+  document.querySelectorAll('.share-btn').forEach(btn => {
+>>>>>>> Stashed changes
     btn.addEventListener('click', () => {
       const card = btn.closest('.pet-card');
-      const input = card.querySelector('.comment-input');
-      const list = card.querySelector('.comment-list');
-      const texto = input.value.trim();
+      const id = card.dataset.id;
+      const post = publicaciones.find(p => String(p.id) === String(id));
+      if (!post) return;
 
-      if (texto.length > 0) {
-        const comentario = document.createElement('div');
-        comentario.classList.add('comment-item');
-        comentario.innerHTML = `<strong>Kepler:</strong> ${texto}`;
-        list.appendChild(comentario);
-        input.value = '';
+      const countEl = btn.querySelector('.action-count');
+      const current = parseInt(countEl.textContent) || 0;
+      const next = current + 1;
+      countEl.textContent = String(next);
+      post.shares = next;
+      guardarPublicaciones();
+
+      if (navigator.share) {
+        navigator.share({ title: 'Adopta esta ratita madre 🐭', url: window.location.href })
+          .catch(err => console.log('Error al compartir:', err));
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Enlace copiado al portapapeles 📋');
       }
     });
   });
 }
 
+// =======================
+// 5. Comentarios persistentes
+// =======================
+function agregarEventosComentarios() {
+  // Toggle sección
+  document.querySelectorAll('.comment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pet-card');
+      const section = card.querySelector('.comment-section');
+      section.classList.toggle('d-none');
+    });
+  });
+
+  // Enviar comentario y persistir
+  document.querySelectorAll('.submit-comment').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pet-card');
+      const id = card.dataset.id;
+      const post = publicaciones.find(p => String(p.id) === String(id));
+      if (!post) return;
+
+      const input = card.querySelector('.comment-input');
+      const list = card.querySelector('.comment-list');
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      post.comentarios.push(texto);
+
+      // Actualizar UI
+      const div = document.createElement('div');
+      div.classList.add('comment-item');
+      div.innerHTML = `<strong>Kepler:</strong> ${texto}`;
+      list.appendChild(div);
+      input.value = '';
+
+      // Actualizar contador
+      const countEl = card.querySelector('.comment-btn .action-count');
+      countEl.textContent = String(post.comentarios.length);
+
+      guardarPublicaciones();
+    });
+  });
+}
+
+// =======================
+// 6. Nueva publicación
+// =======================
 function handleNewPost(event) {
   event.preventDefault();
 
   const form = document.getElementById('newPostForm');
   const imagenInput = document.getElementById('post-imagen');
   const alerta = document.getElementById('alerta-post');
-  // Validación: imagen obligatoria
-  if (!imagenInput.files || imagenInput.files.length === 0) {
+
+  if (!imagenInput.files?.length) {
     alerta.innerHTML = `
       <div class="alert alert-warning" role="alert">
         Por favor, selecciona una imagen para publicar. 🐾
-      </div>
-    `;
+      </div>`;
     return;
   }
-  const procesarPublicacion = (imagenURL) => {
+
+  convertirImagenABase64(imagenInput.files[0], (imagenURL) => {
     const nuevaPublicacion = {
       id: Date.now(),
-      nombre: document.getElementById('post-nombre').value.trim(),
-      descripcion: document.getElementById('post-descripcion').value.trim(),
-      especie: document.getElementById('post-especie').value,
-      sexo: document.getElementById('post-sexo').value,
-      tamaño: document.getElementById('post-tamaño').value,
-      edad: document.getElementById('post-edad').value.trim(),
-      ubicacion: document.getElementById('post-ubicacion').value.trim(),
+      nombre: form['post-nombre'].value.trim(),
+      descripcion: form['post-descripcion'].value.trim(),
+      especie: form['post-especie'].value,
+      sexo: form['post-sexo'].value,
+      tamaño: form['post-tamaño'].value,
+      edad: form['post-edad'].value.trim(),
+      ubicacion: form['post-ubicacion'].value.trim(),
       imagen: imagenURL,
       fecha: new Date().toISOString(),
       comentarios: [],
+      likes: 0,
+      shares: 0,
+      liked: false
     };
 
     publicaciones.unshift(nuevaPublicacion);
+<<<<<<< Updated upstream
     localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
     renderizarPublicaciones();
 
@@ -239,21 +375,45 @@ document.addEventListener('DOMContentLoaded', () => {
     publicaciones = JSON.parse(guardados);
   }
   console.log('Publicaciones cargadas:', publicaciones);
+=======
+    guardarPublicaciones();
+    renderizarPublicaciones();
 
-  // 2. Renderiza el feed
+    const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
+    modal?.hide();
+
+    form.reset();
+    alerta.innerHTML = "";
+  });
+}
+
+// =======================
+// 7. Inicialización y UI extra
+// =======================
+document.addEventListener('DOMContentLoaded', () => {
+  // Cargar publicaciones guardadas
+  cargarPublicaciones();
+>>>>>>> Stashed changes
+
+  // Renderizar feed
   renderizarPublicaciones();
 
-  // 2. Agrega el listener para el formulario de nueva publicación
+  // Listener para nueva publicación
   const newPostForm = document.getElementById('newPostForm');
+<<<<<<< Updated upstream
   if (newPostForm) {
     newPostForm.addEventListener('submit', handleNewPost);
   }
+=======
+  newPostForm?.addEventListener('submit', handleNewPost);
+>>>>>>> Stashed changes
 
   // --- Vista previa de imagen ---
   const imagenInput = document.getElementById('post-imagen');
   const previewContainer = document.getElementById('preview-container');
   const previewImage = document.getElementById('preview-image');
 
+<<<<<<< Updated upstream
   // Mostrar previsualización cuando se elige una imagen
   if (imagenInput) {
     imagenInput.addEventListener('change', (e) => {
@@ -282,23 +442,75 @@ document.addEventListener('DOMContentLoaded', () => {
       imagenInput.value = '';
     });
   }
+=======
+  imagenInput?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
+        previewContainer.classList.remove('d-none');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewContainer.classList.add('d-none');
+      previewImage.src = '';
+    }
+  });
 
-  // 3. Mobile filter toggle
+  const modalElement = document.getElementById('newPostModal');
+  modalElement?.addEventListener('hidden.bs.modal', () => {
+    previewContainer.classList.add('d-none');
+    previewImage.src = '';
+    if (imagenInput) imagenInput.value = '';
+  });
+>>>>>>> Stashed changes
+
+  // --- Mobile filter toggle ---
   const mobileFilterBtn = document.getElementById('mobileFilterBtn');
   const mobileSidebar = document.getElementById('mobileSidebar');
 
-  if (mobileFilterBtn && mobileSidebar) {
-    mobileFilterBtn.addEventListener('click', () => {
-      mobileSidebar.classList.toggle('active');
-    });
+  mobileFilterBtn?.addEventListener('click', () => {
+    mobileSidebar?.classList.toggle('active');
+  });
 
-    // Close sidebar when clicking outside the content
-    mobileSidebar.addEventListener('click', (e) => {
-      if (e.target === mobileSidebar) {
-        mobileSidebar.classList.remove('active');
+  mobileSidebar?.addEventListener('click', (e) => {
+    if (e.target === mobileSidebar) {
+      mobileSidebar.classList.remove('active');
+    }
+  });
+
+  // --- Slider de edad ---
+  const ageSlider = document.getElementById('ageSlider');
+  const ageValueDisplay = document.getElementById('ageValue');
+
+  if (ageSlider && ageValueDisplay) {
+    function updateAgeDisplay(value) {
+      let text = '';
+      if (value === 0) {
+        text = 'Cualquier edad';
+      } else if (value === 0.5) {
+        text = 'Hasta 6 meses';
+      } else if (value === 1) {
+        text = 'Hasta 1 año';
+      } else if (value === 5) {
+        text = 'Hasta 5 años o más';
+      } else {
+        const years = Math.floor(value);
+        const months = (value % 1) * 12;
+        text = months === 0
+          ? `Hasta ${years} años`
+          : `Hasta ${years} años y ${months} meses`;
       }
+      ageValueDisplay.textContent = text;
+    }
+
+    updateAgeDisplay(parseFloat(ageSlider.value));
+    ageSlider.addEventListener('input', (event) => {
+      updateAgeDisplay(parseFloat(event.target.value));
     });
   }
+<<<<<<< Updated upstream
   // BOTONES LIKE-COMMENT
   document.querySelectorAll('.like-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -390,3 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fin de deslizante
 });
+=======
+});
+>>>>>>> Stashed changes
