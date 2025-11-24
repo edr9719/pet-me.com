@@ -373,8 +373,9 @@ function handleNewPost(event) {
   event.preventDefault();
 
   const alerta = document.getElementById('alerta-post');
-  
-  // Validar que haya al menos una imagen en el array
+  alerta.innerHTML = ''; // Limpiar alertas al inicio
+
+  // 1. Validación de imagen
   if (archivosSeleccionados.length === 0) {
     alerta.innerHTML = `
       <div class="alert alert-warning" role="alert">
@@ -384,7 +385,7 @@ function handleNewPost(event) {
     return;
   }
 
-  // Convertir todas las imágenes seleccionadas a Base64
+  // 2. Procesamiento de archivos (Convertir a Base64)
   Promise.all(archivosSeleccionados.map(convertirFileABase64))
     .then((imagenesBase64) => {
       const nuevaPublicacion = {
@@ -396,34 +397,56 @@ function handleNewPost(event) {
         tamaño: document.getElementById('post-tamaño').value,
         edad: document.getElementById('post-edad').value.trim(),
         ubicacion: document.getElementById('post-ubicacion').value.trim(),
-        // Guardamos Array
         imagenes: imagenesBase64,
-        // Guardamos la primera como fallback
         imagen: imagenesBase64[0], 
         fecha: new Date().toISOString(),
         comentarios: [],
       };
 
+      // Agregamos a la variable en memoria
       publicaciones.unshift(nuevaPublicacion);
-      localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
+
+      // 3. Intento de Guardado en LocalStorage (Punto de Falla más común)
+      try {
+        localStorage.setItem('postsGuardados', JSON.stringify(publicaciones));
+      } catch (error) {
+        // ERROR: Quota Exceeded (memoria llena)
+        console.warn("Error al guardar en LocalStorage (Memoria llena/Quota Exceeded):", error);
+        alerta.innerHTML = `
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            ¡Publicado! (Advertencia: No se pudo guardar permanentemente por límite de memoria del navegador. Se borrará al recargar).
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        `;
+      }
       
+      // 4. Renderizar y Limpiar
       renderizarPublicaciones();
 
-      // Cerrar modal
       const modal = bootstrap.Modal.getInstance(document.getElementById('newPostModal'));
-      if (modal) modal.hide();
+      
+      // Si hubo una alerta de memoria llena, la dejamos 1.5s y luego cerramos
+      if (alerta.innerHTML.includes('alert-info')) {
+        setTimeout(() => { if (modal) modal.hide(); }, 1500);
+      } else {
+        // Si no hay alerta, cerramos inmediatamente
+        if (modal) modal.hide();
+      }
 
-      // Limpieza
       document.getElementById('newPostForm').reset();
       archivosSeleccionados = [];
       document.getElementById('preview-container').innerHTML = '';
       document.getElementById('preview-container').classList.add('d-none');
-      alerta.innerHTML = '';
       
     })
     .catch((err) => {
-      console.error(err);
-      alerta.innerHTML = '<div class="alert alert-danger">Error procesando imágenes</div>';
+      // 5. CATCH FINAL: Fallo durante la conversión (Promise.all) o DOM
+      console.error("Fallo durante la conversión de imágenes o DOM:", err); // <-- CLAVE para saber si es otra cosa
+      alerta.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            Error procesando imágenes. Falla: ${err.name || 'Desconocido'}. Revisa la Consola (F12).
+          </div>
+      `;
     });
 }
 
