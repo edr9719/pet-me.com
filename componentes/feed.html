@@ -367,7 +367,7 @@
       id="add-post-btn"
     ></button>
 
-    <!-- CORREGIDO: newPostModal (versión completa, conserva todos tus campos) -->
+    <!-- Nueva publicación Modal-->
     <div
       class="modal fade"
       id="newPostModal"
@@ -564,7 +564,7 @@
         <div class="modal-content petme-card">
           <div class="modal-header border-0">
             <h5 class="modal-title" id="adoptModalLabel">
-              Formulario de adopción
+              Formulario de adopción <span id="nombreMascotaModal"></span>
             </h5>
             <button
               type="button"
@@ -611,7 +611,7 @@
                     required
                   />
                   <div class="invalid-feedback">
-                    Ingresa una edad válida (18 - 99 años).
+                    Tienes que ser mayor de edad para continuar.
                   </div>
                 </div>
 
@@ -719,7 +719,10 @@
                   required
                 />
                 <label class="form-check-label" for="terms">
-                  Acepto términos y condiciones
+                  Acepto 
+                  <a href="/componentes/avisoDePrivacidad.html" target="_blank">
+                  términos y condiciones
+                  </a>
                 </label>
                 <div class="invalid-feedback" id="errorTerms"></div>
               </div>
