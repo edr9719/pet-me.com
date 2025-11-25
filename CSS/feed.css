@@ -587,14 +587,6 @@ body {
 .suggestion-view:hover {
   color: var(--petme-primary-hover);
 }
-/*AQUÍ COMENZAMOS CON LA FUSIÓN DE FEED Y MODAL
-/* Variables ya definidas arriba - usando las existentes:
-   --petme-bg (#023d54) = dark-slate-gray
-   --petme-primary (#02968a) = dark-cyan
-   --petme-primary-hover (#94dea5) = medium-aquamarine
-   --petme-accent (#ffff66) = yellow
-   --petme-text (#ffffff) = white
-*/
 
 /* --- Controles del Feed (Localización y Botones) --- */
 .petme-icon-location {
@@ -880,7 +872,7 @@ body {
 
 #ageValue {
   font-weight: 600;
-  color: #4caf50;
+  color: var(--petme-primary);
   font-size: 0.95rem;
 }
 
@@ -900,4 +892,27 @@ body {
   background-color: var(--petme-bg);
   border: 4px solid var(--petme-accent);
   color: var(--petme-text);
+}
+
+/* --- visualización imagenes modal --- */
+.preview-item {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+}
+
+.preview-thumb {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.preview-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
 }
