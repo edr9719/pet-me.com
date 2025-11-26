@@ -232,8 +232,8 @@
             <div class="text-center">
               <div class="profile-img-container mb-3">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14A7bXmBe8CLBoV__fxoy8ExxgwcRPk71o7ZD7K0CaDc2A7bHuMISgI9ZRVxQZeXOg5-xMAO7tvAy-zi6pgVW6WuPzO7L0x7SjKBWcyKmt-Pj1n9zqhiB4oxs7yLirk2fkN1b22bFG-rY4ZNPRQDu6bO-kdVwIF3xB2jr9i2zNrD0irf4z05vrrswJjcgBni2EDiq5dKPWl5Uu9IuVCY9gjalIhiGZPTLMuiag54WbG8QlorQ166wNbICjuQm5CGeN1l3BefLvcUm"
-                  alt="Juana Pérez"
+                  src=""
+                  alt="Profile"
                   class="profile-img"
                   id="profileImage"
                 />
@@ -247,10 +247,9 @@
                   style="display: none"
                 />
               </div>
-              <h1 class="h4 font-display fw-bold">Juana Pérez</h1>
+              <h1 class="h4 font-display fw-bold">Cargando...</h1>
               <p class="text-muted-custom small text-center">
-                Amante de los perros y madre de acogida con experiencia en San
-                Francisco.
+                Cargando información...
               </p>
             </div>
 
@@ -263,19 +262,19 @@
                   <span class="material-symbols-outlined text-muted-custom"
                     >mail</span
                   >
-                  <span class="small">juana.perez@example.com</span>
+                  <span class="small">...</span>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                   <span class="material-symbols-outlined text-muted-custom"
                     >phone</span
                   >
-                  <span class="small">+1 (555) 123-4567</span>
+                  <span class="small">...</span>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                   <span class="material-symbols-outlined text-muted-custom"
                     >location_on</span
                   >
-                  <span class="small">San Francisco, CA</span>
+                  <span class="small">...</span>
                 </div>
               </div>
             </div>
@@ -558,7 +557,7 @@
                   type="text"
                   class="form-control"
                   id="editNombre"
-                  value="Juana"
+                  value=""
                   required
                 />
               </div>
@@ -572,7 +571,7 @@
                   type="text"
                   class="form-control"
                   id="editApellido"
-                  value="Pérez"
+                  value=""
                   required
                 />
               </div>
@@ -587,9 +586,7 @@
                   id="editDescription"
                   rows="3"
                   required
-                >
-Amante de los perros y madre de acogida con experiencia en San Francisco.</textarea
-                >
+                ></textarea>
               </div>
 
               <!-- Email -->
@@ -601,7 +598,7 @@ Amante de los perros y madre de acogida con experiencia en San Francisco.</texta
                   type="email"
                   class="form-control"
                   id="editEmail"
-                  value="juana.perez@example.com"
+                  value=""
                   required
                 />
               </div>
@@ -615,7 +612,7 @@ Amante de los perros y madre de acogida con experiencia en San Francisco.</texta
                   type="tel"
                   class="form-control"
                   id="editPhone"
-                  value="+1 (555) 123-4567"
+                  value=""
                   required
                 />
               </div>
@@ -629,7 +626,7 @@ Amante de los perros y madre de acogida con experiencia en San Francisco.</texta
                   type="text"
                   class="form-control"
                   id="editLocation"
-                  value="San Francisco, CA"
+                  value=""
                   required
                 />
               </div>
@@ -662,102 +659,7 @@ Amante de los perros y madre de acogida con experiencia en San Francisco.</texta
       crossorigin="anonymous"
     ></script>
 
-    <!-- Profile Edit Script -->
-    <script>
-      document
-        .getElementById('saveProfileBtn')
-        .addEventListener('click', function () {
-          // Get form values
-          const nombre = document.getElementById('editNombre').value;
-          const apellido = document.getElementById('editApellido').value;
-          const fullName = nombre + ' ' + apellido;
-          const description = document.getElementById('editDescription').value;
-          const email = document.getElementById('editEmail').value;
-          const phone = document.getElementById('editPhone').value;
-          const location = document.getElementById('editLocation').value;
-
-          // Update profile display
-          document.querySelector('.profile-card h1').textContent = fullName;
-          document.querySelector(
-            '.profile-card .text-muted-custom'
-          ).textContent = description;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[0].textContent = email;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[1].textContent = phone;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[2].textContent = location;
-
-          // Close modal
-          const modal = bootstrap.Modal.getInstance(
-            document.getElementById('editProfileModal')
-          );
-          modal.hide();
-
-          // Optional: Save to localStorage or send to backend
-          const profileData = {
-            nombre,
-            apellido,
-            description,
-            email,
-            phone,
-            location,
-          };
-          localStorage.setItem('userProfile', JSON.stringify(profileData));
-        });
-
-      // Handle profile image upload
-      document
-        .getElementById('profileImageInput')
-        .addEventListener('change', function (e) {
-          const file = e.target.files[0];
-          if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              const imageUrl = event.target.result;
-              document.getElementById('profileImage').src = imageUrl;
-
-              // Save to localStorage
-              localStorage.setItem('profileImage', imageUrl);
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-
-      // Load saved profile image on page load
-      window.addEventListener('DOMContentLoaded', function () {
-        const savedImage = localStorage.getItem('profileImage');
-        if (savedImage) {
-          document.getElementById('profileImage').src = savedImage;
-        }
-      });
-
-      // Tab switching functionality
-      const adoptadosTab = document.getElementById('adoptadosTab');
-      const publicacionesTab = document.getElementById('publicacionesTab');
-      const adoptadosContent = document.getElementById('adoptadosContent');
-      const publicacionesContent = document.getElementById(
-        'publicacionesContent'
-      );
-
-      adoptadosTab.addEventListener('click', function (e) {
-        e.preventDefault();
-        adoptadosTab.classList.add('active');
-        publicacionesTab.classList.remove('active');
-        adoptadosContent.style.display = 'block';
-        publicacionesContent.style.display = 'none';
-      });
-
-      publicacionesTab.addEventListener('click', function (e) {
-        e.preventDefault();
-        publicacionesTab.classList.add('active');
-        adoptadosTab.classList.remove('active');
-        publicacionesContent.style.display = 'block';
-        adoptadosContent.style.display = 'none';
-      });
-    </script>
+    <!-- Profile Script - Handles loading and updating user data from backend -->
+    <script src="/JavaScript/perfil.js"></script>
   </body>
 </html>
