@@ -1,55 +1,31 @@
-//Iniciar sesion
+// Iniciar sesión
 document.addEventListener('DOMContentLoaded', function () {
+
     const loginForm = document.getElementById('loginForm');
-    const emailInput = document.getElementById('email');
+    const identifierInput = document.getElementById('identifier');
     const passwordInput = document.getElementById('password');
-    
-    const emailError = document.getElementById('emailError');
+
+    const identifierError = document.getElementById('identifierError');
     const passwordError = document.getElementById('passwordError');
 
-// --- OJO ---
-const togglePassword = document.getElementById('togglePassword');
+    // --- Mostrar / ocultar contraseña ---
+    const togglePassword = document.getElementById('togglePassword');
 
-if (togglePassword) {
-    const passwordIcon = document.getElementById('passwordIcon');
+    if (togglePassword) {
+        const passwordIcon = document.getElementById('passwordIcon');
 
-    togglePassword.addEventListener('click', function () {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
 
-        if (passwordIcon) {
-            passwordIcon.classList.toggle('bi-eye-slash-fill');
-            passwordIcon.classList.toggle('bi-eye-fill');
-        }
-    });
-}
-// ---OJO ---
+            if (passwordIcon) {
+                passwordIcon.classList.toggle('bi-eye-slash-fill');
+                passwordIcon.classList.toggle('bi-eye-fill');
+            }
+        });
+    }
 
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault(); 
-        
-        limpiarErrores();
-
-        const email = emailInput.value;
-        const password = passwordInput.value;
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const userFound = users.find(user => user.email === email);
-
-        if (!userFound) {
-
-            mostrarError(emailInput, emailError, 'El correo electrónico no está registrado.');
-        
-        } else if (userFound.password === password) {
-            
-            sessionStorage.setItem('currentUser', JSON.stringify(userFound));
-            window.location.href = '/componentes/feed.html'; 
-        
-        } else {
-          
-            mostrarError(passwordInput, passwordError, 'Contraseña incorrecta.');
-        }
-    });
-
+    // --- Validación frontend ---
     function mostrarError(input, errorDiv, mensaje) {
         input.classList.add('is-invalid');
         errorDiv.textContent = mensaje;
@@ -57,14 +33,66 @@ if (togglePassword) {
     }
 
     function limpiarErrores() {
-        
-        emailInput.classList.remove('is-invalid');
-        
-        emailError.textContent = '';
-        emailError.classList.remove('d-block');
-        
+        identifierInput.classList.remove('is-invalid');
+        identifierError.textContent = '';
+        identifierError.classList.remove('d-block');
+
         passwordInput.classList.remove('is-invalid');
         passwordError.textContent = '';
         passwordError.classList.remove('d-block');
     }
+
+    // --- CONECTAR AL BACKEND ---
+    const API_BASE = 'http://localhost:8080';
+    const TOKEN_KEY = 'access_token';
+
+    // --- Evento submit (único y correcto) ---
+    loginForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        limpiarErrores();
+
+        const identifier = identifierInput.value.trim();
+        const password = passwordInput.value;
+
+        // Validación básica
+        if (!identifier) {
+            mostrarError(identifierInput, identifierError, 'Ingresa tu usuario o correo.');
+            return;
+        }
+
+        if (!password) {
+            mostrarError(passwordInput, passwordError, 'Ingresa tu contraseña.');
+            return;
+        }
+
+        try {
+            const resp = await fetch(`${API_BASE}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: identifier,
+                    email: identifier,
+                    password: password
+                })
+            });
+
+            const data = await resp.json();
+
+            if (!resp.ok) {
+                mostrarError(passwordInput, passwordError, data || 'Usuario o contraseña incorrectos');
+                return;
+            }
+
+            // Guardar token
+            localStorage.setItem(TOKEN_KEY, data.token);
+            localStorage.setItem('username', identifier);
+
+            // Redirigir al feed
+            window.location.href = '/componentes/feed.html';
+
+        } catch (err) {
+            console.error(err);
+            alert('Error al conectar con el servidor');
+        }
+    });
 });

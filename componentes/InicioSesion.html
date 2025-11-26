@@ -67,16 +67,16 @@
           <!-- Formulario -->
           <form id="loginForm">
             <div class="mb-3">
-              <label for="email" class="form-label petme-label">Correo electrónico</label>
+              <label for="identifier" class="form-label petme-label">Correo o usuario</label>
               <input
-                type="email"
+                type="text"
                 class="form-control petme-input"
-                id="email"
-                name="email"
-                placeholder="tucorreo@ejemplo.com"
+                id="identifier"
+                name="identifier"
+                placeholder="tucorreo@ejemplo.com o tuUsuario"
                 required
               />
-              <div class="invalid-feedback" id="emailError"></div>
+            <div class="invalid-feedback" id="identifierError"></div>
             </div>
 
             <div class="mb-4">
