@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:8080/api/v1';
 // Variables globales
 let imagenesSeleccionadas = [];
 let publicaciones = [];
-let filtrosAvanzados = { especie: null, tamano: null, edad: null };
 
 // Credenciales
 const getHeaders = () => {
@@ -66,12 +65,12 @@ function inicializarBusqueda() {
       const contenedor = document.querySelector('.pet-cards-wrapper');
       if (contenedor) {
         contenedor.innerHTML = `
-                    <div class="text-center mt-5">
-                        <i class="bi bi-search" style="font-size: 3rem; color: var(--primary-color);"></i>
-                        <p class="mt-3 text-muted">No se encontraron publicaciones que coincidan con "${searchTerm}"</p>
-                        <button class="btn btn-primary" onclick="limpiarBusqueda()">Ver todas las publicaciones</button>
-                    </div>
-                `;
+						<div class="text-center mt-5">
+							<i class="bi bi-search" style="font-size: 3rem; color: var(--primary-color);"></i>
+							<p class="mt-3 text-muted">No se encontraron publicaciones que coincidan con "${searchTerm}"</p>
+							<button class="btn btn-primary" onclick="limpiarBusqueda()">Ver todas las publicaciones</button>
+						</div>
+					`;
       }
     }
   }
@@ -120,53 +119,6 @@ function limpiarBusqueda() {
 window.limpiarBusqueda = limpiarBusqueda;
 
 // =======================
-// 1.1 FILTROS AVANZADOS (BACKEND)
-// =======================
-async function aplicarFiltrosAvanzados() {
-    console.log("Aplicando filtros avanzados:", filtrosAvanzados);
-
-    // Construir los Query Parameters
-    const params = new URLSearchParams();
-    if (filtrosAvanzados.especie) params.append('especie', filtrosAvanzados.especie);
-    if (filtrosAvanzados.tamano) params.append('tamano', filtrosAvanzados.tamano);
-    // Asumimos que la edad en el backend es un número entero
-    if (filtrosAvanzados.edad && filtrosAvanzados.edad > 0) params.append('edad', filtrosAvanzados.edad);
-
-    // Si no hay filtros activos, recargar todo
-    if (params.toString() === '') {
-        cargarPublicaciones();
-        return;
-    }
-    
-    // Muestra un loader o spinner mientras llega la respuesta
-    const contenedor = document.querySelector('.pet-cards-wrapper');
-    if (contenedor) contenedor.innerHTML =
-      '<div class="text-center mt-5"><div class="spinner-border text-primary" role="status"></div><p>Filtrando resultados...</p></div>';
-    try {
-        // Llama al endpoint de Spring Boot
-        const response = await fetch(`${API_URL}/mascotas/buscar?${params.toString()}`, {
-            method: 'GET',
-            headers: getHeaders(),
-        });
-
-        if (!response.ok) throw new Error('Error al buscar en el servidor');
-
-        const data = await response.json();
-        
-        // Actualizamos la lista global solo con los resultados del filtro
-        // Esto permite que la búsqueda de texto siga funcionando sobre el resultado filtrado.
-        publicaciones = data.sort((a, b) => b.id - a.id); 
-
-        renderizarPublicaciones(publicaciones);
-
-    } catch (error) {
-        console.error("Error aplicando filtros:", error);
-        if (contenedor) contenedor.innerHTML =
-            `<p class="text-center text-danger mt-5">Error al filtrar: ${error.message}</p>`;
-    }
-}
-
-// =======================
 // 2. CARGAR PUBLICACIONES (GET)
 // =======================
 function cargarPublicaciones() {
@@ -184,6 +136,7 @@ function cargarPublicaciones() {
       return response.json();
     })
     .then((data) => {
+      // Ordenar: las más nuevas primero (por ID, ya que es autoincremental)
       publicaciones = data.sort((a, b) => b.id - a.id);
       renderizarPublicaciones(publicaciones);
     })
@@ -199,78 +152,67 @@ function cargarPublicaciones() {
 // 3. CREAR PUBLICACIÓN (POST)
 // =======================
 async function handleNewPost(event) {
-  event.preventDefault();
-  const userId = localStorage.getItem('userId');
+  event.preventDefault();
+  const userId = localStorage.getItem('userId');
 
-  if (!userId) {
-    alert('Debes iniciar sesión para publicar.');
-    window.location.href = '/componentes/InicioSesion.html';
-    return;
-  }
+  if (!userId) {
+    alert('Debes iniciar sesión para publicar.');
+    window.location.href = '/componentes/InicioSesion.html';
+    return;
+  }
 
-  const form = document.getElementById('newPostForm');
-  const alerta = document.getElementById('alerta-post');
+  const form = document.getElementById('newPostForm');
+  const alerta = document.getElementById('alerta-post');
 
-  if (imagenesSeleccionadas.length === 0) {
-    alerta.innerHTML = `<div class="alert alert-warning">Por favor sube al menos una foto 📸</div>`;
-    return;
-  }
+  if (imagenesSeleccionadas.length === 0) {
+    alerta.innerHTML = `<div class="alert alert-warning">Por favor sube al menos una foto 📸</div>`;
+    return;
+  }
 
-  // 🌟 CORRECCIÓN CRÍTICA (Manejo de edad para evitar NaN)
-  const edadInput = form['post-edad'].value;
-  const edadValue = edadInput ? parseInt(edadInput) : null;
-  // --------------------------------------------------------
+  const nuevaPublicacion = {
+    titulo: `En adopción: ${form['post-nombre'].value}`,
+    tipo: 'adopcion',
+    likes: 0,
+    usuario: { id: userId },
+    mascota: {
+      nombre_mascotas: form['post-nombre'].value,
+      especie: form['post-especie'].value,
+      sexo: form['post-sexo'].value,
+      edad: parseInt(form['post-edad'].value),
+      tamaño: form['post-tamaño'].value,
+      descripcion: `${form['post-descripcion'].value} (Ubicación: ${form['post-ubicacion'].value})`,
+      foto_principal: imagenesSeleccionadas[0].base64,
+      estado_adopcion: 'DISPONIBLE',
+    },
+  };
 
-  const nuevaPublicacion = {
-    titulo: `En adopción: ${form['post-nombre'].value}`,
-    tipo: 'adopcion',
-    likes: 0,
-    usuario: { id: userId },
-    mascota: {
-      nombre_mascotas: form['post-nombre'].value,
-      especie: form['post-especie'].value,
-      sexo: form['post-sexo'].value,
-      edad: edadValue,
-      tamaño: form['post-tamaño'].value,
-      descripcion: `${form['post-descripcion'].value} (Ubicación: ${form['post-ubicacion'].value})`,
-      foto_principal: imagenesSeleccionadas[0].base64,
-      estado_adopcion: 'DISPONIBLE',
-    },
-  };
+  try {
+    const response = await fetch(`${API_URL}/publicaciones/new-publicacion`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(nuevaPublicacion),
+    });
 
-  try {
-    const response = await fetch(`${API_URL}/publicaciones/new-publicacion`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify(nuevaPublicacion),
-    });
+    if (response.ok) {
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById('newPostModal')
+      );
+      modal.hide();
+      form.reset();
+      imagenesSeleccionadas = [];
+      actualizarPreview();
+      alerta.innerHTML = '';
 
-    if (response.ok) {
-      // ----------------------------------------------------
-      // LÓGICA DE ÉXITO (FALTA EN TU SNIPPET)
-      // ----------------------------------------------------
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById('newPostModal')
-      );
-      modal.hide();
-      form.reset();
-      imagenesSeleccionadas = [];
-      actualizarPreview();
-      alerta.innerHTML = '';
-
-      cargarPublicaciones();
-      alert('¡Publicación creada con éxito! 🐾');
-    } else {
-      const errorText = await response.text();
-      alerta.innerHTML = `<div class="alert alert-danger">Error al crear: ${errorText}</div>`;
-    }
-  } catch (error) {
-    // ----------------------------------------------------
-    // BLOQUE CATCH (FALTA EN TU SNIPPET)
-    // ----------------------------------------------------
-    console.error(error);
-    alerta.innerHTML = `<div class="alert alert-danger">Error de conexión.</div>`;
-  }
+      cargarPublicaciones();
+      alert('¡Publicación creada con éxito! 🐾');
+    } else {
+      const errorText = await response.text();
+      alerta.innerHTML = `<div class="alert alert-danger">Error al crear: ${errorText}</div>`;
+    }
+  } catch (error) {
+    console.error(error);
+    alerta.innerHTML = `<div class="alert alert-danger">Error de conexión.</div>`;
+  }
 }
 
 // =======================
@@ -287,108 +229,179 @@ function renderizarPublicaciones(lista) {
   }
 
   contenedor.innerHTML = lista
-    .map((item) => {
-      const esPublicacionCompleta = item.mascota && item.usuario; 
-      
-      const mascota = esPublicacionCompleta ? item.mascota : item; 
-      const usuario = esPublicacionCompleta ? item.usuario : (item.user || { username: 'Anónimo' }); 
-      
-      // Usamos el ID de publicación o el ID de mascota como fallback
-      const pubId = esPublicacionCompleta ? item.id : mascota.id_mascotas; 
-      const likes = esPublicacionCompleta ? item.likes : 0; // 0 likes si es resultado de filtro
-      
-      const foto = mascota.foto_principal || '/Img/placeholder.png';
-      const emoji = mascota.especie === 'Gato' ? '🐱' : '🐶';
+    .map((pub) => {
+      const mascota = pub.mascota || {};
+      const usuario = pub.usuario || { username: 'Anónimo' };
+      const foto = mascota.foto_principal || '/Img/placeholder.png';
+      const emoji = mascota.especie === 'Gato' ? '🐱' : '🐶';
 
-      // --- CAMBIO 1: DECIDIR QUÉ FOTO USAR ---
-      // Si el usuario tiene 'photoProfile', úsala. Si no, usa la de letras (UI Avatars).
+      // Decide qué foto de perfil usar
       const fotoUsuario =
         usuario.photoProfile ||
         `https://ui-avatars.com/api/?name=${usuario.username}&background=random`;
 
       return `
-        <div class="pet-card fade-in mb-4">
-            <div class="pet-card-header">
-                <div class="profile-pic" style="background-image: url('${fotoUsuario}');"></div>
-                
-                <div>
-                    <p class="profile-name">${usuario.username}</p>
-                    <p class="profile-location">${
-                      mascota.estado_adopcion === 'ADOPTADO'
-                        ? '🟢 ADOPTADO'
-                        : '📍 Disponible'
-                    }</p>
-                </div>
-            </div>
+				<div class="pet-card fade-in mb-4">
+					<div class="pet-card-header">
+						<div class="profile-pic" style="background-image: url('${fotoUsuario}');"></div>
+						
+						<div>
+							<p class="profile-name">${usuario.username}</p>
+							<p class="profile-location">${
+                mascota.estado_adopcion === 'ADOPTADO'
+                  ? '🟢 ADOPTADO'
+                  : '📍 Disponible'
+              }</p>
+						</div>
+					</div>
 
-            <div class="pet-image" style="background-image: url('${foto}'); height: 350px; background-size: cover; background-position: center;"></div>
+					<div class="pet-image" style="background-image: url('${foto}'); height: 350px; background-size: cover; background-position: center;"></div>
 
-            <div class="pet-card-body">
-                <div class="pet-info-header">
-                    <div>
-                        <p class="pet-name">${emoji} ${
-        mascota.nombre_mascotas || 'Sin nombre'
-      }</p>
-                        <p class="pet-details">${mascota.edad || '?'} años, ${
-        mascota.tamaño || ''
-      }, ${mascota.sexo || ''}</p>
-                    </div>
-                    ${
-                      mascota.estado_adopcion !== 'ADOPTADO'
-                        ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
-                        : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
-                    }
-                </div>
-                <p class="pet-description">${mascota.descripcion || ''}</p>
-            </div>
+					<div class="pet-card-body">
+						<div class="pet-info-header">
+							<div>
+								<p class="pet-name">${emoji} ${
+                mascota.nombre_mascotas || 'Sin nombre'
+              }</p>
+								<p class="pet-details">${mascota.edad || '?'} años, ${
+                mascota.tamaño || ''
+              }, ${mascota.sexo || ''}</p>
+							</div>
+							${
+                mascota.estado_adopcion !== 'ADOPTADO'
+                  ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
+                  : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
+              }
+						</div>
+						<p class="pet-description">${mascota.descripcion || ''}</p>
+					</div>
 
-            <div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
-                <div class="d-flex gap-3">
-                    <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${
-                      pubId
-                    })">
-                        <span class="material-symbols-outlined text-danger">favorite</span>
-                        <span class="action-count">${likes}</span>
-                    </button>
-                    
-                    <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${
-                      pubId
-                    })">
-                        <span class="material-symbols-outlined text-primary">chat_bubble</span>
-                        <span class="action-count">0</span>
-                    </button>
-                </div>
+					<div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
+						<div class="d-flex gap-3">
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${
+                pub.id
+              })">
+								<span class="material-symbols-outlined text-danger">favorite</span>
+								<span class="action-count">${pub.likes || 0}</span>
+							</button>
+							
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${
+                pub.id
+              })">
+								<span class="material-symbols-outlined text-primary">chat_bubble</span>
+								<span class="action-count">0</span>
+							</button>
+						</div>
 
-                <button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${
-                  mascota.nombre_mascotas
-                }')">
-                    <span class="material-symbols-outlined text-dark">share</span>
-                </button>
-            </div>
+						<button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${
+              mascota.nombre_mascotas
+            }')">
+								<span class="material-symbols-outlined text-dark">share</span>
+						</button>
+					</div>
 
-            <div id="comentarios-${
-              pubId
-            }" class="comment-section d-none px-3 pb-3">
-                <div class="input-group">
-                    <input type="text" id="input-comentario-${
-                      pubId
-                    }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
-                    <button class="btn btn-sm btn-primary" onclick="enviarComentario(${
-                      pubId
-                    })">Enviar</button>
-                </div>
-                <div class="mt-2 small text-muted" id="lista-comentarios-${
-                  pubId
-                }"></div>
-            </div>
-        </div>
-        `;
+					<div id="comentarios-${
+            pub.id
+          }" class="comment-section d-none px-3 pb-3">
+						<div class="input-group">
+							<input type="text" id="input-comentario-${
+                pub.id
+              }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
+							<button class="btn btn-sm btn-primary" onclick="enviarComentario(${
+                pub.id
+              })">Enviar</button>
+						</div>
+						<div class="mt-2 small text-muted" id="lista-comentarios-${
+            pub.id
+          }"></div>
+					</div>
+				</div>
+			`;
     })
     .join('');
 }
 
 // =======================
-// 4. FUNCIONES GLOBALES (ACCIONES)
+// 5. SOLICITUD DE ADOPCIÓN (WHATSAPP)
+// =======================
+
+/**
+ * Busca una publicación por el ID de la mascota y devuelve el teléfono del dueño.
+ * @param {number} petId - El ID de la mascota.
+ * @returns {string|null} El número de teléfono del usuario o null si no se encuentra.
+ */
+function getTelefonoUsuarioPorMascotaId(petId) {
+    const pub = publicaciones.find(p => p.mascota && p.mascota.id_mascotas === petId);
+    
+    // 💡 SOLUCIÓN: Cambiar 'telefono' por 'telephone' para que coincida con la API/DB.
+    return pub && pub.usuario ? pub.usuario.telephone : null; 
+}
+
+/**
+ * Maneja el envío del formulario de adopción, validando y enviando por WhatsApp.
+ * @param {Event} event - El evento de envío del formulario.
+ */
+function handleAdoptionFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const petId = parseInt(form.dataset.petId); // Obtiene el ID de la mascota del dataset del form
+    
+    // Simple validación de campos requeridos (el HTML debe usar 'required')
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        alert('Por favor, completa todos los campos requeridos y acepta los términos.');
+        return;
+    }
+
+    // Obtener los datos del formulario
+    const nombreCompleto = form.querySelector('#nombreCompleto').value;
+    const telefonoSolicitante = form.querySelector('#telefono').value;
+    const correoElectronico = form.querySelector('#correoElectronico').value;
+    const edad = form.querySelector('#edad').value;
+    const tipoVivienda = form.querySelector('#tipoVivienda').value;
+    const otrasMascotas = form.querySelector('#otrasMascotas').value;
+    const adoptadoAntes = form.querySelector('#adoptadoAntes').value;
+    const recursosCuidado = form.querySelector('#recursosCuidado').value;
+    const nombreMascota = document.getElementById('nombreMascotaModal').textContent.trim();
+    
+    // 1. Buscar el teléfono del dueño
+    const telefonoDueno = getTelefonoUsuarioPorMascotaId(petId);
+
+    if (!telefonoDueno) {
+        alert('❌ Error: No se pudo encontrar el número de contacto del dueño de la mascota.');
+        return;
+    }
+
+    // 2. Construir el mensaje de WhatsApp (URL-encoded)
+    const mensaje = `Hola, mi nombre es *${nombreCompleto}*. Estoy muy interesado/a en adoptar a *${nombreMascota}* (ID: ${petId}).
+
+Mis datos y situación son:
+* **Teléfono:** ${telefonoSolicitante}
+* **Correo:** ${correoElectronico}
+* **Edad:** ${edad} años
+* **Vivienda:** ${tipoVivienda}
+* **Otras Mascotas:** ${otrasMascotas}
+* **Experiencia (Adopción Previa):** ${adoptadoAntes}
+* **Recursos para Cuidado:** ${recursosCuidado}
+
+¡Espero tu respuesta para coordinar! 🐾`;
+
+    const mensajeURL = encodeURIComponent(mensaje);
+    
+    // 3. Abrir WhatsApp (usando el formato de URL wa.me)
+    // Asegúrate de que el 'telefonoDueno' incluya el código de país (ej. 5218112345678)
+    const urlWhatsapp = `https://wa.me/${telefonoDueno}?text=${mensajeURL}`;
+
+    window.open(urlWhatsapp, '_blank');
+    
+    // Cerrar el modal y notificar al usuario
+    const modal = bootstrap.Modal.getInstance(document.getElementById('adoptModal'));
+    if (modal) modal.hide();
+    alert(`✅ Solicitud de adopción enviada por WhatsApp al dueño de ${nombreMascota}. ¡Revisa el chat!`);
+}
+
+// =======================
+// 6. FUNCIONES GLOBALES (ACCIONES)
 // =======================
 
 // --- LIKE ---
@@ -464,7 +477,10 @@ window.iniciarAdopcion = (id, nombre) => {
   const form = document.getElementById('adoptionForm');
 
   if (spanNombre) spanNombre.textContent = nombre;
-  if (form) form.dataset.petId = id;
+  if (form) {
+    form.dataset.petId = id;
+    form.classList.remove('was-validated'); // Limpiar validación previa
+  }
 
   const modal = new bootstrap.Modal(modalElem);
   modal.show();
@@ -486,13 +502,13 @@ function actualizarPreview() {
   container.innerHTML = imagenesSeleccionadas
     .map(
       (img, i) => `
-        <div class="position-relative d-inline-block m-1">
-            <img src="${img.base64}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
-            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0" 
-                    style="width: 20px; height: 20px; line-height: 1;"
-                    onclick="eliminarImagen(${i})">×</button>
-        </div>
-    `
+			<div class="position-relative d-inline-block m-1">
+				<img src="${img.base64}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+				<button class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0" 
+						style="width: 20px; height: 20px; line-height: 1;"
+						onclick="eliminarImagen(${i})">×</button>
+			</div>
+		`
     )
     .join('');
   container.classList.remove('d-none');
@@ -505,92 +521,27 @@ window.eliminarImagen = (index) => {
 
 // --- EVENTOS INICIALES ---
 function inicializarEventos() {
-    // --- LÓGICA DE CREACIÓN DE PUBLICACIÓN (Mueve aquí el código de la sección eliminada) ---
-    const newPostForm = document.getElementById('newPostForm');
-    if (newPostForm) newPostForm.addEventListener('submit', handleNewPost);
+  const newPostForm = document.getElementById('newPostForm');
+  if (newPostForm) newPostForm.addEventListener('submit', handleNewPost);
 
-    const fileInput = document.getElementById('post-imagen');
-    if (fileInput) {
-        fileInput.addEventListener('change', async (e) => {
-            const files = Array.from(e.target.files);
-            for (const file of files) {
-                if (imagenesSeleccionadas.length >= 1) {
-                    alert('Por ahora solo se permite 1 foto por publicación.');
-                    break;
-                }
-                const base64 = await convertirFileABase64(file);
-                imagenesSeleccionadas.push({ file, base64 });
-            }
-            actualizarPreview();
-            fileInput.value = '';
-        });
-    }
-    
-    // --- LÓGICA DE FILTROS DE ESPECIE Y TAMAÑO ---
-    function manejarClickFiltro(event) {
-        event.preventDefault();
-        const link = event.currentTarget;
-        
-        // Captura los valores del HTML corregido
-        const tipo = link.dataset.tipo; 
-        const valor = link.dataset.valor; 
+  // 💡 CONEXIÓN DEL FORMULARIO DE ADOPCIÓN
+  const adoptionForm = document.getElementById('adoptionForm');
+  if (adoptionForm) adoptionForm.addEventListener('submit', handleAdoptionFormSubmit);
 
-        // Si por alguna razón el HTML está mal, salimos
-        if (!tipo || !valor) {
-            console.error("Error: El enlace de filtro no tiene atributos data-tipo o data-valor.");
-            return;
+  const fileInput = document.getElementById('post-imagen');
+  if (fileInput) {
+    fileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      for (const file of files) {
+        if (imagenesSeleccionadas.length >= 1) {
+          alert('Por ahora solo se permite 1 foto por publicación.');
+          break;
         }
-
-        // 1. LÓGICA DE ACTIVACIÓN/DESACTIVACIÓN
-        if (link.classList.contains('active')) {
-            // Desactivar: Quitar filtro
-            link.classList.remove('active');
-            filtrosAvanzados[tipo] = null; // Reinicia el filtro
-        } else {
-            // Activar: Quitar 'active' de cualquier otro link del mismo tipo
-            document.querySelectorAll(`.filter-link[data-tipo="${tipo}"]`).forEach(l => {
-                l.classList.remove('active');
-            });
-            // Activar el link actual y establecer el valor
-            link.classList.add('active');
-            filtrosAvanzados[tipo] = valor; // Establece el valor
-        }
-        
-        console.log("Aplicando filtros avanzados:", filtrosAvanzados);
-
-        // 3. Llamar a la función central de búsqueda del backend
-        aplicarFiltrosAvanzados();
-    }
-
-    // Listener para Especie y Tamaño
-    document.querySelectorAll('.filter-link').forEach(link => {
-        link.addEventListener('click', manejarClickFiltro);
-    });
-const ageSlider = document.getElementById('ageSlider');
-const ageValueEl = document.getElementById('ageValue');
-
-if (ageSlider && ageValueEl) {
-    
-    ageSlider.addEventListener('input', () => {
-        // Usamos parseFloat para leer el valor real (ej: 0.5, 1.5)
-        const valorFlotante = parseFloat(ageSlider.value); 
-        
-        // Usamos Math.round() para obtener un número entero para el Backend
-        const valorEnteroParaFiltro = Math.round(valorFlotante); 
-
-        // Actualización del texto visible (Propiedad perdida)
-        ageValueEl.textContent = valorFlotante > 0 
-            ? `Máx. ${valorFlotante} años` 
-            : 'Cualquier edad';
-        
-        // Actualiza el filtro global
-        filtrosAvanzados.edad = (valorEnteroParaFiltro > 0) ? valorEnteroParaFiltro : null;
-        
-        // Llama a la función de filtro
-        aplicarFiltrosAvanzados();
-    });
-    
-    // Inicialización del texto al cargar la página
-    ageValueEl.textContent = 'Cualquier edad'; 
-}
+        const base64 = await convertirFileABase64(file);
+        imagenesSeleccionadas.push({ file, base64 });
+      }
+      actualizarPreview();
+      fileInput.value = '';
+    });
+  }
 }
