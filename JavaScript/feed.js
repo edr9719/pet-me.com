@@ -247,10 +247,11 @@ function renderizarPublicaciones(lista) {
 						
 						<div>
 							<p class="profile-name">${usuario.username}</p>
-							<p class="profile-location">${mascota.estado_adopcion === 'ADOPTADO'
-          ? '🟢 ADOPTADO'
-          : '📍 Disponible'
-        }</p>
+							<p class="profile-location">${
+                mascota.estado_adopcion === 'ADOPTADO'
+                  ? '🟢 ADOPTADO'
+                  : '📍 Disponible'
+              }</p>
 						</div>
 					</div>
 
@@ -259,50 +260,60 @@ function renderizarPublicaciones(lista) {
 					<div class="pet-card-body">
 						<div class="pet-info-header">
 							<div>
-								<p class="pet-name">${emoji} ${mascota.nombre_mascotas || 'Sin nombre'
-        }</p>
-								<p class="pet-details">${mascota.edad || '?'} años, ${mascota.tamaño || ''
-        }, ${mascota.sexo || ''}</p>
+								<p class="pet-name">${emoji} ${
+                mascota.nombre_mascotas || 'Sin nombre'
+              }</p>
+								<p class="pet-details">${mascota.edad || '?'} años, ${
+                mascota.tamaño || ''
+              }, ${mascota.sexo || ''}</p>
 							</div>
-							${mascota.estado_adopcion !== 'ADOPTADO'
-          ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
-          : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
-        }
+							${
+                mascota.estado_adopcion !== 'ADOPTADO'
+                  ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
+                  : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
+              }
 						</div>
 						<p class="pet-description">${mascota.descripcion || ''}</p>
 					</div>
 
 					<div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
 						<div class="d-flex gap-3">
-							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${pub.id
-        })">
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${
+                pub.id
+              })">
 								<span class="material-symbols-outlined text-danger">favorite</span>
 								<span class="action-count">${pub.likes || 0}</span>
 							</button>
 							
-							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${pub.id
-        })">
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${
+                pub.id
+              })">
 								<span class="material-symbols-outlined text-primary">chat_bubble</span>
 								<span class="action-count">0</span>
 							</button>
 						</div>
 
-						<button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${mascota.nombre_mascotas
-        }')">
+						<button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${
+              mascota.nombre_mascotas
+            }')">
 								<span class="material-symbols-outlined text-dark">share</span>
 						</button>
 					</div>
 
-					<div id="comentarios-${pub.id
-        }" class="comment-section d-none px-3 pb-3">
+					<div id="comentarios-${
+            pub.id
+          }" class="comment-section d-none px-3 pb-3">
 						<div class="input-group">
-							<input type="text" id="input-comentario-${pub.id
-        }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
-							<button class="btn btn-sm btn-primary" onclick="enviarComentario(${pub.id
-        })">Enviar</button>
+							<input type="text" id="input-comentario-${
+                pub.id
+              }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
+							<button class="btn btn-sm btn-primary" onclick="enviarComentario(${
+                pub.id
+              })">Enviar</button>
 						</div>
-						<div class="mt-2 small text-muted" id="lista-comentarios-${pub.id
-        }"></div>
+						<div class="mt-2 small text-muted" id="lista-comentarios-${
+            pub.id
+          }"></div>
 					</div>
 				</div>
 			`;
@@ -331,38 +342,38 @@ function getTelefonoUsuarioPorMascotaId(petId) {
  * @param {Event} event - El evento de envío del formulario.
  */
 function handleAdoptionFormSubmit(event) {
-  event.preventDefault();
-  const form = event.target;
-  const petId = parseInt(form.dataset.petId); // Obtiene el ID de la mascota del dataset del form
+    event.preventDefault();
+    const form = event.target;
+    const petId = parseInt(form.dataset.petId); // Obtiene el ID de la mascota del dataset del form
+    
+    // Simple validación de campos requeridos (el HTML debe usar 'required')
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        alert('Por favor, completa todos los campos requeridos y acepta los términos.');
+        return;
+    }
 
-  // Simple validación de campos requeridos (el HTML debe usar 'required')
-  if (!form.checkValidity()) {
-    form.classList.add('was-validated');
-    alert('Por favor, completa todos los campos requeridos y acepta los términos.');
-    return;
-  }
+    // Obtener los datos del formulario
+    const nombreCompleto = form.querySelector('#nombreCompleto').value;
+    const telefonoSolicitante = form.querySelector('#telefono').value;
+    const correoElectronico = form.querySelector('#correoElectronico').value;
+    const edad = form.querySelector('#edad').value;
+    const tipoVivienda = form.querySelector('#tipoVivienda').value;
+    const otrasMascotas = form.querySelector('#otrasMascotas').value;
+    const adoptadoAntes = form.querySelector('#adoptadoAntes').value;
+    const recursosCuidado = form.querySelector('#recursosCuidado').value;
+    const nombreMascota = document.getElementById('nombreMascotaModal').textContent.trim();
+    
+    // 1. Buscar el teléfono del dueño
+    const telefonoDueno = getTelefonoUsuarioPorMascotaId(petId);
 
-  // Obtener los datos del formulario
-  const nombreCompleto = form.querySelector('#nombreCompleto').value;
-  const telefonoSolicitante = form.querySelector('#telefono').value;
-  const correoElectronico = form.querySelector('#correoElectronico').value;
-  const edad = form.querySelector('#edad').value;
-  const tipoVivienda = form.querySelector('#tipoVivienda').value;
-  const otrasMascotas = form.querySelector('#otrasMascotas').value;
-  const adoptadoAntes = form.querySelector('#adoptadoAntes').value;
-  const recursosCuidado = form.querySelector('#recursosCuidado').value;
-  const nombreMascota = document.getElementById('nombreMascotaModal').textContent.trim();
+    if (!telefonoDueno) {
+        alert('❌ Error: No se pudo encontrar el número de contacto del dueño de la mascota.');
+        return;
+    }
 
-  // 1. Buscar el teléfono del dueño
-  const telefonoDueno = getTelefonoUsuarioPorMascotaId(petId);
-
-  if (!telefonoDueno) {
-    alert('❌ Error: No se pudo encontrar el número de contacto del dueño de la mascota.');
-    return;
-  }
-
-  // 2. Construir el mensaje de WhatsApp (URL-encoded)
-  const mensaje = `Hola, mi nombre es *${nombreCompleto}*. Estoy muy interesado/a en adoptar a *${nombreMascota}* (ID: ${petId}).
+    // 2. Construir el mensaje de WhatsApp (URL-encoded)
+    const mensaje = `Hola, mi nombre es *${nombreCompleto}*. Estoy muy interesado/a en adoptar a *${nombreMascota}* (ID: ${petId}).
 
 Mis datos y situación son:
 * **Teléfono:** ${telefonoSolicitante}
@@ -375,18 +386,18 @@ Mis datos y situación son:
 
 ¡Espero tu respuesta para coordinar! 🐾`;
 
-  const mensajeURL = encodeURIComponent(mensaje);
+    const mensajeURL = encodeURIComponent(mensaje);
+    
+    // 3. Abrir WhatsApp (usando el formato de URL wa.me)
+    // Asegúrate de que el 'telefonoDueno' incluya el código de país (ej. 5218112345678)
+    const urlWhatsapp = `https://wa.me/${telefonoDueno}?text=${mensajeURL}`;
 
-  // 3. Abrir WhatsApp (usando el formato de URL wa.me)
-  // Asegúrate de que el 'telefonoDueno' incluya el código de país (ej. 5218112345678)
-  const urlWhatsapp = `https://wa.me/${telefonoDueno}?text=${mensajeURL}`;
-
-  window.open(urlWhatsapp, '_blank');
-
-  // Cerrar el modal y notificar al usuario
-  const modal = bootstrap.Modal.getInstance(document.getElementById('adoptModal'));
-  if (modal) modal.hide();
-  alert(`✅ Solicitud de adopción enviada por WhatsApp al dueño de ${nombreMascota}. ¡Revisa el chat!`);
+    window.open(urlWhatsapp, '_blank');
+    
+    // Cerrar el modal y notificar al usuario
+    const modal = bootstrap.Modal.getInstance(document.getElementById('adoptModal'));
+    if (modal) modal.hide();
+    alert(`✅ Solicitud de adopción enviada por WhatsApp al dueño de ${nombreMascota}. ¡Revisa el chat!`);
 }
 
 // =======================
