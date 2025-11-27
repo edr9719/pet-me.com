@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Guardar token
             localStorage.setItem(TOKEN_KEY, data.token);
             localStorage.setItem('username', identifier);
+            localStorage.setItem('userId', data.userId);
 
             // Redirigir al feed
             window.location.href = '/componentes/feed.html';
