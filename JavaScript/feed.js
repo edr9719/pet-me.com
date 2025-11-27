@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:8080/api/v1';
 // Variables globales
 let imagenesSeleccionadas = [];
 let publicaciones = [];
+let filtrosAvanzados = { especie: null, tamano: null, edad: null };
 
 // Credenciales
 const getHeaders = () => {
@@ -119,6 +120,53 @@ function limpiarBusqueda() {
 window.limpiarBusqueda = limpiarBusqueda;
 
 // =======================
+// 1.1 FILTROS AVANZADOS (BACKEND)
+// =======================
+async function aplicarFiltrosAvanzados() {
+    console.log("Aplicando filtros avanzados:", filtrosAvanzados);
+
+    // Construir los Query Parameters
+    const params = new URLSearchParams();
+    if (filtrosAvanzados.especie) params.append('especie', filtrosAvanzados.especie);
+    if (filtrosAvanzados.tamano) params.append('tamano', filtrosAvanzados.tamano);
+    // Asumimos que la edad en el backend es un número entero
+    if (filtrosAvanzados.edad && filtrosAvanzados.edad > 0) params.append('edad', filtrosAvanzados.edad);
+
+    // Si no hay filtros activos, recargar todo
+    if (params.toString() === '') {
+        cargarPublicaciones();
+        return;
+    }
+    
+    // Muestra un loader o spinner mientras llega la respuesta
+    const contenedor = document.querySelector('.pet-cards-wrapper');
+    if (contenedor) contenedor.innerHTML =
+      '<div class="text-center mt-5"><div class="spinner-border text-primary" role="status"></div><p>Filtrando resultados...</p></div>';
+    try {
+        // Llama al endpoint de Spring Boot
+        const response = await fetch(`${API_URL}/mascotas/buscar?${params.toString()}`, {
+            method: 'GET',
+            headers: getHeaders(),
+        });
+
+        if (!response.ok) throw new Error('Error al buscar en el servidor');
+
+        const data = await response.json();
+        
+        // Actualizamos la lista global solo con los resultados del filtro
+        // Esto permite que la búsqueda de texto siga funcionando sobre el resultado filtrado.
+        publicaciones = data.sort((a, b) => b.id - a.id); 
+
+        renderizarPublicaciones(publicaciones);
+
+    } catch (error) {
+        console.error("Error aplicando filtros:", error);
+        if (contenedor) contenedor.innerHTML =
+            `<p class="text-center text-danger mt-5">Error al filtrar: ${error.message}</p>`;
+    }
+}
+
+// =======================
 // 2. CARGAR PUBLICACIONES (GET)
 // =======================
 function cargarPublicaciones() {
@@ -136,7 +184,6 @@ function cargarPublicaciones() {
       return response.json();
     })
     .then((data) => {
-      // Ordenar: las más nuevas primero (por ID, ya que es autoincremental)
       publicaciones = data.sort((a, b) => b.id - a.id);
       renderizarPublicaciones(publicaciones);
     })
@@ -152,67 +199,78 @@ function cargarPublicaciones() {
 // 3. CREAR PUBLICACIÓN (POST)
 // =======================
 async function handleNewPost(event) {
-  event.preventDefault();
-  const userId = localStorage.getItem('userId');
+  event.preventDefault();
+  const userId = localStorage.getItem('userId');
 
-  if (!userId) {
-    alert('Debes iniciar sesión para publicar.');
-    window.location.href = '/componentes/InicioSesion.html';
-    return;
-  }
+  if (!userId) {
+    alert('Debes iniciar sesión para publicar.');
+    window.location.href = '/componentes/InicioSesion.html';
+    return;
+  }
 
-  const form = document.getElementById('newPostForm');
-  const alerta = document.getElementById('alerta-post');
+  const form = document.getElementById('newPostForm');
+  const alerta = document.getElementById('alerta-post');
 
-  if (imagenesSeleccionadas.length === 0) {
-    alerta.innerHTML = `<div class="alert alert-warning">Por favor sube al menos una foto 📸</div>`;
-    return;
-  }
+  if (imagenesSeleccionadas.length === 0) {
+    alerta.innerHTML = `<div class="alert alert-warning">Por favor sube al menos una foto 📸</div>`;
+    return;
+  }
 
-  const nuevaPublicacion = {
-    titulo: `En adopción: ${form['post-nombre'].value}`,
-    tipo: 'adopcion',
-    likes: 0,
-    usuario: { id: userId },
-    mascota: {
-      nombre_mascotas: form['post-nombre'].value,
-      especie: form['post-especie'].value,
-      sexo: form['post-sexo'].value,
-      edad: parseInt(form['post-edad'].value),
-      tamaño: form['post-tamaño'].value,
-      descripcion: `${form['post-descripcion'].value} (Ubicación: ${form['post-ubicacion'].value})`,
-      foto_principal: imagenesSeleccionadas[0].base64,
-      estado_adopcion: 'DISPONIBLE',
-    },
-  };
+  // 🌟 CORRECCIÓN CRÍTICA (Manejo de edad para evitar NaN)
+  const edadInput = form['post-edad'].value;
+  const edadValue = edadInput ? parseInt(edadInput) : null;
+  // --------------------------------------------------------
 
-  try {
-    const response = await fetch(`${API_URL}/publicaciones/new-publicacion`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify(nuevaPublicacion),
-    });
+  const nuevaPublicacion = {
+    titulo: `En adopción: ${form['post-nombre'].value}`,
+    tipo: 'adopcion',
+    likes: 0,
+    usuario: { id: userId },
+    mascota: {
+      nombre_mascotas: form['post-nombre'].value,
+      especie: form['post-especie'].value,
+      sexo: form['post-sexo'].value,
+      edad: edadValue,
+      tamaño: form['post-tamaño'].value,
+      descripcion: `${form['post-descripcion'].value} (Ubicación: ${form['post-ubicacion'].value})`,
+      foto_principal: imagenesSeleccionadas[0].base64,
+      estado_adopcion: 'DISPONIBLE',
+    },
+  };
 
-    if (response.ok) {
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById('newPostModal')
-      );
-      modal.hide();
-      form.reset();
-      imagenesSeleccionadas = [];
-      actualizarPreview();
-      alerta.innerHTML = '';
+  try {
+    const response = await fetch(`${API_URL}/publicaciones/new-publicacion`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(nuevaPublicacion),
+    });
 
-      cargarPublicaciones();
-      alert('¡Publicación creada con éxito! 🐾');
-    } else {
-      const errorText = await response.text();
-      alerta.innerHTML = `<div class="alert alert-danger">Error al crear: ${errorText}</div>`;
-    }
-  } catch (error) {
-    console.error(error);
-    alerta.innerHTML = `<div class="alert alert-danger">Error de conexión.</div>`;
-  }
+    if (response.ok) {
+      // ----------------------------------------------------
+      // LÓGICA DE ÉXITO (FALTA EN TU SNIPPET)
+      // ----------------------------------------------------
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById('newPostModal')
+      );
+      modal.hide();
+      form.reset();
+      imagenesSeleccionadas = [];
+      actualizarPreview();
+      alerta.innerHTML = '';
+
+      cargarPublicaciones();
+      alert('¡Publicación creada con éxito! 🐾');
+    } else {
+      const errorText = await response.text();
+      alerta.innerHTML = `<div class="alert alert-danger">Error al crear: ${errorText}</div>`;
+    }
+  } catch (error) {
+    // ----------------------------------------------------
+    // BLOQUE CATCH (FALTA EN TU SNIPPET)
+    // ----------------------------------------------------
+    console.error(error);
+    alerta.innerHTML = `<div class="alert alert-danger">Error de conexión.</div>`;
+  }
 }
 
 // =======================
@@ -229,11 +287,18 @@ function renderizarPublicaciones(lista) {
   }
 
   contenedor.innerHTML = lista
-    .map((pub) => {
-      const mascota = pub.mascota || {};
-      const usuario = pub.usuario || { username: 'Anónimo' };
-      const foto = mascota.foto_principal || '/Img/placeholder.png';
-      const emoji = mascota.especie === 'Gato' ? '🐱' : '🐶';
+    .map((item) => {
+      const esPublicacionCompleta = item.mascota && item.usuario; 
+      
+      const mascota = esPublicacionCompleta ? item.mascota : item; 
+      const usuario = esPublicacionCompleta ? item.usuario : (item.user || { username: 'Anónimo' }); 
+      
+      // Usamos el ID de publicación o el ID de mascota como fallback
+      const pubId = esPublicacionCompleta ? item.id : mascota.id_mascotas; 
+      const likes = esPublicacionCompleta ? item.likes : 0; // 0 likes si es resultado de filtro
+      
+      const foto = mascota.foto_principal || '/Img/placeholder.png';
+      const emoji = mascota.especie === 'Gato' ? '🐱' : '🐶';
 
       // --- CAMBIO 1: DECIDIR QUÉ FOTO USAR ---
       // Si el usuario tiene 'photoProfile', úsala. Si no, usa la de letras (UI Avatars).
@@ -280,14 +345,14 @@ function renderizarPublicaciones(lista) {
             <div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
                 <div class="d-flex gap-3">
                     <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${
-                      pub.id
+                      pubId
                     })">
                         <span class="material-symbols-outlined text-danger">favorite</span>
-                        <span class="action-count">${pub.likes || 0}</span>
+                        <span class="action-count">${likes}</span>
                     </button>
                     
                     <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${
-                      pub.id
+                      pubId
                     })">
                         <span class="material-symbols-outlined text-primary">chat_bubble</span>
                         <span class="action-count">0</span>
@@ -302,18 +367,18 @@ function renderizarPublicaciones(lista) {
             </div>
 
             <div id="comentarios-${
-              pub.id
+              pubId
             }" class="comment-section d-none px-3 pb-3">
                 <div class="input-group">
                     <input type="text" id="input-comentario-${
-                      pub.id
+                      pubId
                     }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
                     <button class="btn btn-sm btn-primary" onclick="enviarComentario(${
-                      pub.id
+                      pubId
                     })">Enviar</button>
                 </div>
                 <div class="mt-2 small text-muted" id="lista-comentarios-${
-                  pub.id
+                  pubId
                 }"></div>
             </div>
         </div>
@@ -440,23 +505,92 @@ window.eliminarImagen = (index) => {
 
 // --- EVENTOS INICIALES ---
 function inicializarEventos() {
-  const newPostForm = document.getElementById('newPostForm');
-  if (newPostForm) newPostForm.addEventListener('submit', handleNewPost);
+    // --- LÓGICA DE CREACIÓN DE PUBLICACIÓN (Mueve aquí el código de la sección eliminada) ---
+    const newPostForm = document.getElementById('newPostForm');
+    if (newPostForm) newPostForm.addEventListener('submit', handleNewPost);
 
-  const fileInput = document.getElementById('post-imagen');
-  if (fileInput) {
-    fileInput.addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files);
-      for (const file of files) {
-        if (imagenesSeleccionadas.length >= 1) {
-          alert('Por ahora solo se permite 1 foto por publicación.');
-          break;
+    const fileInput = document.getElementById('post-imagen');
+    if (fileInput) {
+        fileInput.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            for (const file of files) {
+                if (imagenesSeleccionadas.length >= 1) {
+                    alert('Por ahora solo se permite 1 foto por publicación.');
+                    break;
+                }
+                const base64 = await convertirFileABase64(file);
+                imagenesSeleccionadas.push({ file, base64 });
+            }
+            actualizarPreview();
+            fileInput.value = '';
+        });
+    }
+    
+    // --- LÓGICA DE FILTROS DE ESPECIE Y TAMAÑO ---
+    function manejarClickFiltro(event) {
+        event.preventDefault();
+        const link = event.currentTarget;
+        
+        // Captura los valores del HTML corregido
+        const tipo = link.dataset.tipo; 
+        const valor = link.dataset.valor; 
+
+        // Si por alguna razón el HTML está mal, salimos
+        if (!tipo || !valor) {
+            console.error("Error: El enlace de filtro no tiene atributos data-tipo o data-valor.");
+            return;
         }
-        const base64 = await convertirFileABase64(file);
-        imagenesSeleccionadas.push({ file, base64 });
-      }
-      actualizarPreview();
-      fileInput.value = '';
-    });
-  }
+
+        // 1. LÓGICA DE ACTIVACIÓN/DESACTIVACIÓN
+        if (link.classList.contains('active')) {
+            // Desactivar: Quitar filtro
+            link.classList.remove('active');
+            filtrosAvanzados[tipo] = null; // Reinicia el filtro
+        } else {
+            // Activar: Quitar 'active' de cualquier otro link del mismo tipo
+            document.querySelectorAll(`.filter-link[data-tipo="${tipo}"]`).forEach(l => {
+                l.classList.remove('active');
+            });
+            // Activar el link actual y establecer el valor
+            link.classList.add('active');
+            filtrosAvanzados[tipo] = valor; // Establece el valor
+        }
+        
+        console.log("Aplicando filtros avanzados:", filtrosAvanzados);
+
+        // 3. Llamar a la función central de búsqueda del backend
+        aplicarFiltrosAvanzados();
+    }
+
+    // Listener para Especie y Tamaño
+    document.querySelectorAll('.filter-link').forEach(link => {
+        link.addEventListener('click', manejarClickFiltro);
+    });
+const ageSlider = document.getElementById('ageSlider');
+const ageValueEl = document.getElementById('ageValue');
+
+if (ageSlider && ageValueEl) {
+    
+    ageSlider.addEventListener('input', () => {
+        // Usamos parseFloat para leer el valor real (ej: 0.5, 1.5)
+        const valorFlotante = parseFloat(ageSlider.value); 
+        
+        // Usamos Math.round() para obtener un número entero para el Backend
+        const valorEnteroParaFiltro = Math.round(valorFlotante); 
+
+        // Actualización del texto visible (Propiedad perdida)
+        ageValueEl.textContent = valorFlotante > 0 
+            ? `Máx. ${valorFlotante} años` 
+            : 'Cualquier edad';
+        
+        // Actualiza el filtro global
+        filtrosAvanzados.edad = (valorEnteroParaFiltro > 0) ? valorEnteroParaFiltro : null;
+        
+        // Llama a la función de filtro
+        aplicarFiltrosAvanzados();
+    });
+    
+    // Inicialización del texto al cargar la página
+    ageValueEl.textContent = 'Cualquier edad'; 
+}
 }
