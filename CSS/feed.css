@@ -58,6 +58,61 @@ body {
   position: relative;
 }
 
+/* NAV BASE */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: var(--petme-bg);
+  color: white;
+}
+
+/* Ocultar menú desktop */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Hamburguesa */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 32px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Menú móvil */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100%;
+  background: var(--petme-bg);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: right .3s ease;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
 /* Mobile Filter Button */
 .mobile-filter-btn {
   display: none;
@@ -255,6 +310,38 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+/* --- Cards Responsivas --- */
+@media (max-width: 768px) {
+  .pet-card {
+    width: 100%;
+  }
+
+  .pet-card-header {
+    flex-wrap: wrap;
+  }
+
+  .pet-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pet-image {
+    aspect-ratio: 1 / 1; /* Mejor para móvil */
+  }
+
+  .pet-card-footer {
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pet-image {
+    aspect-ratio: 4 / 5; /* Vertical en pantallas muy pequeñas */
+  }
 }
 
 /* Pet Cards Wrapper */
@@ -460,8 +547,8 @@ body {
 
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    display: block;
+    padding: 0 10px;
   }
 
   .mobile-filter-btn {
@@ -621,10 +708,7 @@ body {
 }
 
 /* --- Tarjetas de Mascotas (Pet Cards) --- */
-.pet-card {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
+
 .pet-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -705,6 +789,15 @@ body {
 .petme-fab-btn span.petme-fab-text,
 .petme-fab-btn img.petme-fab-logo {
   display: none; /* Asegura que no se muestren elementos no deseados */
+}
+
+@media (max-width: 768px) {
+  .petme-fab-btn.petme-fab-pill {
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    height: 44px;
+  }
 }
 
 /* --- Animación de Entrada de Tarjetas (CSS Keyframes) --- */
@@ -861,8 +954,6 @@ body {
 }
 
 /*  FILTRO DE EDAD */
-/* ================ */
-
 .filter-range-control {
   padding: 10px;
   background-color: #f7f7f7;

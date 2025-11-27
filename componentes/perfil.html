@@ -1,763 +1,606 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfil de Usuario - PetMe</title>
-    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil de Usuario - PetMe</title>
+  <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
 
-    <!-- Bootstrap Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/CSS/navbar.css" />
-    <link rel="stylesheet" href="/CSS/variables.css" />
-    <link rel="stylesheet" href="/CSS/perfil.css" />
-    <link rel="stylesheet" href="/CSS/notificaciones.css" />
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark bg-petme fixed-top">
-      <div class="container-fluid d-flex align-items-center">
-        <!-- Logo -->
-        <a
-          class="navbar-brand d-flex align-items-center"
-          href="/componentes/acercaDeNosotros.html"
-        >
-          <img
-            src="/Img/icono pet me.png"
-            alt="Logo"
-            class="me-3"
-            style="height: 60px"
-          />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/CSS/navbar.css" />
+  <link rel="stylesheet" href="/CSS/variables.css" />
+  <link rel="stylesheet" href="/CSS/perfil.css" />
+  <link rel="stylesheet" href="/CSS/notificaciones.css" />
+  <link rel="stylesheet" href="/CSS/chat.css">
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark bg-petme fixed-top">
+    <div class="container-fluid d-flex align-items-center">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+        <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px" />
+      </a>
+
+      <!-- Enlaces desktop -->
+      <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+            <i class="bi bi-info-circle"></i> Acerca de Nosotros
+          </a>
+        </li>
+      </ul>
+
+      <!-- Búsqueda desktop -->
+      <div class="search-container d-flex me-3 d-none d-lg-flex">
+        <div class="input-group" style="max-width: 280px; width: 100%">
+          <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search" />
+          <button class="btn search-btn" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Íconos desktop -->
+      <div class="d-flex align-items-center d-none d-lg-flex">
+        <a class="nav-link mx-2" href="/componentes/feed.html">
+          <i class="bi bi-house-door" style="font-size: 1.5rem; color: white"></i>
         </a>
+        <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#notificacionesModal">
+          <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
 
-        <!-- Enlaces desktop -->
-        <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center"
-              href="/componentes/contacto.html"
-            >
-              <i class="bi bi-envelope"></i> Contáctanos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center"
-              href="/componentes/acercaDeNosotros.html"
-            >
-              <i class="bi bi-info-circle"></i> Acerca de Nosotros
-            </a>
-          </li>
-        </ul>
+          <span id="badge-notificaciones"
+            class="position-absolute top-0 start-100 translate-middle bg-danger border border-light rounded-circle d-none"
+            style="padding: 5px;">
+            <span class="visually-hidden">Nuevas notificaciones</span>
+          </span>
+        </a>
+        <a class="nav-link me-3" href="/componentes/perfil.html">
+          <i class="bi bi-person-circle" style="font-size: 1.5rem; color: white"></i>
+        </a>
+      </div>
 
-        <!-- Búsqueda desktop -->
-        <div class="search-container d-flex me-3 d-none d-lg-flex">
-          <div class="input-group" style="max-width: 280px; width: 100%">
-            <input
-              type="search"
-              class="form-control search-input"
-              placeholder="Search"
-              aria-label="Search"
-            />
+      <!-- Móvil: búsqueda + hamburguesa -->
+      <div class="d-flex align-items-center d-lg-none">
+        <div class="search-container me-3">
+          <div class="input-group" style="max-width: 150px">
+            <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search" />
             <button class="btn search-btn" type="submit">
               <i class="bi bi-search"></i>
             </button>
           </div>
         </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-        <!-- Íconos desktop -->
-        <div class="d-flex align-items-center d-none d-lg-flex">
-          <a class="nav-link mx-2" href="/componentes/feed.html">
-            <i
-              class="bi bi-house-door"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+  <!-- Offcanvas (menú hamburguesa) -->
+  <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar">
+    <div class="offcanvas-header">
+      <img id="offcanvas-logo" src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px" />
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+            <i class="bi bi-house-door"></i> Inicio
           </a>
-          <a class="nav-link mx-2" href="/componentes/chat.html">
-            <i
-              class="bi bi-chat-left-text"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" data-bs-toggle="modal"
+            data-bs-target="#notificacionesModal" href="#">
+            <i class="bi bi-bell"></i> Notificaciones
           </a>
-          <a class="nav-link mx-2" 
-          data-bs-toggle="modal" 
-          data-bs-target="#notificacionesModal" 
-          href="#"> 
-          <i class="bi bi-bell" id="mainBellIcon" style="font-size: 1.5rem; color: white;"></i> 
+        </li>
+        <hr class="my-2" />
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
           </a>
-          <a class="nav-link me-3" href="/componentes/perfil.html">
-            <i
-              class="bi bi-person-circle"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+            <i class="bi bi-info-circle"></i> Acerca de Nosotros
           </a>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
+            <i class="bi bi-person-circle"></i> Perfil
+          </a>
+        </li>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- END NAVBAR -->
+
+  <div class="container py-5">
+    <div class="row g-4">
+      <!-- Sidebar Profile -->
+      <div class="col-lg-3 col-md-4">
+        <div class="profile-card p-4">
+          <div class="text-center">
+            <div class="profile-img-container mb-3">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14A7bXmBe8CLBoV__fxoy8ExxgwcRPk71o7ZD7K0CaDc2A7bHuMISgI9ZRVxQZeXOg5-xMAO7tvAy-zi6pgVW6WuPzO7L0x7SjKBWcyKmt-Pj1n9zqhiB4oxs7yLirk2fkN1b22bFG-rY4ZNPRQDu6bO-kdVwIF3xB2jr9i2zNrD0irf4z05vrrswJjcgBni2EDiq5dKPWl5Uu9IuVCY9gjalIhiGZPTLMuiag54WbG8QlorQ166wNbICjuQm5CGeN1l3BefLvcUm"
+                alt="Juana Pérez" class="profile-img" id="profileImage" />
+              <label for="profileImageInput" class="edit-profile-img-btn">
+                <i class="bi bi-pencil-fill"></i>
+              </label>
+              <input type="file" id="profileImageInput" accept="image/*" style="display: none" />
+            </div>
+            <h1 class="h4 font-display fw-bold">Juana Pérez</h1>
+            <p class="text-muted-custom small text-center">
+              Amante de los perros y madre de acogida con experiencia en San
+              Francisco.
+            </p>
+          </div>
+
+          <div class="mt-4">
+            <h2 class="h6 font-display fw-semibold mb-3">
+              Información de Contacto
+            </h2>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-symbols-outlined text-muted-custom">mail</span>
+                <span class="small">juana.perez@example.com</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-symbols-outlined text-muted-custom">phone</span>
+                <span class="small">+1 (555) 123-4567</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="material-symbols-outlined text-muted-custom">location_on</span>
+                <span class="small">San Francisco, CA</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="mt-4 d-flex flex-column gap-2">
+            <button class="btn btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+              Editar Perfil
+            </button>
+            <button class="btn btn-secondary-custom w-100">Mensaje</button>
+          </div>
         </div>
+      </div>
 
-        <!-- Móvil: búsqueda + hamburguesa -->
-        <div class="d-flex align-items-center d-lg-none">
-          <div class="search-container me-3">
-            <div class="input-group" style="max-width: 150px">
-              <input
-                type="search"
-                class="form-control search-input"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn search-btn" type="submit">
-                <i class="bi bi-search"></i>
+      <!-- Modal Notificaciones -->
+      <div class="modal fade" id="notificacionesModal" tabindex="-1" aria-labelledby="notificacionesModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+          <div class="modal-content petme-modal-content">
+
+            <div class="modal-header petme-modal-header">
+              <h5 class="modal-title" id="notificacionesModalLabel">
+                <i class="bi bi-bell-fill me-2"></i> Notificaciones
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body petme-modal-body" id="lista-notificaciones">
+              <div class="text-center text-white-50 mt-3">Cargando...</div>
+            </div>
+
+            <div class="modal-footer petme-modal-footer justify-content-center">
+              <button type="button" id="btn-marcar-todas" class="btn btn-sm btn-link petme-link text-white-50">
+                Marcar todas como leídas
               </button>
             </div>
           </div>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasDarkNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9 col-md-8">
+        <div class="profile-card">
+          <!-- Tabs -->
+          <ul class="nav nav-tabs px-4 pt-3 border-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="#" id="adoptadosTab">Adoptados</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="publicacionesTab">Publicaciones</a>
+            </li>
+          </ul>
+
+          <!-- Adoptados Content -->
+          <div class="p-4" id="adoptadosContent">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+              <!-- Pet Card 1 -->
+              <div class="col">
+                <div class="pet-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjNrpI9Wk__Eo0FoiB4-3uNj6zWwmIdFyHldUT-j23vnO06K_MKeAEKPfrrBtvCpvShAJvkUDZqlEjr_QBNoU0p44fWKPXIsm2UqgwS31UDCQN_YprKc2iTcSPQ2nZF46lzzoRu3xZ_yS-Ldf-jP7HKP3WKisg6eydazwpi9SX_oqTtuhJUN71s3jSMQwTP_FXPDhVZniWIljJPLv2rpwAESUKFiXhThAup1JjHenNS0Sla4TYMQrp3exb1V4OU8yW9HY7qPB8fhn"
+                    alt="Buddy" class="img-fluid" />
+                  <div class="p-2">
+                    <p class="fw-bold mb-0 font-display">Buddy</p>
+                    <p class="text-muted-custom small mb-1">
+                      Golden Retriever, 3 años
+                    </p>
+                    <p class="status-adopted small mb-0">
+                      Felizmente Adoptado
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pet Card 2 -->
+              <div class="col">
+                <div class="pet-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEZHnLxd79S6LEW7RtUi03jT2cexdUA63kwRCTPVfynuGJ_ZHJAS6iTWxZwt4AylJVDgQW4LJVddQqdnICcnZQemC4t_3ToL_MYqHAue_yIf_YHSgE1Qehlz0UVMUwQjzwp7VIL1dbl5Zz51IdVuk4EX8SnWC436RsmxLug_MNifBb2rA89YmpOXcCJSDL1u1RJF9Copt7JrOU2hXFJEq1rAPAOLSvTWL6nLXVsPUe83KbhAe698UF-USF6HuJOtZIVzOInytGXU5O"
+                    alt="Lucy" class="img-fluid" />
+                  <div class="p-2">
+                    <p class="fw-bold mb-0 font-display">Lucy</p>
+                    <p class="text-muted-custom small mb-1">Beagle, 5 años</p>
+                    <p class="status-adopted small mb-0">
+                      Felizmente Adoptado
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pet Card 3 -->
+              <div class="col">
+                <div class="pet-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8QOJvgZnsR5NVPXdaPHPUjJf9y5QAMNlQyxNMdGi60DAwnbb2ZYuuGlQ6DA2S7LG0KrxUhMp2362Nx9nXiORsZoFz3caKGY6eR1QSDKTLU-H0CfzdxI5L3poACbH6LDkXGBgdSPUbWUdFhkSkRW2szWuc9kwNelwcKT47SVYf-s3L4HW-TC1O9xXRQKmqh8O3DcTFrI0wBZR48zzFLeC_MoAOn5u_fMcAYLUqUXu18V_WauElk7cVTPpwZlnJWhrocoow3lFdkfG"
+                    alt="Max" class="img-fluid" />
+                  <div class="p-2">
+                    <p class="fw-bold mb-0 font-display">Max</p>
+                    <p class="text-muted-custom small mb-1">
+                      Pastor Alemán, 2 años
+                    </p>
+                    <p class="status-adopted small mb-0">
+                      Felizmente Adoptado
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pet Card 4 -->
+              <div class="col">
+                <div class="pet-card">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVFSmiBmBAKT0mH2gWPAvi7B7LeXjumj98sJOpvrODcAiWhACB-mtD_sbamlWfxzj3qukXZjikJD8xv9HaCKUasweNmT-KrRtM-sZ_al_4RYHtVWvoqRvOuVnJpHhaS8MtUw-OQrvJ6eseaELAi-06hOe-DTGYtMjq1ijqqvJWrvWzy45Z3ZEeojYvfr9h-1Fx9lxOFxsNuSLWHfBslTSlIIEatvnXpJ7zwbX5azXy81A-TmDXx-NGLI8ixcuh3E3JfqfWvaiagjd"
+                    alt="Daisy" class="img-fluid" />
+                  <div class="p-2">
+                    <p class="fw-bold mb-0 font-display">Daisy</p>
+                    <p class="text-muted-custom small mb-1">
+                      Caniche, 7 años
+                    </p>
+                    <p class="status-adopted small mb-0">
+                      Felizmente Adoptado
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publicaciones Content (Hidden by default) -->
+          <div class="p-4" id="publicacionesContent" style="display: none">
+            <div class="row g-4">
+              <!-- Post Card 1 -->
+              <div class="col-12">
+                <div class="profile-card p-4">
+                  <div class="d-flex align-items-start gap-3">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjNrpI9Wk__Eo0FoiB4-3uNj6zWwmIdFyHldUT-j23vnO06K_MKeAEKPfrrBtvCpvShAJvkUDZqlEjr_QBNoU0p44fWKPXIsm2UqgwS31UDCQN_YprKc2iTcSPQ2nZF46lzzoRu3xZ_yS-Ldf-jP7HKP3WKisg6eydazwpi9SX_oqTtuhJUN71s3jSMQwTP_FXPDhVZniWIljJPLv2rpwAESUKFiXhThAup1JjHenNS0Sla4TYMQrp3exb1V4OU8yW9HY7qPB8fhn"
+                      alt="Buddy" class="rounded" style="width: 120px; height: 120px; object-fit: cover" />
+                    <div class="flex-grow-1">
+                      <h5 class="font-display fw-bold mb-2">
+                        ¡Buddy encontró un hogar! 🏠❤️
+                      </h5>
+                      <p class="text-muted-custom small mb-2">
+                        Hace 2 semanas
+                      </p>
+                      <p class="mb-0">
+                        Estoy muy feliz de anunciar que Buddy finalmente
+                        encontró una familia amorosa. Después de meses en
+                        adopción, este hermoso Golden Retriever ahora tiene un
+                        jardín enorme donde jugar y una familia que lo adora.
+                        ¡Gracias a todos por compartir su perfil!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Post Card 2 -->
+              <div class="col-12">
+                <div class="profile-card p-4">
+                  <div class="d-flex align-items-start gap-3">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEZHnLxd79S6LEW7RtUi03jT2cexdUA63kwRCTPVfynuGJ_ZHJAS6iTWxZwt4AylJVDgQW4LJVddQqdnICcnZQemC4t_3ToL_MYqHAue_yIf_YHSgE1Qehlz0UVMUwQjzwp7VIL1dbl5Zz51IdVuk4EX8SnWC436RsmxLug_MNifBb2rA89YmpOXcCJSDL1u1RJF9Copt7JrOU2hXFJEq1rAPAOLSvTWL6nLXVsPUe83KbhAe698UF-USF6HuJOtZIVzOInytGXU5O"
+                      alt="Lucy" class="rounded" style="width: 120px; height: 120px; object-fit: cover" />
+                    <div class="flex-grow-1">
+                      <h5 class="font-display fw-bold mb-2">
+                        Lucy necesita un hogar temporal 🐕
+                      </h5>
+                      <p class="text-muted-custom small mb-2">Hace 1 mes</p>
+                      <p class="mb-0">
+                        Busco una familia de acogida para Lucy, una Beagle de
+                        5 años muy cariñosa. Es perfecta con niños y otros
+                        perros. Solo necesita un hogar temporal mientras
+                        encontramos su adopción definitiva. Si puedes ayudar,
+                        por favor contáctame.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Post Card 3 -->
+              <div class="col-12">
+                <div class="profile-card p-4">
+                  <div class="d-flex align-items-start gap-3">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8QOJvgZnsR5NVPXdaPHPUjJf9y5QAMNlQyxNMdGi60DAwnbb2ZYuuGlQ6DA2S7LG0KrxUhMp2362Nx9nXiORsZoFz3caKGY6eR1QSDKTLU-H0CfzdxI5L3poACbH6LDkXGBgdSPUbWUdFhkSkRW2szWuc9kwNelwcKT47SVYf-s3L4HW-TC1O9xXRQKmqh8O3DcTFrI0wBZR48zzFLeC_MoAOn5u_fMcAYLUqUXu18V_WauElk7cVTPpwZlnJWhrocoow3lFdkfG"
+                      alt="Max" class="rounded" style="width: 120px; height: 120px; object-fit: cover" />
+                    <div class="flex-grow-1">
+                      <h5 class="font-display fw-bold mb-2">
+                        Consejos para adoptar un Pastor Alemán 📝
+                      </h5>
+                      <p class="text-muted-custom small mb-2">Hace 2 meses</p>
+                      <p class="mb-0">
+                        Después de mi experiencia con Max, quiero compartir
+                        algunos consejos para quienes estén considerando
+                        adoptar un Pastor Alemán. Son perros increíbles pero
+                        necesitan mucho ejercicio y entrenamiento constante.
+                        ¡Vale totalmente la pena!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-display fw-bold" id="editProfileModalLabel">
+            Editar Perfil
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="editNombre" class="form-label fw-semibold">Nombre</label>
+              <input type="text" class="form-control" id="editNombre" value="Juana" required />
+            </div>
+
+            <!-- Apellido -->
+            <div class="mb-3">
+              <label for="editApellido" class="form-label fw-semibold">Apellido</label>
+              <input type="text" class="form-control" id="editApellido" value="Pérez" required />
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="editDescription" class="form-label fw-semibold">Descripción</label>
+              <textarea class="form-control" id="editDescription" rows="3" required>
+Amante de los perros y madre de acogida con experiencia en San Francisco.</textarea>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="editEmail" class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control" id="editEmail" value="juana.perez@example.com" required />
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+              <label for="editPhone" class="form-label fw-semibold">Teléfono</label>
+              <input type="tel" class="form-control" id="editPhone" value="+1 (555) 123-4567" required />
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+              <label for="editLocation" class="form-label fw-semibold">Ubicación</label>
+              <input type="text" class="form-control" id="editLocation" value="San Francisco, CA" required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-primary-custom" id="saveProfileBtn">
+            Guardar Cambios
           </button>
         </div>
       </div>
-    </nav>
-
-    <!-- Offcanvas (menú hamburguesa) -->
-    <div
-      class="offcanvas offcanvas-end bg-petme"
-      tabindex="-1"
-      id="offcanvasDarkNavbar"
-    >
-      <div class="offcanvas-header">
-        <img
-          id="offcanvas-logo"
-          src="/Img/pet me.png"
-          alt="Logo"
-          class="me-3"
-          style="height: 25px"
-        />
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/feed.html"
-            >
-              <i class="bi bi-house-door"></i> Inicio
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/chat.html"
-            >
-              <i class="bi bi-chat-left-text"></i> Messages
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" 
-              data-bs-toggle="modal" 
-              data-bs-target="#notificacionesModal"
-              href="#">
-              <i class="bi bi-bell"></i> Notificaciones
-            </a>
-        </li>
-          <hr class="my-2" />
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/contacto.html"
-            >
-              <i class="bi bi-envelope"></i> Contáctanos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/acercaDeNosotros.html"
-            >
-              <i class="bi bi-info-circle"></i> Acerca de Nosotros
-            </a>
-            <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
-        <i class="bi bi-person-circle"></i> Perfil
-        </a>
-    </li>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- END NAVBAR -->
-
-    <div class="container py-5">
-      <div class="row g-4">
-        <!-- Sidebar Profile -->
-        <div class="col-lg-3 col-md-4">
-          <div class="profile-card p-4">
-            <div class="text-center">
-              <div class="profile-img-container mb-3">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14A7bXmBe8CLBoV__fxoy8ExxgwcRPk71o7ZD7K0CaDc2A7bHuMISgI9ZRVxQZeXOg5-xMAO7tvAy-zi6pgVW6WuPzO7L0x7SjKBWcyKmt-Pj1n9zqhiB4oxs7yLirk2fkN1b22bFG-rY4ZNPRQDu6bO-kdVwIF3xB2jr9i2zNrD0irf4z05vrrswJjcgBni2EDiq5dKPWl5Uu9IuVCY9gjalIhiGZPTLMuiag54WbG8QlorQ166wNbICjuQm5CGeN1l3BefLvcUm"
-                  alt="Juana Pérez"
-                  class="profile-img"
-                  id="profileImage"
-                />
-                <label for="profileImageInput" class="edit-profile-img-btn">
-                  <i class="bi bi-pencil-fill"></i>
-                </label>
-                <input
-                  type="file"
-                  id="profileImageInput"
-                  accept="image/*"
-                  style="display: none"
-                />
-              </div>
-              <h1 class="h4 font-display fw-bold">Juana Pérez</h1>
-              <p class="text-muted-custom small text-center">
-                Amante de los perros y madre de acogida con experiencia en San
-                Francisco.
-              </p>
-            </div>
-
-            <div class="mt-4">
-              <h2 class="h6 font-display fw-semibold mb-3">
-                Información de Contacto
-              </h2>
-              <div class="d-flex flex-column gap-3">
-                <div class="d-flex align-items-center gap-2">
-                  <span class="material-symbols-outlined text-muted-custom"
-                    >mail</span
-                  >
-                  <span class="small">juana.perez@example.com</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <span class="material-symbols-outlined text-muted-custom"
-                    >phone</span
-                  >
-                  <span class="small">+1 (555) 123-4567</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <span class="material-symbols-outlined text-muted-custom"
-                    >location_on</span
-                  >
-                  <span class="small">San Francisco, CA</span>
-                </div>
-              </div>
-            </div>
-
-            
-            <div class="mt-4 d-flex flex-column gap-2">
-              <button
-                class="btn btn-primary-custom w-100"
-                data-bs-toggle="modal"
-                data-bs-target="#editProfileModal"
-              >
-                Editar Perfil
-              </button>
-              <button class="btn btn-secondary-custom w-100">Mensaje</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Modal Notificaciones -->
-<div class="modal fade" id="notificacionesModal" tabindex="-1" aria-labelledby="notificacionesModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-md">   <div class="modal-content petme-modal-content">
-    <div class="modal-header petme-modal-header">
-      <h5 class="modal-title" id="notificacionesModalLabel">
-      <i class="bi bi-bell-fill me-2"></i> Notificaciones
-      </h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-  </div>
-  
-        <div class="modal-body petme-modal-body">
-            
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-                  <i class="bi bi-heart-fill me-3 text-warning" style="font-size: 1.5rem;"></i>
-                  <div>
-                    <p class="mb-0 fw-bold text-white">¡A Buddy le gusta tu foto! 🐾</p>
-                    <small class="text-white-50">Hace 5 minutos</small>
-                </div>
-            </div>
-
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-                  <i class="bi bi-chat-dots-fill me-3 text-info" style="font-size: 1.5rem;"></i>
-              <div>
-                  <p class="mb-0 fw-bold text-white">Mensaje de Jane Sánchez</p>
-                  <small class="text-white-50">Consulta sobre adopción.</small>
-              </div>
-            </div>
-
-          </div>
-
-              <div class="modal-footer petme-modal-footer justify-content-center">
-            <button type="button" class="btn btn-sm btn-link petme-link text-white-50">Marcar todas como leídas</button>
-        </div>
     </div>
   </div>
-</div>
-        
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8">
-          <div class="profile-card">
-            <!-- Tabs -->
-            <ul class="nav nav-tabs px-4 pt-3 border-0">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="adoptadosTab"
-                  >Adoptados</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="publicacionesTab"
-                  >Publicaciones</a
-                >
-              </li>
-            </ul>
 
-            <!-- Adoptados Content -->
-            <div class="p-4" id="adoptadosContent">
-              <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                <!-- Pet Card 1 -->
-                <div class="col">
-                  <div class="pet-card">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjNrpI9Wk__Eo0FoiB4-3uNj6zWwmIdFyHldUT-j23vnO06K_MKeAEKPfrrBtvCpvShAJvkUDZqlEjr_QBNoU0p44fWKPXIsm2UqgwS31UDCQN_YprKc2iTcSPQ2nZF46lzzoRu3xZ_yS-Ldf-jP7HKP3WKisg6eydazwpi9SX_oqTtuhJUN71s3jSMQwTP_FXPDhVZniWIljJPLv2rpwAESUKFiXhThAup1JjHenNS0Sla4TYMQrp3exb1V4OU8yW9HY7qPB8fhn"
-                      alt="Buddy"
-                      class="img-fluid"
-                    />
-                    <div class="p-2">
-                      <p class="fw-bold mb-0 font-display">Buddy</p>
-                      <p class="text-muted-custom small mb-1">
-                        Golden Retriever, 3 años
-                      </p>
-                      <p class="status-adopted small mb-0">
-                        Felizmente Adoptado
-                      </p>
-                    </div>
-                  </div>
-                </div>
+  <!--chat bot -->
+  <div>
+    <button id="chat-toggle-btn" class="btn btn-lg btn-dark-petme rounded-circle shadow-lg chat-icon-float">
+      💬
+    </button>
 
-                <!-- Pet Card 2 -->
-                <div class="col">
-                  <div class="pet-card">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEZHnLxd79S6LEW7RtUi03jT2cexdUA63kwRCTPVfynuGJ_ZHJAS6iTWxZwt4AylJVDgQW4LJVddQqdnICcnZQemC4t_3ToL_MYqHAue_yIf_YHSgE1Qehlz0UVMUwQjzwp7VIL1dbl5Zz51IdVuk4EX8SnWC436RsmxLug_MNifBb2rA89YmpOXcCJSDL1u1RJF9Copt7JrOU2hXFJEq1rAPAOLSvTWL6nLXVsPUe83KbhAe698UF-USF6HuJOtZIVzOInytGXU5O"
-                      alt="Lucy"
-                      class="img-fluid"
-                    />
-                    <div class="p-2">
-                      <p class="fw-bold mb-0 font-display">Lucy</p>
-                      <p class="text-muted-custom small mb-1">Beagle, 5 años</p>
-                      <p class="status-adopted small mb-0">
-                        Felizmente Adoptado
-                      </p>
-                    </div>
-                  </div>
-                </div>
+    <div class="chat-wrapper" id="chat-wrapper">
+      <div class="chat-container card shadow-lg">
 
-                <!-- Pet Card 3 -->
-                <div class="col">
-                  <div class="pet-card">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8QOJvgZnsR5NVPXdaPHPUjJf9y5QAMNlQyxNMdGi60DAwnbb2ZYuuGlQ6DA2S7LG0KrxUhMp2362Nx9nXiORsZoFz3caKGY6eR1QSDKTLU-H0CfzdxI5L3poACbH6LDkXGBgdSPUbWUdFhkSkRW2szWuc9kwNelwcKT47SVYf-s3L4HW-TC1O9xXRQKmqh8O3DcTFrI0wBZR48zzFLeC_MoAOn5u_fMcAYLUqUXu18V_WauElk7cVTPpwZlnJWhrocoow3lFdkfG"
-                      alt="Max"
-                      class="img-fluid"
-                    />
-                    <div class="p-2">
-                      <p class="fw-bold mb-0 font-display">Max</p>
-                      <p class="text-muted-custom small mb-1">
-                        Pastor Alemán, 2 años
-                      </p>
-                      <p class="status-adopted small mb-0">
-                        Felizmente Adoptado
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pet Card 4 -->
-                <div class="col">
-                  <div class="pet-card">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVFSmiBmBAKT0mH2gWPAvi7B7LeXjumj98sJOpvrODcAiWhACB-mtD_sbamlWfxzj3qukXZjikJD8xv9HaCKUasweNmT-KrRtM-sZ_al_4RYHtVWvoqRvOuVnJpHhaS8MtUw-OQrvJ6eseaELAi-06hOe-DTGYtMjq1ijqqvJWrvWzy45Z3ZEeojYvfr9h-1Fx9lxOFxsNuSLWHfBslTSlIIEatvnXpJ7zwbX5azXy81A-TmDXx-NGLI8ixcuh3E3JfqfWvaiagjd"
-                      alt="Daisy"
-                      class="img-fluid"
-                    />
-                    <div class="p-2">
-                      <p class="fw-bold mb-0 font-display">Daisy</p>
-                      <p class="text-muted-custom small mb-1">
-                        Caniche, 7 años
-                      </p>
-                      <p class="status-adopted small mb-0">
-                        Felizmente Adoptado
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Publicaciones Content (Hidden by default) -->
-            <div class="p-4" id="publicacionesContent" style="display: none">
-              <div class="row g-4">
-                <!-- Post Card 1 -->
-                <div class="col-12">
-                  <div class="profile-card p-4">
-                    <div class="d-flex align-items-start gap-3">
-                      <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjNrpI9Wk__Eo0FoiB4-3uNj6zWwmIdFyHldUT-j23vnO06K_MKeAEKPfrrBtvCpvShAJvkUDZqlEjr_QBNoU0p44fWKPXIsm2UqgwS31UDCQN_YprKc2iTcSPQ2nZF46lzzoRu3xZ_yS-Ldf-jP7HKP3WKisg6eydazwpi9SX_oqTtuhJUN71s3jSMQwTP_FXPDhVZniWIljJPLv2rpwAESUKFiXhThAup1JjHenNS0Sla4TYMQrp3exb1V4OU8yW9HY7qPB8fhn"
-                        alt="Buddy"
-                        class="rounded"
-                        style="width: 120px; height: 120px; object-fit: cover"
-                      />
-                      <div class="flex-grow-1">
-                        <h5 class="font-display fw-bold mb-2">
-                          ¡Buddy encontró un hogar! 🏠❤️
-                        </h5>
-                        <p class="text-muted-custom small mb-2">
-                          Hace 2 semanas
-                        </p>
-                        <p class="mb-0">
-                          Estoy muy feliz de anunciar que Buddy finalmente
-                          encontró una familia amorosa. Después de meses en
-                          adopción, este hermoso Golden Retriever ahora tiene un
-                          jardín enorme donde jugar y una familia que lo adora.
-                          ¡Gracias a todos por compartir su perfil!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Post Card 2 -->
-                <div class="col-12">
-                  <div class="profile-card p-4">
-                    <div class="d-flex align-items-start gap-3">
-                      <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEZHnLxd79S6LEW7RtUi03jT2cexdUA63kwRCTPVfynuGJ_ZHJAS6iTWxZwt4AylJVDgQW4LJVddQqdnICcnZQemC4t_3ToL_MYqHAue_yIf_YHSgE1Qehlz0UVMUwQjzwp7VIL1dbl5Zz51IdVuk4EX8SnWC436RsmxLug_MNifBb2rA89YmpOXcCJSDL1u1RJF9Copt7JrOU2hXFJEq1rAPAOLSvTWL6nLXVsPUe83KbhAe698UF-USF6HuJOtZIVzOInytGXU5O"
-                        alt="Lucy"
-                        class="rounded"
-                        style="width: 120px; height: 120px; object-fit: cover"
-                      />
-                      <div class="flex-grow-1">
-                        <h5 class="font-display fw-bold mb-2">
-                          Lucy necesita un hogar temporal 🐕
-                        </h5>
-                        <p class="text-muted-custom small mb-2">Hace 1 mes</p>
-                        <p class="mb-0">
-                          Busco una familia de acogida para Lucy, una Beagle de
-                          5 años muy cariñosa. Es perfecta con niños y otros
-                          perros. Solo necesita un hogar temporal mientras
-                          encontramos su adopción definitiva. Si puedes ayudar,
-                          por favor contáctame.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Post Card 3 -->
-                <div class="col-12">
-                  <div class="profile-card p-4">
-                    <div class="d-flex align-items-start gap-3">
-                      <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8QOJvgZnsR5NVPXdaPHPUjJf9y5QAMNlQyxNMdGi60DAwnbb2ZYuuGlQ6DA2S7LG0KrxUhMp2362Nx9nXiORsZoFz3caKGY6eR1QSDKTLU-H0CfzdxI5L3poACbH6LDkXGBgdSPUbWUdFhkSkRW2szWuc9kwNelwcKT47SVYf-s3L4HW-TC1O9xXRQKmqh8O3DcTFrI0wBZR48zzFLeC_MoAOn5u_fMcAYLUqUXu18V_WauElk7cVTPpwZlnJWhrocoow3lFdkfG"
-                        alt="Max"
-                        class="rounded"
-                        style="width: 120px; height: 120px; object-fit: cover"
-                      />
-                      <div class="flex-grow-1">
-                        <h5 class="font-display fw-bold mb-2">
-                          Consejos para adoptar un Pastor Alemán 📝
-                        </h5>
-                        <p class="text-muted-custom small mb-2">Hace 2 meses</p>
-                        <p class="mb-0">
-                          Después de mi experiencia con Max, quiero compartir
-                          algunos consejos para quienes estén considerando
-                          adoptar un Pastor Alemán. Son perros increíbles pero
-                          necesitan mucho ejercicio y entrenamiento constante.
-                          ¡Vale totalmente la pena!
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div
+          class="card-header chat-header-gradient text-white fw-bold d-flex align-items-center justify-content-between">
+          <div>
+            <img src="/Img/icono.png" alt="Logo Pet-Me" class="me-2"
+              style="width: 25px; height: 25px; border-radius: 50%;">
+            Asistente Virtual Pet-Me
           </div>
+          <button id="chat-close-btn" class="btn btn-sm text-white p-0" aria-label="Cerrar chat">
+            <span aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
+          </button>
+        </div>
+
+        <div id="chat-box" class="chat-box card-body p-3">
+        </div>
+
+        <div class="chat-input-area input-group p-3 border-top">
+          <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje o número de opción...">
+          <button id="send-btn" class="btn btn-dark-petme" type="button">
+            <i class="bi bi-send-fill"></i>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Edit Profile Modal -->
-    <div
-      class="modal fade"
-      id="editProfileModal"
-      tabindex="-1"
-      aria-labelledby="editProfileModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5
-              class="modal-title font-display fw-bold"
-              id="editProfileModalLabel"
-            >
-              Editar Perfil
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="editProfileForm">
-              <!-- Nombre -->
-              <div class="mb-3">
-                <label for="editNombre" class="form-label fw-semibold"
-                  >Nombre</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editNombre"
-                  value="Juana"
-                  required
-                />
-              </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 
-              <!-- Apellido -->
-              <div class="mb-3">
-                <label for="editApellido" class="form-label fw-semibold"
-                  >Apellido</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editApellido"
-                  value="Pérez"
-                  required
-                />
-              </div>
+  <!-- Profile Edit Script -->
+  <script>
+    document
+      .getElementById('saveProfileBtn')
+      .addEventListener('click', function () {
+        // Get form values
+        const nombre = document.getElementById('editNombre').value;
+        const apellido = document.getElementById('editApellido').value;
+        const fullName = nombre + ' ' + apellido;
+        const description = document.getElementById('editDescription').value;
+        const email = document.getElementById('editEmail').value;
+        const phone = document.getElementById('editPhone').value;
+        const location = document.getElementById('editLocation').value;
 
-              <!-- Description -->
-              <div class="mb-3">
-                <label for="editDescription" class="form-label fw-semibold"
-                  >Descripción</label
-                >
-                <textarea
-                  class="form-control"
-                  id="editDescription"
-                  rows="3"
-                  required
-                >
-Amante de los perros y madre de acogida con experiencia en San Francisco.</textarea
-                >
-              </div>
+        // Update profile display
+        document.querySelector('.profile-card h1').textContent = fullName;
+        document.querySelector(
+          '.profile-card .text-muted-custom'
+        ).textContent = description;
+        document.querySelectorAll(
+          '.profile-card .d-flex.align-items-center span.small'
+        )[0].textContent = email;
+        document.querySelectorAll(
+          '.profile-card .d-flex.align-items-center span.small'
+        )[1].textContent = phone;
+        document.querySelectorAll(
+          '.profile-card .d-flex.align-items-center span.small'
+        )[2].textContent = location;
 
-              <!-- Email -->
-              <div class="mb-3">
-                <label for="editEmail" class="form-label fw-semibold"
-                  >Email</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="editEmail"
-                  value="juana.perez@example.com"
-                  required
-                />
-              </div>
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById('editProfileModal')
+        );
+        modal.hide();
 
-              <!-- Phone -->
-              <div class="mb-3">
-                <label for="editPhone" class="form-label fw-semibold"
-                  >Teléfono</label
-                >
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="editPhone"
-                  value="+1 (555) 123-4567"
-                  required
-                />
-              </div>
+        // Optional: Save to localStorage or send to backend
+        const profileData = {
+          nombre,
+          apellido,
+          description,
+          email,
+          phone,
+          location,
+        };
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+      });
 
-              <!-- Location -->
-              <div class="mb-3">
-                <label for="editLocation" class="form-label fw-semibold"
-                  >Ubicación</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editLocation"
-                  value="San Francisco, CA"
-                  required
-                />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary-custom"
-              id="saveProfileBtn"
-            >
-              Guardar Cambios
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    // Handle profile image upload
+    document
+      .getElementById('profileImageInput')
+      .addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const imageUrl = event.target.result;
+            document.getElementById('profileImage').src = imageUrl;
 
-    <!-- Bootstrap JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Profile Edit Script -->
-    <script>
-      document
-        .getElementById('saveProfileBtn')
-        .addEventListener('click', function () {
-          // Get form values
-          const nombre = document.getElementById('editNombre').value;
-          const apellido = document.getElementById('editApellido').value;
-          const fullName = nombre + ' ' + apellido;
-          const description = document.getElementById('editDescription').value;
-          const email = document.getElementById('editEmail').value;
-          const phone = document.getElementById('editPhone').value;
-          const location = document.getElementById('editLocation').value;
-
-          // Update profile display
-          document.querySelector('.profile-card h1').textContent = fullName;
-          document.querySelector(
-            '.profile-card .text-muted-custom'
-          ).textContent = description;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[0].textContent = email;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[1].textContent = phone;
-          document.querySelectorAll(
-            '.profile-card .d-flex.align-items-center span.small'
-          )[2].textContent = location;
-
-          // Close modal
-          const modal = bootstrap.Modal.getInstance(
-            document.getElementById('editProfileModal')
-          );
-          modal.hide();
-
-          // Optional: Save to localStorage or send to backend
-          const profileData = {
-            nombre,
-            apellido,
-            description,
-            email,
-            phone,
-            location,
+            // Save to localStorage
+            localStorage.setItem('profileImage', imageUrl);
           };
-          localStorage.setItem('userProfile', JSON.stringify(profileData));
-        });
-
-      // Handle profile image upload
-      document
-        .getElementById('profileImageInput')
-        .addEventListener('change', function (e) {
-          const file = e.target.files[0];
-          if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              const imageUrl = event.target.result;
-              document.getElementById('profileImage').src = imageUrl;
-
-              // Save to localStorage
-              localStorage.setItem('profileImage', imageUrl);
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-
-      // Load saved profile image on page load
-      window.addEventListener('DOMContentLoaded', function () {
-        const savedImage = localStorage.getItem('profileImage');
-        if (savedImage) {
-          document.getElementById('profileImage').src = savedImage;
+          reader.readAsDataURL(file);
         }
       });
 
-      // Tab switching functionality
-      const adoptadosTab = document.getElementById('adoptadosTab');
-      const publicacionesTab = document.getElementById('publicacionesTab');
-      const adoptadosContent = document.getElementById('adoptadosContent');
-      const publicacionesContent = document.getElementById(
-        'publicacionesContent'
-      );
+    // Load saved profile image on page load
+    window.addEventListener('DOMContentLoaded', function () {
+      const savedImage = localStorage.getItem('profileImage');
+      if (savedImage) {
+        document.getElementById('profileImage').src = savedImage;
+      }
+    });
 
-      adoptadosTab.addEventListener('click', function (e) {
-        e.preventDefault();
-        adoptadosTab.classList.add('active');
-        publicacionesTab.classList.remove('active');
-        adoptadosContent.style.display = 'block';
-        publicacionesContent.style.display = 'none';
-      });
+    // Tab switching functionality
+    const adoptadosTab = document.getElementById('adoptadosTab');
+    const publicacionesTab = document.getElementById('publicacionesTab');
+    const adoptadosContent = document.getElementById('adoptadosContent');
+    const publicacionesContent = document.getElementById(
+      'publicacionesContent'
+    );
 
-      publicacionesTab.addEventListener('click', function (e) {
-        e.preventDefault();
-        publicacionesTab.classList.add('active');
-        adoptadosTab.classList.remove('active');
-        publicacionesContent.style.display = 'block';
-        adoptadosContent.style.display = 'none';
-      });
-    </script>
-  </body>
+    adoptadosTab.addEventListener('click', function (e) {
+      e.preventDefault();
+      adoptadosTab.classList.add('active');
+      publicacionesTab.classList.remove('active');
+      adoptadosContent.style.display = 'block';
+      publicacionesContent.style.display = 'none';
+    });
+
+    publicacionesTab.addEventListener('click', function (e) {
+      e.preventDefault();
+      publicacionesTab.classList.add('active');
+      adoptadosTab.classList.remove('active');
+      publicacionesContent.style.display = 'block';
+      adoptadosContent.style.display = 'none';
+    });
+  </script>
+
+  <script type="module" src="/JavaScript/notificaciones.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eE+5yIu8zJzQYfO2gZ"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <script src="/JavaScript/chat.js"></script>
+</body>
+
 </html>
