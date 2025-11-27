@@ -202,4 +202,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- INICIALIZAR ---
     cargarDatosUsuario(); // Cargar datos del perfil al abrir la página
+    inicializarEventos();
 });
+  // ==========================================
+// 4. CERRAR SESIÓN (Definido fuera del DOMContentLoaded para mejor organización)
+// ==========================================
+function cerrarSesion() {
+  // 1. Eliminar tokens y userId del almacenamiento local
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('userId');
+
+  // 2. Redirigir al usuario a la página de inicio de sesión
+  window.location.href = '/componentes/InicioSesion.html';
+}
+
+// ==========================================
+// 5. CONECTAR EVENTOS DE CERRAR SESIÓN
+// ==========================================
+function inicializarEventos() {
+    // Conectar el botón de Cerrar Sesión del perfil (el nuevo)
+    const logoutProfileBtn = document.getElementById('logoutProfileBtn');
+    if (logoutProfileBtn) {
+      logoutProfileBtn.addEventListener('click', cerrarSesion);
+    }
+
+    // Si también tienes botones de Logout en el navbar (Desktop/Mobile),
+    // puedes conectarlos aquí:
+    
+    // const logoutDesktopBtn = document.getElementById('logoutDesktop');
+    // if (logoutDesktopBtn) {
+    //   logoutDesktopBtn.addEventListener('click', cerrarSesion);
+    // }
+
+    // const logoutMobileBtn = document.getElementById('logoutMobile');
+    // if (logoutMobileBtn) {
+    //   logoutMobileBtn.addEventListener('click', cerrarSesion);
+    // }
+}
