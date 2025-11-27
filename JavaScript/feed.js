@@ -1,3 +1,4 @@
+import { createAdoption } from './api-adopciones.js';
 // =======================
 // 1. Datos iniciales
 // =======================
@@ -504,109 +505,136 @@ function moverCarrusel(id, dir) {
 // =======================
 // 11. Validación formulario adopción
 // =======================
-function validarAdoptionForm(e) {
-  e.preventDefault();
-  let valido = true;
+async function validarAdoptionForm(e){
+  e.preventDefault();
+  let valido = true;
 
-  const adoptionForm = document.getElementById("adoptionForm");
-  if (!adoptionForm) return;
+  const adoptionForm = document.getElementById("adoptionForm");
+  if (!adoptionForm) return;
 
-  const nombre = document.getElementById("nombreCompleto");
-  const telefono = document.getElementById("telefono");
-  const correo = document.getElementById("correoElectronico");
-  const edad = document.getElementById("edad");
-  const identificacion = document.getElementById("identificacion");
-  const vivienda = document.getElementById("tipoVivienda");
-  const mascotas = document.getElementById("otrasMascotas");
-  const adoptadoAntes = document.getElementById("adoptadoAntes");
-  const recursos = document.getElementById("recursosCuidado");
-  const terms = document.getElementById("terms");
+  const nombre = document.getElementById("nombreCompleto");
+  const telefono = document.getElementById("telefono");
+  const correo = document.getElementById("correoElectronico");
+  const edad = document.getElementById("edad");
+  const identificacion = document.getElementById("identificacion");
+  const vivienda = document.getElementById("tipoVivienda");
+  const mascotas = document.getElementById("otrasMascotas");
+  const adoptadoAntes = document.getElementById("adoptadoAntes");
+  const recursos = document.getElementById("recursosCuidado");
+  const terms = document.getElementById("terms");
 
-  ['errorNombre','errorTelefono','errorCorreo','errorIdentificacion','errorVivienda','errorOtrasMascotas','errorAdoptadoAntes','errorRecursos','errorTerms']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = '';
-    });
+  ['errorNombre','errorTelefono','errorCorreo','errorIdentificacion','errorVivienda','errorOtrasMascotas','errorAdoptadoAntes','errorRecursos','errorTerms']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
 
-  // nombre
-  if (!nombre || nombre.value.trim().length < 3) {
-    nombre?.classList.add("is-invalid");
-    const el = document.getElementById("errorNombre"); if (el) el.textContent = "Escribe tu nombre completo.";
-    valido = false;
-  } else {
-    nombre.classList.remove("is-invalid");
-  }
+  // nombre
+  if (!nombre || nombre.value.trim().length < 3) {
+    nombre?.classList.add("is-invalid");
+    const el = document.getElementById("errorNombre"); if (el) el.textContent = "Escribe tu nombre completo.";
+    valido = false;
+  } else {
+    nombre.classList.remove("is-invalid");
+  }
 
-  // telefono
-  if (!telefono || !/^[0-9]{10}$/.test(telefono.value.trim())) {
-    telefono?.classList.add("is-invalid");
-    const el = document.getElementById("errorTelefono"); if (el) el.textContent = "Debe ser un número de 10 dígitos.";
-    valido = false;
-  } else {
-    telefono.classList.remove("is-invalid");
-  }
+  // telefono
+  if (!telefono || !/^[0-9]{10}$/.test(telefono.value.trim())) {
+    telefono?.classList.add("is-invalid");
+    const el = document.getElementById("errorTelefono"); if (el) el.textContent = "Debe ser un número de 10 dígitos.";
+    valido = false;
+  } else {
+    telefono.classList.remove("is-invalid");
+  }
 
-  // correo
-  if (!correo || !/^\S+@\S+\.\S+$/.test(correo.value.trim())) {
-    correo?.classList.add("is-invalid");
-    const el = document.getElementById("errorCorreo"); if (el) el.textContent = "Correo inválido.";
-    valido = false;
-  } else {
-    correo.classList.remove("is-invalid");
-  }
+  // correo
+  if (!correo || !/^\S+@\S+\.\S+$/.test(correo.value.trim())) {
+    correo?.classList.add("is-invalid");
+    const el = document.getElementById("errorCorreo"); if (el) el.textContent = "Correo inválido.";
+    valido = false;
+  } else {
+    correo.classList.remove("is-invalid");
+  }
 
-  // edad
-  if (!edad || Number(edad.value) < 18) {
-    edad?.classList.add("is-invalid");
-    valido = false;
-  } else {
-    edad.classList.remove("is-invalid");
-  }
+  // edad
+  if (!edad || Number(edad.value) < 18) {
+    edad?.classList.add("is-invalid");
+    valido = false;
+  } else {
+    edad.classList.remove("is-invalid");
+  }
 
-  // identificacion
-  if (!identificacion || !identificacion.files.length) {
-    identificacion?.classList.add("is-invalid");
-    const el = document.getElementById("errorIdentificacion"); if (el) el.textContent = "Debes subir una identificación.";
-    valido = false;
-  } else {
-    identificacion.classList.remove("is-invalid");
-  }
+  // identificacion
+  // Dejamos la validación de archivo, aunque en el envío de JSON solo enviamos el nombre.
+  if (!identificacion || !identificacion.files.length) {
+    identificacion?.classList.add("is-invalid");
+    const el = document.getElementById("errorIdentificacion"); if (el) el.textContent = "Debes subir una identificación.";
+    valido = false;
+  } else {
+    identificacion.classList.remove("is-invalid");
+  }
 
-  // selects
-  const selects = [
-    { el: vivienda, id: 'errorVivienda', name: 'Tipo de vivienda' },
-    { el: mascotas, id: 'errorOtrasMascotas', name: 'Otras mascotas' },
-    { el: adoptadoAntes, id: 'errorAdoptadoAntes', name: '¿Adoptado antes?' },
-    { el: recursos, id: 'errorRecursos', name: 'Recursos' }
-  ];
-  selects.forEach(s => {
-    if (!s.el || !s.el.value) {
-      s.el?.classList.add('is-invalid');
-      const err = document.getElementById(s.id);
-      if (err) err.textContent = "Este campo es obligatorio.";
-      valido = false;
-    } else s.el.classList.remove('is-invalid');
-  });
+  // selects
+  const selects = [
+    { el: vivienda, id: 'errorVivienda', name: 'Tipo de vivienda' },
+    { el: mascotas, id: 'errorOtrasMascotas', name: 'Otras mascotas' },
+    { el: adoptadoAntes, id: 'errorAdoptadoAntes', name: '¿Adoptado antes?' },
+    { el: recursos, id: 'errorRecursos', name: 'Recursos' }
+  ];
+  selects.forEach(s => {
+    if (!s.el || !s.el.value) {
+      s.el?.classList.add('is-invalid');
+      const err = document.getElementById(s.id);
+      if (err) err.textContent = "Este campo es obligatorio.";
+      valido = false;
+    } else s.el.classList.remove('is-invalid');
+  });
 
-  // terms
-  if (!terms || !terms.checked) {
-    terms?.classList.add("is-invalid");
-    const el = document.getElementById("errorTerms"); if (el) el.textContent = "Debes aceptar los términos.";
-    valido = false;
-  } else {
-    terms.classList.remove("is-invalid");
-  }
+  // terms
+  if (!terms || !terms.checked) {
+    terms?.classList.add("is-invalid");
+    const el = document.getElementById("errorTerms"); if (el) el.textContent = "Debes aceptar los términos.";
+    valido = false;
+  } else {
+    terms.classList.remove("is-invalid");
+  }
 
-  if (!valido) return;
+  if (!valido) return;
 
-  console.log("Formulario válido y listo para enviar");
+  // 1. Recolectar datos del formulario
+  const petId = adoptionForm.dataset.petId;
+  const petName = document.getElementById('nombreMascotaModal')?.textContent || 'la mascota';
+  
+  // Mapeo de los campos del formulario a la estructura del objeto Adopcion de Spring Boot
+  const adoptionData = {
+      petId: petId, 
+      nombreCompleto: adoptionForm.elements['nombreCompleto'].value,
+      telefono: adoptionForm.elements['telefono'].value,
+      correoElectronico: adoptionForm.elements['correoElectronico'].value,
+      edad: Number(adoptionForm.elements['edad'].value),
+      tipoVivienda: adoptionForm.elements['tipoVivienda'].value,
+      otrasMascotas: adoptionForm.elements['otrasMascotas'].value === 'Sí', 
+      adoptadoAntes: adoptionForm.elements['adoptadoAntes'].value === 'Sí', 
+      recursosCuidado: adoptionForm.elements['recursosCuidado'].value,
+  };
 
-  // cerrar modal
-  const modal = bootstrap.Modal.getInstance(document.getElementById("adoptModal"));
-  modal?.hide();
+  try {
+      // 2. Llamar a la función FETCH (POST)
+      const resultado = await createAdoption(adoptionData);
+      
+      console.log('✅ Solicitud enviada:', resultado);
+      alert(`¡Gracias por tu interés en adoptar a ${petName}! Tu solicitud ha sido registrada.`);
 
-  // reset
-  adoptionForm.reset();
+      // 3. Si es exitoso (201 Created), cerrar modal y limpiar
+      const modal = bootstrap.Modal.getInstance(document.getElementById("adoptModal"));
+      modal?.hide();
+      adoptionForm.reset();
+
+  } catch (error) {
+      // Esto se ejecuta si hay un error de red o un error HTTP (4xx, 5xx)
+      console.error('❌ Fallo la solicitud de adopción:', error);
+      alert('❌ Error: No pudimos procesar tu solicitud. Inténtalo más tarde.'); 
+  }
 }
 
 // =======================
