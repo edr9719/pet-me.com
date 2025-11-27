@@ -1,244 +1,159 @@
-const API_URL = "http://localhost:8080/api/v1/users";
-const estados = [
-  'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
-  'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 'Durango',
-  'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco',
-  'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla',
-  'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora',
-  'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas',
-];
+// CAMBIAR POR TU IP DE AWS EL VIERNES
+const API_BASE_URL = "http://localhost:8080"; 
 
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    // --- SELECCIÓN DE ELEMENTOS 
-    const form = document.getElementById('registerForm');
-    const nombre = document.getElementById('name');
-    const apellidos = document.getElementById('lastname');
-    const email = document.getElementById('email');
-    const username = document.getElementById('username');
-    const password = document.getElementById('password');
-    const country = document.getElementById('estado'); 
-    const ciudad = document.getElementById('city');
-    const telefono = document.getElementById('telephone');
-    const terminos = document.getElementById('terminos');
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordHint = document.getElementById('password-hint');
+document.addEventListener("DOMContentLoaded", () => {
     
-    const campos = [nombre, apellidos, email, username, password, country, ciudad,telefono, terminos];
-
-    // ---  ESTADOS 
-    if (country) {
-        // Opción por defecto
-        const defaultOption = document.createElement('option');
-        defaultOption.value = ""; 
-        defaultOption.textContent = "Selecciona un estado";
-        defaultOption.selected = true;
-        country.appendChild(defaultOption);
-
-        // Añadimos cada estado del array
-        estados.forEach((estadoNombre) => {
-            const option = document.createElement('option');
-            option.value = estadoNombre;
-            option.textContent = estadoNombre;
-            country.appendChild(option);
-        });
-    }
+    // 1. LLENAR SELECT DE ESTADOS (Para que no esté vacío)
+    const selectEstado = document.getElementById("estado");
+    const estadosMexico = [
+        "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua",
+        "Ciudad de México", "Coahuila", "Colima", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco",
+        "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro",
+        "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala",
+        "Veracruz", "Yucatán", "Zacatecas"
+    ];
     
-    // --- LISTENERS DE CONTRASEÑA 
-    password.addEventListener('focus', function () {
-        passwordHint.classList.remove('d-none');
-    });
-    password.addEventListener('blur', function () {
-        passwordHint.classList.add('d-none');
-    });
-    togglePassword.addEventListener('click', function () {
-        const icon = this.querySelector('i');
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        icon.classList.toggle('bi-eye');
-        icon.classList.toggle('bi-eye-slash');
+    // Opción por defecto
+    selectEstado.innerHTML = '<option value="" selected disabled>Selecciona un estado</option>';
+    estadosMexico.forEach(estado => {
+        const option = document.createElement("option");
+        option.value = estado;
+        option.textContent = estado;
+        selectEstado.appendChild(option);
     });
 
-    // SUMBIT
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Detenemos el envío
-
-        //  VALIDAR 
-        if (validarFormulario()) {
-            
-            console.log('Formulario VÁLIDO. Guardando y redirigiendo...');
-
-            // ... (Validar Formulario es true)
-
-// --- GUARDAR EN LOCALSTORAGE ---
-//const users = JSON.parse(localStorage.getItem('users')) || [];
-const inputs = form.querySelectorAll('input[name]');
-const select = document.getElementById('estado');
-
-const newUser = {}; 
-inputs.forEach((input) => {
-    if (input.name && input.type !== 'checkbox') {
-        newUser[input.name] = input.value;
-    }
-});
-newUser["country"] = select.value;
-newUser["status"] = true;
-newUser[select.name] = select.value;
-newUser["password"] = document.getElementById('password').value;
-newUser["username"] = document.getElementById('username').value;
-newUser["city"] = document.getElementById('city').value;
-
-/* ============ SE COMENTA ALMACENAMIENTO LOCAL===========
-  --- VALIDACIÓN DE DUPLICADOS ---
-// Buscamos si ya existe un usuario con ese email
-const userExists = users.find(user => user.email === newUser.email);
-
-if (userExists) {
-    // Si 'userExists' no es 'undefined', el usuario ya existe
-    console.log('Formulario INVÁLIDO. El email ya está registrado.');
-    alert('Este correo electrónico ya está registrado. Por favor, usa otro.');
+    // 2. MOSTRAR / OCULTAR CONTRASEÑA
+    const togglePasswordBtn = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
     
-    mostrarError(email); 
+    togglePasswordBtn.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        
+        const icon = togglePasswordBtn.querySelector("i");
+        if(type === "text") {
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+        } else {
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        }
+    });
 
-} else {
-    // Si no existe (es undefined), lo agregamos
-    console.log('Formulario VÁLIDO. Guardando y redirigiendo...');
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+    // 3. LÓGICA DE REGISTRO
+    const registerForm = document.getElementById("registerForm");
     
-    // Redirigir
-    window.location.href = '/componentes/InicioSesion.html';
-}*/
+    registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        // Limpiar errores previos (visuales de Bootstrap)
+        document.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
 
-// --- Enviar al backend ---
-        fetch(`${API_URL}/new-user`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newUser)
-        })
-        .then(response => {
-            if (response.status === 201) {
-                window.location.href = "/componentes/InicioSesion.html";
-            } else if (response.status === 409) {
-                alert("Este correo o usuario ya está registrado.");
-                mostrarError(email);
-            } else {
-                alert("Error inesperado al registrar. Intenta de nuevo.");
-            }
-        })
-        .catch(error => {
-            console.error("Error en el registro:", error);
-            alert("No se pudo conectar con el servidor.");
-        });
-    }
-});
+        // --- RECOLECCIÓN DE DATOS ---
+        const nombre = document.getElementById("nombre");
+        const apellidos = document.getElementById("apellidos");
+        const email = document.getElementById("email");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const estado = document.getElementById("estado");
+        const ciudad = document.getElementById("ciudad");
+        const terminos = document.getElementById("terminos");
 
-
-  // =========VALIDACIONES=============
-    function validarFormulario() {
-        limpiarErrores();
         let esValido = true;
 
-        const nombreVal = nombre.value.trim();
-        const apellidosVal = apellidos.value.trim();
-        const emailVal = email.value.trim();
-        const usernameVal = username.value.trim();
-        const passwordVal = password.value.trim();
-        const estadoVal = country.value.trim();
-        const telefonoVal = telefono.value.trim();
-        const ciudadVal = ciudad.value.trim();
-        const terminosVal = terminos.checked;
+        // --- VALIDACIONES FRONTEND ---
         
-        // Validaciones
-        
-        if (nombreVal === '') {
-            mostrarError(nombre);
-            esValido = false;
-        } else {
-            mostrarExito(nombre);
-        }
-        if (apellidosVal === '') {
-            mostrarError(apellidos);
-            esValido = false;
-        } else {
-            mostrarExito(apellidos);
-        }
-        if (emailVal === '' || !esEmailValido(emailVal)) {
-            mostrarError(email);
-            esValido = false;
-        } else {
-            mostrarExito(email);
-        }
-        if (usernameVal === '') {
-            mostrarError(username);
-            esValido = false;
-        } else {
-            mostrarExito(username);
-        }
-
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-        const feedbackDiv = document.getElementById('password-feedback');
-
-        if (passwordVal === '') {
-            feedbackDiv.textContent = 'La contraseña es requerida.';
-            mostrarError(password);
-            esValido = false;
-        } else if (!passwordRegex.test(passwordVal)) {
-            feedbackDiv.textContent = 'Debe tener 8+ caracteres, 1 mayúscula, 1 minúscula y 1 número.';
-            mostrarError(password);
-            esValido = false;
-        } else {
-            mostrarExito(password);
-        }
-        
-        if (estadoVal === '') {
-            mostrarError(country);
-            esValido = false;
-        } else {
-            mostrarExito(country);
-        }
-        if (ciudadVal === '') {
-            mostrarError(ciudad);
-            esValido = false;
-        } else {
-            mostrarExito(ciudad);
-        }
-        if (!terminosVal) {
-            mostrarError(terminos);
-            esValido = false;
-        } else {
-            mostrarExito(terminos);
-        }
-
-        return esValido;
-    }
-
-    function mostrarError(input) {
-        input.classList.add('is-invalid');
-        input.classList.remove('is-valid');
-    }
-
-    function mostrarExito(input) {
-        input.classList.add('is-valid');
-        input.classList.remove('is-invalid');
-    }
-
-    function limpiarErrores() {
-        campos.forEach(campo => {
-            campo.classList.remove('is-invalid');
-            campo.classList.remove('is-valid');
+        // Campos vacíos simples
+        [nombre, apellidos, username, ciudad].forEach(input => {
+            if (!input.value.trim()) {
+                input.classList.add("is-invalid");
+                esValido = false;
+            }
         });
-        
-        const feedbackDiv = document.getElementById('password-feedback');
-        if (feedbackDiv) {
-            feedbackDiv.textContent = 'La contraseña es requerida.';
+
+        // Email (Regex simple)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            email.classList.add("is-invalid");
+            esValido = false;
         }
-    }
 
-    function esEmailValido(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+        // Estado (Select)
+        if (!estado.value) {
+            estado.classList.add("is-invalid");
+            esValido = false;
+        }
 
-}); 
+        // Términos
+        if (!terminos.checked) {
+            terminos.classList.add("is-invalid");
+            esValido = false;
+        }
+
+        // Contraseña (Validación fuerte)
+        // Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
+        const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passRegex.test(password.value)) {
+            password.classList.add("is-invalid");
+            document.getElementById("password-hint").classList.remove("d-none"); // Mostrar ayuda
+            document.getElementById("password-feedback").textContent = "La contraseña no cumple los requisitos.";
+            esValido = false;
+        } else {
+            document.getElementById("password-hint").classList.add("d-none");
+        }
+
+        if (!esValido) return; // Si algo falló, no enviamos nada
+
+        // --- PREPARAR JSON PARA BACKEND ---
+        const btnSubmit = document.getElementById("createAccountBtn");
+        const originalText = btnSubmit.textContent;
+        btnSubmit.textContent = "Creando cuenta...";
+        btnSubmit.disabled = true;
+
+        const newUser = {
+            name: nombre.value.trim(),
+            lastname: apellidos.value.trim(),
+            email: email.value.trim(),
+            username: username.value.trim(),
+            password: password.value,
+            // Tu HTML no tiene teléfono, enviamos 0 para cumplir con el modelo Java
+            telephone: 0, 
+            country: estado.value,
+            city: ciudad.value.trim(),
+            // Enviamos la fecha actual en formato YYYY-MM-DD
+            registerDate: new Date().toISOString().split('T')[0]
+        };
+
+        // --- PETICIÓN AL SERVIDOR ---
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/v1/users/new-user`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newUser)
+            });
+
+            if (response.ok) { // 201 Created
+                alert("¡Cuenta creada con éxito! Bienvenido a PetMe 🐾");
+                window.location.href = "/componentes/InicioSesion.html";
+            } else if (response.status === 409) {
+                alert("Error: El correo o nombre de usuario ya están registrados.");
+                // Opcional: resaltar los campos
+                email.classList.add("is-invalid");
+                username.classList.add("is-invalid");
+            } else {
+                const text = await response.text();
+                console.error("Error backend:", text);
+                alert("Hubo un error al crear la cuenta. Intenta más tarde.");
+            }
+
+        } catch (error) {
+            console.error("Error de conexión:", error);
+            alert("No se pudo conectar con el servidor.");
+        } finally {
+            btnSubmit.textContent = originalText;
+            btnSubmit.disabled = false;
+        }
+    });
+});
