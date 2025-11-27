@@ -115,18 +115,15 @@
               style="font-size: 1.5rem; color: white"
             ></i>
           </a>
-          <a
-            class="nav-link mx-2"
-            data-bs-toggle="modal"
-            data-bs-target="#notificacionesModal"
-            href="#"
-          >
-            <i
-              class="bi bi-bell"
-              id="mainBellIcon"
-              style="font-size: 1.5rem; color: white"
-            ></i>
-          </a>
+          <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#notificacionesModal">
+    <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
+    
+    <span id="badge-notificaciones" 
+          class="position-absolute top-0 start-100 translate-middle bg-danger border border-light rounded-circle d-none"
+          style="padding: 5px;"> 
+          <span class="visually-hidden">Nuevas notificaciones</span>
+    </span>
+</a>
           <a class="nav-link me-3" href="/componentes/perfil.html">
             <i
               class="bi bi-person-circle"
@@ -739,67 +736,34 @@
     </div>
 
     <!-- Modal Notificaciones -->
-    <div
-      class="modal fade"
-      id="notificacionesModal"
-      tabindex="-1"
-      aria-labelledby="notificacionesModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content petme-modal-content">
-          <div class="modal-header petme-modal-header">
-            <h5 class="modal-title" id="notificacionesModalLabel">
-              <i class="bi bi-bell-fill me-2"></i> Notificaciones
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
+     <div class="modal fade" id="notificacionesModal" tabindex="-1" aria-labelledby="notificacionesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content petme-modal-content">
+      
+      <div class="modal-header petme-modal-header">
+        <h5 class="modal-title" id="notificacionesModalLabel">
+          <i class="bi bi-bell-fill me-2"></i> Notificaciones
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
 
-          <div class="modal-body petme-modal-body">
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-              <i
-                class="bi bi-heart-fill me-3 text-warning"
-                style="font-size: 1.5rem"
-              ></i>
-              <div>
-                <p class="mb-0 fw-bold text-white">
-                  ¡A Buddy le gusta tu foto! 🐾
-                </p>
-                <small class="text-white-50">Hace 5 minutos</small>
-              </div>
-            </div>
+      <div class="modal-body petme-modal-body" id="lista-notificaciones">
+        <div class="text-center text-white-50 mt-3">Cargando...</div>
+      </div>
 
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-              <i
-                class="bi bi-chat-dots-fill me-3 text-info"
-                style="font-size: 1.5rem"
-              ></i>
-              <div>
-                <p class="mb-0 fw-bold text-white">Mensaje de Jane Sánchez</p>
-                <small class="text-white-50">Consulta sobre adopción.</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-footer petme-modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-sm btn-link petme-link text-white-50"
-            >
-              Marcar todas como leídas
-            </button>
-          </div>
-        </div>
+      <div class="modal-footer petme-modal-footer justify-content-center">
+        <button type="button" id="btn-marcar-todas" class="btn btn-sm btn-link petme-link text-white-50">
+          Marcar todas como leídas
+        </button>
       </div>
     </div>
-
+  </div>
+</div>
+    
     <!-- Bootstrap JS (con Popper incluido) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/JavaScript/feed.js"></script>
+    <script type="module" src="/JavaScript/notificaciones.js"></script>
+
   </body>
 </html>
