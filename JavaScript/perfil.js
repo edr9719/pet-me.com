@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // usaremos localStorage temporalmente o mostraremos un default.
             // (Si quieres persistencia real, necesitas agregar el campo en la BD).
             const localDesc = localStorage.getItem(`desc_${userId}`);
-            profileDesc.textContent = localDesc || "¡Hola! Soy nuevo en PetMe.";
+            profileDesc.textContent = localDesc || "¡Hola!... ¿Eres nuevo en PetMe?... Agrega una descripción";
 
             // Llenar Modal de Edición (Pre-cargar datos)
             editNombre.value = user.name;
