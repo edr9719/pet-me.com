@@ -1,3 +1,4 @@
+const API_URL = "http://localhost:8080/api/v1/users";
 const estados = [
   'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
   'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 'Durango',
@@ -12,34 +13,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- SELECCIÓN DE ELEMENTOS 
     const form = document.getElementById('registerForm');
-    const nombre = document.getElementById('nombre');
-    const apellidos = document.getElementById('apellidos');
+    const nombre = document.getElementById('name');
+    const apellidos = document.getElementById('lastname');
     const email = document.getElementById('email');
     const username = document.getElementById('username');
     const password = document.getElementById('password');
-    const estado = document.getElementById('estado'); 
-    const ciudad = document.getElementById('ciudad');
+    const country = document.getElementById('estado'); 
+    const ciudad = document.getElementById('city');
+    const telefono = document.getElementById('telephone');
     const terminos = document.getElementById('terminos');
     const togglePassword = document.getElementById('togglePassword');
     const passwordHint = document.getElementById('password-hint');
     
-    const campos = [nombre, apellidos, email, username, password, estado, ciudad, terminos];
+    const campos = [nombre, apellidos, email, username, password, country, ciudad,telefono, terminos];
 
     // ---  ESTADOS 
-    if (estado) {
+    if (country) {
         // Opción por defecto
         const defaultOption = document.createElement('option');
         defaultOption.value = ""; 
         defaultOption.textContent = "Selecciona un estado";
         defaultOption.selected = true;
-        estado.appendChild(defaultOption);
+        country.appendChild(defaultOption);
 
         // Añadimos cada estado del array
         estados.forEach((estadoNombre) => {
             const option = document.createElement('option');
             option.value = estadoNombre;
             option.textContent = estadoNombre;
-            estado.appendChild(option);
+            country.appendChild(option);
         });
     }
     
@@ -58,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         icon.classList.toggle('bi-eye-slash');
     });
 
-    // 
+    // SUMBIT
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // Detenemos el envío
 
@@ -70,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // ... (Validar Formulario es true)
 
 // --- GUARDAR EN LOCALSTORAGE ---
-const users = JSON.parse(localStorage.getItem('users')) || [];
+//const users = JSON.parse(localStorage.getItem('users')) || [];
 const inputs = form.querySelectorAll('input[name]');
 const select = document.getElementById('estado');
 
@@ -80,10 +82,15 @@ inputs.forEach((input) => {
         newUser[input.name] = input.value;
     }
 });
+newUser["country"] = select.value;
+newUser["status"] = true;
 newUser[select.name] = select.value;
-newUser.id = Date.now();
+newUser["password"] = document.getElementById('password').value;
+newUser["username"] = document.getElementById('username').value;
+newUser["city"] = document.getElementById('city').value;
 
-// --- VALIDACIÓN DE DUPLICADOS ---
+/* ============ SE COMENTA ALMACENAMIENTO LOCAL===========
+  --- VALIDACIÓN DE DUPLICADOS ---
 // Buscamos si ya existe un usuario con ese email
 const userExists = users.find(user => user.email === newUser.email);
 
@@ -99,14 +106,36 @@ if (userExists) {
     console.log('Formulario VÁLIDO. Guardando y redirigiendo...');
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
-
+    
     // Redirigir
     window.location.href = '/componentes/InicioSesion.html';
-}
-        } 
-    }); 
+}*/
+
+// --- Enviar al backend ---
+        fetch(`${API_URL}/new-user`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser)
+        })
+        .then(response => {
+            if (response.status === 201) {
+                window.location.href = "/componentes/InicioSesion.html";
+            } else if (response.status === 409) {
+                alert("Este correo o usuario ya está registrado.");
+                mostrarError(email);
+            } else {
+                alert("Error inesperado al registrar. Intenta de nuevo.");
+            }
+        })
+        .catch(error => {
+            console.error("Error en el registro:", error);
+            alert("No se pudo conectar con el servidor.");
+        });
+    }
+});
 
 
+  // =========VALIDACIONES=============
     function validarFormulario() {
         limpiarErrores();
         let esValido = true;
@@ -116,7 +145,8 @@ if (userExists) {
         const emailVal = email.value.trim();
         const usernameVal = username.value.trim();
         const passwordVal = password.value.trim();
-        const estadoVal = estado.value;
+        const estadoVal = country.value.trim();
+        const telefonoVal = telefono.value.trim();
         const ciudadVal = ciudad.value.trim();
         const terminosVal = terminos.checked;
         
@@ -163,10 +193,10 @@ if (userExists) {
         }
         
         if (estadoVal === '') {
-            mostrarError(estado);
+            mostrarError(country);
             esValido = false;
         } else {
-            mostrarExito(estado);
+            mostrarExito(country);
         }
         if (ciudadVal === '') {
             mostrarError(ciudad);
