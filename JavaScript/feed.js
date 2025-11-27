@@ -65,12 +65,12 @@ function inicializarBusqueda() {
       const contenedor = document.querySelector('.pet-cards-wrapper');
       if (contenedor) {
         contenedor.innerHTML = `
-                    <div class="text-center mt-5">
-                        <i class="bi bi-search" style="font-size: 3rem; color: var(--primary-color);"></i>
-                        <p class="mt-3 text-muted">No se encontraron publicaciones que coincidan con "${searchTerm}"</p>
-                        <button class="btn btn-primary" onclick="limpiarBusqueda()">Ver todas las publicaciones</button>
-                    </div>
-                `;
+						<div class="text-center mt-5">
+							<i class="bi bi-search" style="font-size: 3rem; color: var(--primary-color);"></i>
+							<p class="mt-3 text-muted">No se encontraron publicaciones que coincidan con "${searchTerm}"</p>
+							<button class="btn btn-primary" onclick="limpiarBusqueda()">Ver todas las publicaciones</button>
+						</div>
+					`;
       }
     }
   }
@@ -235,95 +235,162 @@ function renderizarPublicaciones(lista) {
       const foto = mascota.foto_principal || '/Img/placeholder.png';
       const emoji = mascota.especie === 'Gato' ? '🐱' : '🐶';
 
-      // --- CAMBIO 1: DECIDIR QUÉ FOTO USAR ---
-      // Si el usuario tiene 'photoProfile', úsala. Si no, usa la de letras (UI Avatars).
+      // Decide qué foto de perfil usar
       const fotoUsuario =
         usuario.photoProfile ||
         `https://ui-avatars.com/api/?name=${usuario.username}&background=random`;
 
       return `
-        <div class="pet-card fade-in mb-4">
-            <div class="pet-card-header">
-                <div class="profile-pic" style="background-image: url('${fotoUsuario}');"></div>
-                
-                <div>
-                    <p class="profile-name">${usuario.username}</p>
-                    <p class="profile-location">${
-                      mascota.estado_adopcion === 'ADOPTADO'
-                        ? '🟢 ADOPTADO'
-                        : '📍 Disponible'
-                    }</p>
-                </div>
-            </div>
+				<div class="pet-card fade-in mb-4">
+					<div class="pet-card-header">
+						<div class="profile-pic" style="background-image: url('${fotoUsuario}');"></div>
+						
+						<div>
+							<p class="profile-name">${usuario.username}</p>
+							<p class="profile-location">${mascota.estado_adopcion === 'ADOPTADO'
+          ? '🟢 ADOPTADO'
+          : '📍 Disponible'
+        }</p>
+						</div>
+					</div>
 
-            <div class="pet-image" style="background-image: url('${foto}'); height: 350px; background-size: cover; background-position: center;"></div>
+					<div class="pet-image" style="background-image: url('${foto}'); height: 350px; background-size: cover; background-position: center;"></div>
 
-            <div class="pet-card-body">
-                <div class="pet-info-header">
-                    <div>
-                        <p class="pet-name">${emoji} ${
-        mascota.nombre_mascotas || 'Sin nombre'
-      }</p>
-                        <p class="pet-details">${mascota.edad || '?'} años, ${
-        mascota.tamaño || ''
-      }, ${mascota.sexo || ''}</p>
-                    </div>
-                    ${
-                      mascota.estado_adopcion !== 'ADOPTADO'
-                        ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
-                        : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
-                    }
-                </div>
-                <p class="pet-description">${mascota.descripcion || ''}</p>
-            </div>
+					<div class="pet-card-body">
+						<div class="pet-info-header">
+							<div>
+								<p class="pet-name">${emoji} ${mascota.nombre_mascotas || 'Sin nombre'
+        }</p>
+								<p class="pet-details">${mascota.edad || '?'} años, ${mascota.tamaño || ''
+        }, ${mascota.sexo || ''}</p>
+							</div>
+							${mascota.estado_adopcion !== 'ADOPTADO'
+          ? `<button class="btn-adopt" onclick="iniciarAdopcion(${mascota.id_mascotas}, '${mascota.nombre_mascotas}')">Adóptame</button>`
+          : `<button class="btn btn-secondary btn-sm" disabled>Finalizado</button>`
+        }
+						</div>
+						<p class="pet-description">${mascota.descripcion || ''}</p>
+					</div>
 
-            <div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
-                <div class="d-flex gap-3">
-                    <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${
-                      pub.id
-                    })">
-                        <span class="material-symbols-outlined text-danger">favorite</span>
-                        <span class="action-count">${pub.likes || 0}</span>
-                    </button>
-                    
-                    <button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${
-                      pub.id
-                    })">
-                        <span class="material-symbols-outlined text-primary">chat_bubble</span>
-                        <span class="action-count">0</span>
-                    </button>
-                </div>
+					<div class="pet-card-footer d-flex justify-content-between px-3 pb-3">
+						<div class="d-flex gap-3">
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="darLike(${pub.id
+        })">
+								<span class="material-symbols-outlined text-danger">favorite</span>
+								<span class="action-count">${pub.likes || 0}</span>
+							</button>
+							
+							<button class="action-btn d-flex align-items-center gap-1 border-0 bg-transparent p-0" onclick="toggleComentarios(${pub.id
+        })">
+								<span class="material-symbols-outlined text-primary">chat_bubble</span>
+								<span class="action-count">0</span>
+							</button>
+						</div>
 
-                <button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${
-                  mascota.nombre_mascotas
-                }')">
-                    <span class="material-symbols-outlined text-dark">share</span>
-                </button>
-            </div>
+						<button class="action-btn border-0 bg-transparent p-0" onclick="compartirPost('${mascota.nombre_mascotas
+        }')">
+								<span class="material-symbols-outlined text-dark">share</span>
+						</button>
+					</div>
 
-            <div id="comentarios-${
-              pub.id
-            }" class="comment-section d-none px-3 pb-3">
-                <div class="input-group">
-                    <input type="text" id="input-comentario-${
-                      pub.id
-                    }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
-                    <button class="btn btn-sm btn-primary" onclick="enviarComentario(${
-                      pub.id
-                    })">Enviar</button>
-                </div>
-                <div class="mt-2 small text-muted" id="lista-comentarios-${
-                  pub.id
-                }"></div>
-            </div>
-        </div>
-        `;
+					<div id="comentarios-${pub.id
+        }" class="comment-section d-none px-3 pb-3">
+						<div class="input-group">
+							<input type="text" id="input-comentario-${pub.id
+        }" class="form-control form-control-sm" placeholder="Escribe un comentario...">
+							<button class="btn btn-sm btn-primary" onclick="enviarComentario(${pub.id
+        })">Enviar</button>
+						</div>
+						<div class="mt-2 small text-muted" id="lista-comentarios-${pub.id
+        }"></div>
+					</div>
+				</div>
+			`;
     })
     .join('');
 }
 
 // =======================
-// 4. FUNCIONES GLOBALES (ACCIONES)
+// 5. SOLICITUD DE ADOPCIÓN (WHATSAPP)
+// =======================
+
+/**
+ * Busca una publicación por el ID de la mascota y devuelve el teléfono del dueño.
+ * @param {number} petId - El ID de la mascota.
+ * @returns {string|null} El número de teléfono del usuario o null si no se encuentra.
+ */
+function getTelefonoUsuarioPorMascotaId(petId) {
+    const pub = publicaciones.find(p => p.mascota && p.mascota.id_mascotas === petId);
+    
+    // 💡 SOLUCIÓN: Cambiar 'telefono' por 'telephone' para que coincida con la API/DB.
+    return pub && pub.usuario ? pub.usuario.telephone : null; 
+}
+
+/**
+ * Maneja el envío del formulario de adopción, validando y enviando por WhatsApp.
+ * @param {Event} event - El evento de envío del formulario.
+ */
+function handleAdoptionFormSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const petId = parseInt(form.dataset.petId); // Obtiene el ID de la mascota del dataset del form
+
+  // Simple validación de campos requeridos (el HTML debe usar 'required')
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated');
+    alert('Por favor, completa todos los campos requeridos y acepta los términos.');
+    return;
+  }
+
+  // Obtener los datos del formulario
+  const nombreCompleto = form.querySelector('#nombreCompleto').value;
+  const telefonoSolicitante = form.querySelector('#telefono').value;
+  const correoElectronico = form.querySelector('#correoElectronico').value;
+  const edad = form.querySelector('#edad').value;
+  const tipoVivienda = form.querySelector('#tipoVivienda').value;
+  const otrasMascotas = form.querySelector('#otrasMascotas').value;
+  const adoptadoAntes = form.querySelector('#adoptadoAntes').value;
+  const recursosCuidado = form.querySelector('#recursosCuidado').value;
+  const nombreMascota = document.getElementById('nombreMascotaModal').textContent.trim();
+
+  // 1. Buscar el teléfono del dueño
+  const telefonoDueno = getTelefonoUsuarioPorMascotaId(petId);
+
+  if (!telefonoDueno) {
+    alert('❌ Error: No se pudo encontrar el número de contacto del dueño de la mascota.');
+    return;
+  }
+
+  // 2. Construir el mensaje de WhatsApp (URL-encoded)
+  const mensaje = `Hola, mi nombre es *${nombreCompleto}*. Estoy muy interesado/a en adoptar a *${nombreMascota}* (ID: ${petId}).
+
+Mis datos y situación son:
+* **Teléfono:** ${telefonoSolicitante}
+* **Correo:** ${correoElectronico}
+* **Edad:** ${edad} años
+* **Vivienda:** ${tipoVivienda}
+* **Otras Mascotas:** ${otrasMascotas}
+* **Experiencia (Adopción Previa):** ${adoptadoAntes}
+* **Recursos para Cuidado:** ${recursosCuidado}
+
+¡Espero tu respuesta para coordinar! 🐾`;
+
+  const mensajeURL = encodeURIComponent(mensaje);
+
+  // 3. Abrir WhatsApp (usando el formato de URL wa.me)
+  // Asegúrate de que el 'telefonoDueno' incluya el código de país (ej. 5218112345678)
+  const urlWhatsapp = `https://wa.me/${telefonoDueno}?text=${mensajeURL}`;
+
+  window.open(urlWhatsapp, '_blank');
+
+  // Cerrar el modal y notificar al usuario
+  const modal = bootstrap.Modal.getInstance(document.getElementById('adoptModal'));
+  if (modal) modal.hide();
+  alert(`✅ Solicitud de adopción enviada por WhatsApp al dueño de ${nombreMascota}. ¡Revisa el chat!`);
+}
+
+// =======================
+// 6. FUNCIONES GLOBALES (ACCIONES)
 // =======================
 
 // --- LIKE ---
@@ -399,7 +466,10 @@ window.iniciarAdopcion = (id, nombre) => {
   const form = document.getElementById('adoptionForm');
 
   if (spanNombre) spanNombre.textContent = nombre;
-  if (form) form.dataset.petId = id;
+  if (form) {
+    form.dataset.petId = id;
+    form.classList.remove('was-validated'); // Limpiar validación previa
+  }
 
   const modal = new bootstrap.Modal(modalElem);
   modal.show();
@@ -421,13 +491,13 @@ function actualizarPreview() {
   container.innerHTML = imagenesSeleccionadas
     .map(
       (img, i) => `
-        <div class="position-relative d-inline-block m-1">
-            <img src="${img.base64}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
-            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0" 
-                    style="width: 20px; height: 20px; line-height: 1;"
-                    onclick="eliminarImagen(${i})">×</button>
-        </div>
-    `
+			<div class="position-relative d-inline-block m-1">
+				<img src="${img.base64}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+				<button class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0" 
+						style="width: 20px; height: 20px; line-height: 1;"
+						onclick="eliminarImagen(${i})">×</button>
+			</div>
+		`
     )
     .join('');
   container.classList.remove('d-none');
@@ -442,6 +512,10 @@ window.eliminarImagen = (index) => {
 function inicializarEventos() {
   const newPostForm = document.getElementById('newPostForm');
   if (newPostForm) newPostForm.addEventListener('submit', handleNewPost);
+
+  // 💡 CONEXIÓN DEL FORMULARIO DE ADOPCIÓN
+  const adoptionForm = document.getElementById('adoptionForm');
+  if (adoptionForm) adoptionForm.addEventListener('submit', handleAdoptionFormSubmit);
 
   const fileInput = document.getElementById('post-imagen');
   if (fileInput) {
