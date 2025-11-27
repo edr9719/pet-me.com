@@ -1,326 +1,205 @@
-// Configuration - Update this with your backend URL
-const API_BASE_URL = 'http://localhost:8080/api/v1/users';
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // ⚠️ CAMBIAR IP EN AWS
+    const API_URL = "http://localhost:8080/api/v1"; 
 
-// Get the current user ID from localStorage or session
-// You can modify this based on how you're storing the logged-in user's ID
-let currentUserId = null;
+    // Credenciales
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("access_token");
 
-/**
- * Initialize the profile page
- */
-document.addEventListener('DOMContentLoaded', function () {
-  // Try to get the user ID from localStorage (you might have this set during login)
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    // Elementos del DOM (Perfil)
+    const profileName = document.querySelector('.profile-card h1');
+    const profileDesc = document.querySelector('.profile-card .text-muted-custom.small.text-center');
+    const profileEmail = document.querySelectorAll('.profile-card .d-flex.align-items-center span.small')[0];
+    const profilePhone = document.querySelectorAll('.profile-card .d-flex.align-items-center span.small')[1];
+    const profileLocation = document.querySelectorAll('.profile-card .d-flex.align-items-center span.small')[2];
+    
+    // Elementos del Modal de Edición
+    const editNombre = document.getElementById('editNombre');
+    const editApellido = document.getElementById('editApellido');
+    const editDescription = document.getElementById('editDescription');
+    const editEmail = document.getElementById('editEmail');
+    const editPhone = document.getElementById('editPhone');
+    const editLocation = document.getElementById('editLocation');
+    const saveBtn = document.getElementById('saveProfileBtn');
 
-  if (loggedInUser && loggedInUser.id) {
-    currentUserId = loggedInUser.id;
-    loadUserProfile(currentUserId);
-  } else {
-    // For testing purposes, you can hardcode a user ID here
-    // Remove this in production and implement proper authentication
-    console.warn('No user ID found. Using test user ID: 1');
-    currentUserId = 1; // Default test user
-    loadUserProfile(currentUserId);
-  }
-
-  // Set up the save button event listener
-  document
-    .getElementById('saveProfileBtn')
-    .addEventListener('click', saveProfile);
-
-  // Profile image upload handler
-  document
-    .getElementById('profileImageInput')
-    .addEventListener('change', handleProfileImageUpload);
-
-  // Tab switching functionality
-  setupTabSwitching();
-});
-
-/**
- * Load user profile data from the backend
- */
-async function loadUserProfile(userId) {
-  try {
-    const token = localStorage.getItem('jwtToken');
-
-    const response = await fetch(`${API_BASE_URL}/id-user/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error('Usuario no encontrado');
-      }
-      throw new Error('Error al cargar el perfil');
-    }
-
-    const user = await response.json();
-    console.log('Usuario cargado:', user);
-
-    // Populate the profile display with user data
-    populateProfileDisplay(user);
-
-    // Populate the edit modal form with user data
-    populateEditForm(user);
-  } catch (error) {
-    console.error('Error loading profile:', error);
-    alert(
-      'Error al cargar el perfil del usuario. Por favor, intenta de nuevo.'
-    );
-  }
-}
-
-/**
- * Populate the profile display section with user data
- */
-function populateProfileDisplay(user) {
-  // Update profile image - handle if photoProfile is null or empty
-  const profileImg = document.getElementById('profileImage');
-  if (profileImg) {
-    if (user.photoProfile && user.photoProfile.trim() !== '') {
-      profileImg.src = user.photoProfile;
-    } else {
-      // Use a default avatar if no photo is set
-      profileImg.src =
-        'https://ui-avatars.com/api/?name=' +
-        encodeURIComponent(user.name + '+' + user.lastname) +
-        '&size=200&background=random';
-    }
-  }
-
-  // Update name - IMPORTANT: Make sure we're selecting the right element
-  const fullName = `${user.name} ${user.lastname}`;
-  const nameElement = document.querySelector('.profile-card h1');
-  if (nameElement) {
-    nameElement.textContent = fullName;
-  }
-
-  // Update description/bio
-  const descriptionElement = document.querySelector(
-    '.profile-card .text-muted-custom.small.text-center'
-  );
-  if (descriptionElement) {
-    descriptionElement.textContent =
-      user.description ||
-      `Usuario de PetMe desde ${user.registerDate || '2025-11-28'}.`;
-  }
-
-  // Update contact information
-  const contactInfoElements = document.querySelectorAll(
-    '.profile-card .d-flex.align-items-center span.small'
-  );
-  if (contactInfoElements.length >= 3) {
-    // Email
-    contactInfoElements[0].textContent = user.email;
-
-    // Phone
-    contactInfoElements[1].textContent = user.telephone
-      ? `+52 ${user.telephone}`
-      : 'No especificado';
-
-    // Location (combining city and country)
-    const location =
-      [user.city, user.country].filter(Boolean).join(', ') || 'No especificado';
-    contactInfoElements[2].textContent = location;
-  }
-}
-
-/**
- * Populate the edit form modal with user data
- */
-function populateEditForm(user) {
-  document.getElementById('editNombre').value = user.name || '';
-  document.getElementById('editApellido').value = user.lastname || '';
-  document.getElementById('editDescription').value = user.description || '';
-  document.getElementById('editEmail').value = user.email || '';
-  document.getElementById('editPhone').value = user.telephone || '';
-
-  // Combine country and city for location
-  const location = [user.city, user.country].filter(Boolean).join(', ');
-  document.getElementById('editLocation').value = location || '';
-}
-
-/**
- * Save profile changes to the backend
- */
-async function saveProfile() {
-  try {
-    const token = localStorage.getItem('jwtToken');
-
-    // Get form values
-    const nombre = document.getElementById('editNombre').value.trim();
-    const apellido = document.getElementById('editApellido').value.trim();
-    const description = document.getElementById('editDescription').value.trim();
-    const email = document.getElementById('editEmail').value.trim();
-    const phone = document.getElementById('editPhone').value.trim();
-    const location = document.getElementById('editLocation').value.trim();
-
-    // Basic validation
-    if (!nombre || !apellido || !email) {
-      alert(
-        'Por favor, completa los campos obligatorios (Nombre, Apellido, Email).'
-      );
-      return;
-    }
-
-    // Parse location (assuming format: "City, Country")
-    const locationParts = location.split(',').map((part) => part.trim());
-    const city = locationParts[0] || '';
-    const country = locationParts[1] || locationParts[0] || '';
-
-    // Get current user data first to preserve fields we're not updating
-    const currentUser = await fetch(
-      `${API_BASE_URL}/id-user/${currentUserId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    ).then((res) => res.json());
-
-    // Prepare updated user data
-    const updatedUser = {
-      ...currentUser, // Keep existing fields
-      name: nombre,
-      lastname: apellido,
-      email: email,
-      telephone: phone
-        ? parseInt(phone.replace(/\D/g, ''))
-        : currentUser.telephone,
-      city: city,
-      country: country,
-      // If you add a description field to your backend model, uncomment this:
-      // description: description
+    // Headers
+    const authHeaders = {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
     };
 
-    // Send PUT request to update user
-    const response = await fetch(
-      `${API_BASE_URL}/update-user/${currentUserId}`,
-      {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedUser),
-      }
-    );
+    // ==========================================
+    // 1. CARGAR DATOS DEL USUARIO
+    // ==========================================
+    function cargarDatosUsuario() {
+        if (!userId || !token) return;
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error('Usuario no encontrado');
-      }
-      throw new Error('Error al actualizar el perfil');
+        fetch(`${API_URL}/users/id-user/${userId}`, {
+            method: "GET",
+            headers: authHeaders
+        })
+        .then(res => res.json())
+        .then(user => {
+            // Llenar Tarjeta de Perfil
+            const fullName = `${user.name} ${user.lastname}`;
+            const ubicacion = `${user.city || ''}, ${user.country || ''}`;
+            
+            profileName.textContent = fullName;
+            profileEmail.textContent = user.email;
+            
+            // Datos opcionales (si son null, ponemos un texto por defecto)
+            profilePhone.textContent = user.telephone || "Agrega un teléfono";
+            profileLocation.textContent = ubicacion !== ", " ? ubicacion : "Agrega tu ubicación";
+            
+            // Descripción: Como User.java NO TIENE campo de descripción,
+            // usaremos localStorage temporalmente o mostraremos un default.
+            // (Si quieres persistencia real, necesitas agregar el campo en la BD).
+            const localDesc = localStorage.getItem(`desc_${userId}`);
+            profileDesc.textContent = localDesc || "¡Hola! Soy nuevo en PetMe.";
+
+            // Llenar Modal de Edición (Pre-cargar datos)
+            editNombre.value = user.name;
+            editApellido.value = user.lastname;
+            editEmail.value = user.email;
+            editPhone.value = user.telephone || "";
+            // Separamos ciudad y pais si es posible, o ponemos todo en ciudad para editar
+            editLocation.value = user.city || ""; 
+            editDescription.value = localDesc || "";
+        })
+        .catch(err => console.error("Error cargando perfil:", err));
     }
 
-    const result = await response.json();
-    console.log('Perfil actualizado:', result);
+    // ==========================================
+    // 2. ACTUALIZAR PERFIL (PUT)
+    // ==========================================
+    if(saveBtn) {
+        saveBtn.addEventListener("click", () => {
+            // Armamos el objeto JSON tal como lo pide User.java
+            // Nota: User.java pide 'city' y 'country'. Aquí asumiremos que el input de ubicación es la ciudad.
+            const updatedUser = {
+                name: editNombre.value.trim(),
+                lastname: editApellido.value.trim(),
+                email: editEmail.value.trim(),
+                telephone: parseInt(editPhone.value.trim()) || 0,
+                city: editLocation.value.trim(),
+                country: "México",
+                username: localStorage.getItem("username"),
+                
+                // 🔥 AGREGAMOS ESTO: Enviamos la foto que está en el navegador
+                photoProfile: localStorage.getItem('profileImage') || "" 
+            };
 
-    // Update the display with new data
-    populateProfileDisplay(result);
+            // Guardamos descripción en LocalStorage (ya que no hay campo en BD)
+            localStorage.setItem(`desc_${userId}`, editDescription.value.trim());
 
-    // Close modal
-    const modal = bootstrap.Modal.getInstance(
-      document.getElementById('editProfileModal')
-    );
-    modal.hide();
+            // Enviar al Backend
+            fetch(`${API_URL}/users/update-user/${userId}`, {
+                method: "PUT",
+                headers: authHeaders,
+                body: JSON.stringify(updatedUser)
+            })
+            .then(res => {
+                if(res.ok) {
+                    // Cerrar modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+                    modal.hide();
+                    
+                    // Recargar datos visuales
+                    cargarDatosUsuario();
+                    alert("Perfil actualizado con éxito ✅");
+                } else {
+                    alert("Error al actualizar perfil. Verifica los datos.");
+                }
+            })
+            .catch(err => console.error("Error updating:", err));
+        });
+    }
 
-    // Show success message
-    showSuccessMessage('¡Perfil actualizado correctamente!');
-  } catch (error) {
-    console.error('Error saving profile:', error);
-    alert('Error al guardar los cambios. Por favor, intenta de nuevo.');
-  }
-}
+    // ==========================================
+    // 3. CARGAR PUBLICACIONES (Ya lo tenías)
+    // ==========================================
+    const container = document.getElementById("mis-publicaciones-container");
+    const tabPublicaciones = document.getElementById("publicacionesTab");
 
-/**
- * Handle profile image upload
- */
-async function handleProfileImageUpload(e) {
-  const file = e.target.files[0];
-  if (!file || !file.type.startsWith('image/')) {
-    alert('Por favor, selecciona un archivo de imagen válido.');
-    return;
-  }
+    if(tabPublicaciones) {
+        tabPublicaciones.addEventListener("click", cargarMisPublicaciones);
+    }
 
-  // Convert image to base64
-  const reader = new FileReader();
-  reader.onload = async function (event) {
-    const imageUrl = event.target.result;
-
-    try {
-      // Update profile image in the backend
-      const response = await fetch(
-        `${API_BASE_URL}/update-photo/${currentUserId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            photoProfile: imageUrl,
-          }),
+    function cargarMisPublicaciones() {
+        if(!userId || !token) {
+            container.innerHTML = '<p class="text-center text-danger">Inicia sesión.</p>';
+            return;
         }
-      );
 
-      if (!response.ok) {
-        throw new Error('Error al actualizar la foto de perfil');
-      }
+        fetch(`${API_URL}/publicaciones/usuario/${userId}`, {
+            method: "GET",
+            headers: authHeaders
+        })
+        .then(res => res.json())
+        .then(data => {
+            container.innerHTML = ""; 
 
-      const result = await response.json();
-      console.log('Foto de perfil actualizada:', result);
+            if(data.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="bi bi-camera text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-3">Aún no has publicado nada.</p>
+                    </div>`;
+                return;
+            }
 
-      // Update the image in the UI
-      document.getElementById('profileImage').src = imageUrl;
+            data.forEach(pub => {
+                const mascota = pub.mascota || {};
+                const esAdoptado = mascota.estado_adopcion === "ADOPTADO";
+                let botonAccion = "";
+                
+                if (esAdoptado) {
+                    botonAccion = `<span class="badge bg-success"><i class="bi bi-check-circle"></i> ¡Adoptado!</span>`;
+                } else {
+                    botonAccion = `
+                        <button class="btn btn-sm btn-outline-success" onclick="marcarAdoptado(${mascota.id_mascotas})">
+                            <i class="bi bi-house-heart-fill"></i> Marcar como Adoptado
+                        </button>`;
+                }
 
-      showSuccessMessage('¡Foto de perfil actualizada!');
-    } catch (error) {
-      console.error('Error uploading profile image:', error);
-      alert(
-        'Error al actualizar la foto de perfil. Por favor, intenta de nuevo.'
-      );
+                const foto = mascota.foto_principal || "/Img/placeholder.png";
+                const fecha = pub.fechaPublicacion ? new Date(pub.fechaPublicacion).toLocaleDateString() : "";
+
+                const cardHTML = `
+                <div class="col-12">
+                    <div class="profile-card p-4 shadow-sm border rounded mb-3">
+                        <div class="d-flex align-items-start gap-3">
+                            <img src="${foto}" alt="${mascota.nombre_mascotas}" 
+                                 class="rounded" style="width: 120px; height: 120px; object-fit: cover" />
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5 class="font-display fw-bold mb-2">${pub.titulo}</h5>
+                                    ${botonAccion}
+                                </div>
+                                <p class="text-muted-custom small mb-2">Publicado el: ${fecha}</p>
+                                <p class="mb-2 text-dark">${mascota.descripcion || "Sin descripción"}</p>
+                                <div class="d-flex gap-2">
+                                    <span class="badge bg-light text-dark border">❤️ ${pub.likes || 0} Likes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                container.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        })
+        .catch(err => console.error(err));
     }
-  };
 
-  reader.readAsDataURL(file);
-}
+    window.marcarAdoptado = (mascotaId) => {
+        if(!confirm("¿Confirmas que fue adoptado?")) return;
+        fetch(`${API_URL}/mascotas/${mascotaId}/estado?estado=ADOPTADO`, {
+            method: "PUT",
+            headers: authHeaders
+        }).then(res => { if(res.ok) { cargarMisPublicaciones(); } });
+    };
 
-/**
- * Show success message
- */
-function showSuccessMessage(message) {
-  // You can implement a better notification system here
-  // For now, we'll use a simple alert
-  alert(message);
-}
-
-/**
- * Setup tab switching functionality
- */
-function setupTabSwitching() {
-  const adoptadosTab = document.getElementById('adoptadosTab');
-  const publicacionesTab = document.getElementById('publicacionesTab');
-  const adoptadosContent = document.getElementById('adoptadosContent');
-  const publicacionesContent = document.getElementById('publicacionesContent');
-
-  adoptadosTab.addEventListener('click', function (e) {
-    e.preventDefault();
-    adoptadosTab.classList.add('active');
-    publicacionesTab.classList.remove('active');
-    adoptadosContent.style.display = 'block';
-    publicacionesContent.style.display = 'none';
-  });
-
-  publicacionesTab.addEventListener('click', function (e) {
-    e.preventDefault();
-    publicacionesTab.classList.add('active');
-    adoptadosTab.classList.remove('active');
-    publicacionesContent.style.display = 'block';
-    adoptadosContent.style.display = 'none';
-  });
-}
+    // --- INICIALIZAR ---
+    cargarDatosUsuario(); // Cargar datos del perfil al abrir la página
+});

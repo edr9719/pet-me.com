@@ -1,805 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>PetMe - Encuentra a tu nuevo mejor amigo</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
 
-    <!-- Bootstrap Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>PetMe - Encuentra a tu nuevo mejor amigo</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/CSS/feed.css" />
-    <link rel="stylesheet" href="/CSS/navbar.css" />
-    <link rel="stylesheet" href="/CSS/notificaciones.css" />
-  </head>
-  <body>
-    <!-- 🔷 NAVBAR -->
-    <nav class="navbar navbar-dark bg-petme fixed-top">
-      <div class="container-fluid d-flex align-items-center">
-        <!-- Logo -->
-        <a
-          class="navbar-brand d-flex align-items-center"
-          href="/componentes/acercaDeNosotros.html"
-        >
-          <img
-            src="/Img/icono pet me.png"
-            alt="Logo"
-            class="me-3"
-            style="height: 60px"
-          />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/CSS/feed.css" />
+  <link rel="stylesheet" href="/CSS/navbar.css" />
+  <link rel="stylesheet" href="/CSS/notificaciones.css" />
+</head>
+
+<body>
+  <!-- 🔷 NAVBAR -->
+  <nav class="navbar navbar-dark bg-petme fixed-top">
+    <div class="container-fluid d-flex align-items-center">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+        <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px" />
+      </a>
+
+      <!-- Enlaces desktop -->
+      <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/componentes/acercaDeNosotros.html">
+            <i class="bi bi-info-circle"></i> Acerca de Nosotros
+          </a>
+        </li>
+      </ul>
+
+      <!-- Búsqueda desktop -->
+      <div class="search-container d-flex me-3 d-none d-lg-flex">
+        <div class="input-group" style="max-width: 280px; width: 100%">
+          <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search" />
+          <button class="btn search-btn" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Íconos desktop -->
+      <div class="d-flex align-items-center d-none d-lg-flex">
+        <a class="nav-link mx-2" href="/componentes/feed.html">
+          <i class="bi bi-house-door" style="font-size: 1.5rem; color: white"></i>
         </a>
+        <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#notificacionesModal">
+          <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
 
-        <!-- Enlaces desktop -->
-        <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center"
-              href="/componentes/contacto.html"
-            >
-              <i class="bi bi-envelope"></i> Contáctanos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center"
-              href="/componentes/acercaDeNosotros.html"
-            >
-              <i class="bi bi-info-circle"></i> Acerca de Nosotros
-            </a>
-          </li>
-        </ul>
+          <span id="badge-notificaciones"
+            class="position-absolute top-0 start-100 translate-middle bg-danger border border-light rounded-circle d-none"
+            style="padding: 5px;">
+            <span class="visually-hidden">Nuevas notificaciones</span>
+          </span>
+        </a>
+        <a class="nav-link me-3" href="/componentes/perfil.html">
+          <i class="bi bi-person-circle" style="font-size: 1.5rem; color: white"></i>
+        </a>
+      </div>
 
-        <!-- Búsqueda desktop -->
-        <div class="search-container d-flex me-3 d-none d-lg-flex">
-          <div class="input-group" style="max-width: 280px; width: 100%">
-            <input
-              type="search"
-              class="form-control search-input"
-              placeholder="Search"
-              aria-label="Search"
-            />
+      <!-- Móvil: búsqueda + hamburguesa -->
+      <div class="d-flex align-items-center d-lg-none">
+        <div class="search-container me-3">
+          <div class="input-group" style="max-width: 150px">
+            <input type="search" class="form-control search-input" placeholder="Search" aria-label="Search" />
             <button class="btn search-btn" type="submit">
               <i class="bi bi-search"></i>
             </button>
           </div>
         </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-        <!-- Íconos desktop -->
-        <div class="d-flex align-items-center d-none d-lg-flex">
-          <a class="nav-link mx-2" href="/componentes/feed.html">
-            <i
-              class="bi bi-house-door"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+  <!-- Offcanvas (menú hamburguesa) -->
+  <div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar">
+    <div class="offcanvas-header">
+      <img id="offcanvas-logo" src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px" />
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/feed.html">
+            <i class="bi bi-house-door"></i> Inicio
           </a>
-          <a class="nav-link mx-2" href="/componentes/chat.html">
-            <i
-              class="bi bi-chat-left-text"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" data-bs-toggle="modal"
+            data-bs-target="#notificacionesModal" href="#">
+            <i class="bi bi-bell"></i> Notificaciones
           </a>
-          <a
-            class="nav-link mx-2"
-            data-bs-toggle="modal"
-            data-bs-target="#notificacionesModal"
-            href="#"
-          >
-            <i
-              class="bi bi-bell"
-              id="mainBellIcon"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+        </li>
+        <hr class="my-2" />
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contacto.html">
+            <i class="bi bi-envelope"></i> Contáctanos
           </a>
-          <a class="nav-link me-3" href="/componentes/perfil.html">
-            <i
-              class="bi bi-person-circle"
-              style="font-size: 1.5rem; color: white"
-            ></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotros.html">
+            <i class="bi bi-info-circle"></i> Acerca de Nosotros
           </a>
-        </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="/componentes/perfil.html">
+            <i class="bi bi-person-circle"></i> Perfil
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-        <!-- Móvil: búsqueda + hamburguesa -->
-        <div class="d-flex align-items-center d-lg-none">
-          <div class="search-container me-3">
-            <div class="input-group" style="max-width: 150px">
-              <input
-                type="search"
-                class="form-control search-input"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn search-btn" type="submit">
-                <i class="bi bi-search"></i>
-              </button>
+  <!-- 🔷 NAVBAR -->
+  <div class="design-root">
+    <main class="main-container">
+      <!-- Mobile Filter Button -->
+      <button class="mobile-filter-btn flex" id="mobileFilterBtn">
+        <span class="material-symbols-outlined">tune</span>
+        <span>Filters</span>
+      </button>
+
+      <div class="grid-container">
+        <aside class="sidebar" id="mobileSidebar">
+          <div class="sidebar-sticky">
+            <div class="sidebar-content">
+              <h3 class="sidebar-title">Filtros</h3>
+              <div class="filter-links">
+                <a class="filter-link active" href="#">
+                  <span class="material-symbols-outlined icon-filled">grid_view</span>
+                  <p class="filter-text">Mascotas</p>
+                </a>
+
+                <div class="filter-section">
+                  <p class="filter-section-title">Especie</p>
+                  <a class="filter-link" href="#">
+                    <span class="filter-icon">🐕</span>
+                    <p class="filter-text">Perros</p>
+                  </a>
+                  <a class="filter-link" href="#">
+                    <span class="filter-icon">🐈</span>
+                    <p class="filter-text">Gatos</p>
+                  </a>
+                </div>
+
+                <div class="filter-section">
+                  <p class="filter-section-title">Edad</p>
+                  <div class="filter-range-control p-2">
+                    <input type="range" id="ageSlider" name="ageSlider" min="0" max="5" value="0" step="0.5"
+                      class="form-range" />
+                    <p class="filter-text mb-0 mt-2 text-center" id="ageValue">
+                      Elige la edad
+                    </p>
+                  </div>
+                </div>
+
+                <div class="filter-section">
+                  <p class="filter-section-title">Tamaño</p>
+                  <a class="filter-link" href="#">
+                    <span class="filter-text-only">CH</span>
+                    <p class="filter-text">Pequeño</p>
+                  </a>
+                  <a class="filter-link" href="#">
+                    <span class="filter-text-only">M</span>
+                    <p class="filter-text">Mediano</p>
+                  </a>
+                  <a class="filter-link" href="#">
+                    <span class="filter-text-only">G</span>
+                    <p class="filter-text">Grande</p>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasDarkNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
+        </aside>
+        <div class="main-content">
+          <div class="pet-cards-wrapper"></div>
+        </div>
+        <aside class="sidebar-right">
+          <div class="sidebar-sticky">
+            <div class="sidebar-content">
+              <h3 class="sidebar-title">Área de publicidad</h3>
+              <div class="suggestions-list">
+                <div class="suggestion-item">
+                  <div class="suggestion-info">
+                    <p class="suggestion-name">Promocina tu marca aquí</p>
+                    <img src="/Img/aqui.png" alt="Logo" style="height: 250px" />
+                    <p class="suggestion-breed"></p>
+                  </div>
+                  <a href="#" class="suggestion-view"></a>
+                </div>
+                <div class="suggestion-item">
+                  <div class="suggestion-info">
+                    <p class="suggestion-name"></p>
+                    <p class="suggestion-breed"></p>
+                  </div>
+                  <a href="/componentes/contacto.html" class="suggestion-view">Contáctanos</a>
+                </div>
+                <div class="suggestion-item">
+                  <div class="suggestion-info">
+                    <p class="suggestion-name"></p>
+                    <p class="suggestion-breed"></p>
+                  </div>
+                  <a href="#" class="suggestion-view"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <!--Para el modal de KEVS-->
+  <button class="btn petme-fab-btn petme-fab-pill petme-fab-image-bg" data-bs-toggle="modal"
+    data-bs-target="#newPostModal" aria-label="Crear Nueva Publicación" id="add-post-btn"></button>
+
+  <!-- Nueva publicación Modal-->
+  <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content petme-card">
+        <div class="modal-header bg-petme text-white">
+          <img src="/Img/icono.png" alt="Logo PetMe" class="me-3" style="height: 30px" />
+          <h5 class="modal-title" id="newPostModalLabel">Crear huellita</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <form id="newPostForm">
+            <!-- CABECERA -->
+            <div class="d-flex align-items-center mb-3">
+              <div>
+                <img src="/Img/pet me.png" alt="Logo PetMe" class="me-3" style="height: 15px" />
+              </div>
+            </div>
+
+            <!-- MENSAJE -->
+            <div class="mb-3">
+              <label for="post-descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control petme-textarea" id="post-descripcion" name="descripcion" rows="3"
+                placeholder="Cuéntanos sobre tu mascota" required></textarea>
+            </div>
+
+            <!-- SUBIR IMAGEN -->
+            <div class="petme-upload mt-3 text-center p-3 rounded">
+              <label for="post-imagen" class="d-block cursor-pointer text-secondary" tabindex="0">
+                <span class="material-symbols-outlined fs-1">photo_library</span><br />
+                Agregar fotos o videos
+              </label>
+              <input type="file" id="post-imagen" name="imagen" class="d-none" accept="image/*" multiple />
+              <div id="preview-container" class="mt-3 d-none row g-2"></div>
+              <div id="alerta-post" class="mt-2"></div>
+            </div>
+
+            <!-- BOTÓN PARA MOSTRAR CAMPOS EXTRA -->
+            <div class="petme-options d-flex flex-wrap justify-content-between mt-3">
+              <button class="btn petme-option" type="button" data-bs-toggle="collapse" data-bs-target="#extraFields">
+                <span class="material-symbols-outlined">pets</span> Datos
+                Mascota
+              </button>
+            </div>
+
+            <!-- CAMPOS EXTRA -->
+            <div class="collapse mt-3" id="extraFields">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="post-nombre" class="form-label text-light">Nombre de la Mascota</label>
+                  <input type="text" class="form-control" id="post-nombre" name="nombre" placeholder="Ej: Tommy"
+                    required />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="post-especie" class="form-label text-light">Especie</label>
+                  <select class="form-select" id="post-especie" required>
+                    <option value="">Seleccionar</option>
+                    <option value="Perro">Perro🐶</option>
+                    <option value="Gato">Gato🐱</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="post-sexo" class="form-label text-light">Sexo</label>
+                  <select class="form-select" id="post-sexo" required>
+                    <option value="">Seleccionar</option>
+                    <option value="Hembra">Hembra♀️</option>
+                    <option value="Macho">Macho♂️</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="post-edad" class="form-label">Edad</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="post-edad" name="edad" min="1" max="15"
+                      placeholder="Ej: 6" required />
+                    <select class="form-select" id="post-tiempo" required>
+                      <option value="meses">Meses</option>
+                      <option value="años">Años</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="post-tamaño" class="form-label">Tamaño</label>
+                  <select id="post-tamaño" class="form-select" required>
+                    <option value="">Selecciona un tamaño</option>
+                    <option value="Pequeño">Pequeño</option>
+                    <option value="Mediano">Mediano</option>
+                    <option value="Grande">Grande</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="post-ubicacion" class="form-label text-light">Ubicación</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                    <input type="text" class="form-control" id="post-ubicacion" name="ubicacion"
+                      placeholder="Ciudad, Estado" required />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOTÓN PUBLICAR -->
+            <div class="text-end mt-4">
+              <button type="submit" class="btn petme-btn-submit px-4">
+                Publicar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="adoptModal" tabindex="-1" aria-labelledby="adoptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content petme-card">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="adoptModalLabel">
+            Formulario de adopción <span id="nombreMascotaModal"></span>
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="adoptionForm" novalidate>
+            <h6 class="text-warning mb-3">Datos personales</h6>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control petme-textarea" id="nombreCompleto" required />
+                <div class="invalid-feedback" id="errorNombre"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control petme-textarea" id="telefono" required />
+                <div class="invalid-feedback" id="errorTelefono"></div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Edad</label>
+                <input type="number" class="form-control petme-textarea" id="edad" min="18" max="99" required />
+                <div class="invalid-feedback">
+                  Tienes que ser mayor de edad para continuar.
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control petme-textarea" id="correoElectronico" required />
+                <div class="invalid-feedback" id="errorCorreo"></div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Sube una identificación oficial (anverso y reverso)</label>
+                <input type="file" class="form-control petme-upload" id="identificacion" accept="image/*, .pdf"
+                  required />
+                <div class="invalid-feedback" id="errorIdentificacion"></div>
+              </div>
+            </div>
+
+            <h6 class="text-warning mb-3">Sobre tu hogar</h6>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Tipo de vivienda</label>
+                <select class="form-select petme-textarea" id="tipoVivienda" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Casa">Casa</option>
+                  <option value="Departamento">Departamento</option>
+                  <option value="CasaConPatio">Casa con patio</option>
+                  <option value="DeptoPetFriendly">
+                    Departamento pet-friendly
+                  </option>
+                </select>
+                <div class="invalid-feedback" id="errorVivienda"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">¿Tienes otras mascotas?</label>
+                <select class="form-select petme-textarea" id="otrasMascotas" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Si">Sí</option>
+                  <option value="No">No</option>
+                </select>
+                <div class="invalid-feedback" id="errorOtrasMascotas"></div>
+              </div>
+            </div>
+
+            <h6 class="text-warning mb-3">Tu experiencia</h6>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label">¿Has adoptado antes?</label>
+                <select class="form-select petme-textarea" id="adoptadoAntes" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Si">Sí</option>
+                  <option value="No">No</option>
+                </select>
+                <div class="invalid-feedback" id="errorAdoptadoAntes"></div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">¿Cuentas con los recursos para su cuidado?</label>
+                <select class="form-select petme-textarea" id="recursosCuidado" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Si">Sí</option>
+                  <option value="No">No</option>
+                </select>
+                <div class="invalid-feedback" id="errorRecursos"></div>
+              </div>
+            </div>
+
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" id="terms" required />
+              <label class="form-check-label" for="terms">
+                Acepto
+                <a href="/componentes/avisoDePrivacidad.html" target="_blank">
+                  términos y condiciones
+                </a>
+              </label>
+              <div class="invalid-feedback" id="errorTerms"></div>
+            </div>
+
+            <button type="submit" class="btn petme-btn-contact">
+              Enviar solicitud
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Notificaciones -->
+  <div class="modal fade" id="notificacionesModal" tabindex="-1" aria-labelledby="notificacionesModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content petme-modal-content">
+
+        <div class="modal-header petme-modal-header">
+          <h5 class="modal-title" id="notificacionesModalLabel">
+            <i class="bi bi-bell-fill me-2"></i> Notificaciones
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body petme-modal-body" id="lista-notificaciones">
+          <div class="text-center text-white-50 mt-3">Cargando...</div>
+        </div>
+
+        <div class="modal-footer petme-modal-footer justify-content-center">
+          <button type="button" id="btn-marcar-todas" class="btn btn-sm btn-link petme-link text-white-50">
+            Marcar todas como leídas
           </button>
         </div>
       </div>
-    </nav>
-
-    <!-- Offcanvas (menú hamburguesa) -->
-    <div
-      class="offcanvas offcanvas-end bg-petme"
-      tabindex="-1"
-      id="offcanvasDarkNavbar"
-    >
-      <div class="offcanvas-header">
-        <img
-          id="offcanvas-logo"
-          src="/Img/pet me.png"
-          alt="Logo"
-          class="me-3"
-          style="height: 25px"
-        />
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/feed.html"
-            >
-              <i class="bi bi-house-door"></i> Inicio
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/chat.html"
-            >
-              <i class="bi bi-chat-left-text"></i> Messages
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              data-bs-toggle="modal"
-              data-bs-target="#notificacionesModal"
-              href="#"
-            >
-              <i class="bi bi-bell"></i> Notificaciones
-            </a>
-          </li>
-          <hr class="my-2" />
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/contacto.html"
-            >
-              <i class="bi bi-envelope"></i> Contáctanos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/acercaDeNosotros.html"
-            >
-              <i class="bi bi-info-circle"></i> Acerca de Nosotros
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link d-flex align-items-center gap-2"
-              href="/componentes/perfil.html"
-            >
-              <i class="bi bi-person-circle"></i> Perfil
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
+  </div>
 
-    <!-- 🔷 NAVBAR -->
-    <div class="design-root">
-      <main class="main-container">
-        <!-- Mobile Filter Button -->
-        <button class="mobile-filter-btn flex" id="mobileFilterBtn">
-          <span class="material-symbols-outlined">tune</span>
-          <span>Filters</span>
-        </button>
+  <!-- Bootstrap JS (con Popper incluido) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/JavaScript/feed.js"></script>
+  <script type="module" src="/JavaScript/notificaciones.js"></script>
 
-        <div class="grid-container">
-          <aside class="sidebar" id="mobileSidebar">
-            <div class="sidebar-sticky">
-              <div class="sidebar-content">
-                <h3 class="sidebar-title">Filtros</h3>
-                <div class="filter-links">
-                  <a class="filter-link active" href="#">
-                    <span class="material-symbols-outlined icon-filled"
-                      >grid_view</span
-                    >
-                    <p class="filter-text">Mascotas</p>
-                  </a>
+</body>
 
-                  <div class="filter-section">
-                    <p class="filter-section-title">Especie</p>
-                    <a class="filter-link" href="#">
-                      <span class="filter-icon">🐕</span>
-                      <p class="filter-text">Perros</p>
-                    </a>
-                    <a class="filter-link" href="#">
-                      <span class="filter-icon">🐈</span>
-                      <p class="filter-text">Gatos</p>
-                    </a>
-                  </div>
-
-                  <div class="filter-section">
-                    <p class="filter-section-title">Edad</p>
-                    <div class="filter-range-control p-2">
-                      <input
-                        type="range"
-                        id="ageSlider"
-                        name="ageSlider"
-                        min="0"
-                        max="5"
-                        value="0"
-                        step="0.5"
-                        class="form-range"
-                      />
-                      <p
-                        class="filter-text mb-0 mt-2 text-center"
-                        id="ageValue"
-                      >
-                        Elige la edad
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="filter-section">
-                    <p class="filter-section-title">Tamaño</p>
-                    <a class="filter-link" href="#">
-                      <span class="filter-text-only">CH</span>
-                      <p class="filter-text">Pequeño</p>
-                    </a>
-                    <a class="filter-link" href="#">
-                      <span class="filter-text-only">M</span>
-                      <p class="filter-text">Mediano</p>
-                    </a>
-                    <a class="filter-link" href="#">
-                      <span class="filter-text-only">G</span>
-                      <p class="filter-text">Grande</p>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
-          <div class="main-content">
-            <div class="pet-cards-wrapper"></div>
-          </div>
-          <aside class="sidebar-right">
-            <div class="sidebar-sticky">
-              <div class="sidebar-content">
-                <h3 class="sidebar-title">Área de publicidad</h3>
-                <div class="suggestions-list">
-                  <div class="suggestion-item">
-                    <div class="suggestion-info">
-                      <p class="suggestion-name">Promocina tu marca aquí</p>
-                      <img
-                        src="/Img/aqui.png"
-                        alt="Logo"
-                        style="height: 250px"
-                      />
-                      <p class="suggestion-breed"></p>
-                    </div>
-                    <a href="#" class="suggestion-view"></a>
-                  </div>
-                  <div class="suggestion-item">
-                    <div class="suggestion-info">
-                      <p class="suggestion-name"></p>
-                      <p class="suggestion-breed"></p>
-                    </div>
-                    <a href="/componentes/contacto.html" class="suggestion-view"
-                      >Contáctanos</a
-                    >
-                  </div>
-                  <div class="suggestion-item">
-                    <div class="suggestion-info">
-                      <p class="suggestion-name"></p>
-                      <p class="suggestion-breed"></p>
-                    </div>
-                    <a href="#" class="suggestion-view"></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </main>
-    </div>
-    <!--Para el modal de KEVS-->
-    <button
-      class="btn petme-fab-btn petme-fab-pill petme-fab-image-bg"
-      data-bs-toggle="modal"
-      data-bs-target="#newPostModal"
-      aria-label="Crear Nueva Publicación"
-      id="add-post-btn"
-    ></button>
-
-    <!-- Nueva publicación Modal-->
-    <div
-      class="modal fade"
-      id="newPostModal"
-      tabindex="-1"
-      aria-labelledby="newPostModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content petme-card">
-          <div class="modal-header bg-petme text-white">
-            <img
-              src="/Img/icono.png"
-              alt="Logo PetMe"
-              class="me-3"
-              style="height: 30px"
-            />
-            <h5 class="modal-title" id="newPostModalLabel">Crear huellita</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-
-          <div class="modal-body p-4">
-            <form id="newPostForm">
-              <!-- CABECERA -->
-              <div class="d-flex align-items-center mb-3">
-                <img
-                  src="https://placekitten.com/80/80"
-                  alt="User profile"
-                  class="rounded-circle me-3"
-                  width="60"
-                  height="60"
-                />
-                <div>
-                  <img
-                    src="/Img/pet me.png"
-                    alt="Logo PetMe"
-                    class="me-3"
-                    style="height: 15px"
-                  />
-                </div>
-              </div>
-
-              <!-- MENSAJE -->
-              <div class="mb-3">
-                <label for="post-descripcion" class="form-label"
-                  >Descripción</label
-                >
-                <textarea
-                  class="form-control petme-textarea"
-                  id="post-descripcion"
-                  name="descripcion"
-                  rows="3"
-                  placeholder="Cuéntanos sobre tu mascota"
-                  required
-                ></textarea>
-              </div>
-
-              <!-- SUBIR IMAGEN -->
-              <div class="petme-upload mt-3 text-center p-3 rounded">
-                <label for="post-imagen" class="d-block cursor-pointer text-secondary" tabindex="0">
-                  <span class="material-symbols-outlined fs-1">photo_library</span><br />
-                  Agregar fotos o videos
-                </label>
-                  <input type="file" id="post-imagen" name="imagen"
-                  class="d-none" accept="image/*" multiple />
-                <div id="preview-container" class="mt-3 d-none row g-2"></div>
-                <div id="alerta-post" class="mt-2"></div>
-              </div>
-
-              <!-- BOTÓN PARA MOSTRAR CAMPOS EXTRA -->
-              <div
-                class="petme-options d-flex flex-wrap justify-content-between mt-3"
-              >
-                <button
-                  class="btn petme-option"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#extraFields"
-                >
-                  <span class="material-symbols-outlined">pets</span> Datos
-                  Mascota
-                </button>
-              </div>
-
-              <!-- CAMPOS EXTRA -->
-              <div class="collapse mt-3" id="extraFields">
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="post-nombre" class="form-label text-light"
-                      >Nombre de la Mascota</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="post-nombre"
-                      name="nombre"
-                      placeholder="Ej: Tommy"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="post-especie" class="form-label text-light"
-                      >Especie</label
-                    >
-                    <select class="form-select" id="post-especie" required>
-                      <option value="">Seleccionar</option>
-                      <option value="Perro">Perro🐶</option>
-                      <option value="Gato">Gato🐱</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="post-sexo" class="form-label text-light"
-                      >Sexo</label
-                    >
-                    <select class="form-select" id="post-sexo" required>
-                      <option value="">Seleccionar</option>
-                      <option value="Hembra">Hembra♀️</option>
-                      <option value="Macho">Macho♂️</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="post-edad" class="form-label">Edad</label>
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="post-edad"
-                        name="edad"
-                        min="1"
-                        max="15"
-                        placeholder="Ej: 6"
-                        required
-                      />
-                      <select class="form-select" id="post-tiempo" required>
-                        <option value="meses">Meses</option>
-                        <option value="años">Años</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="post-tamaño" class="form-label">Tamaño</label>
-                    <select id="post-tamaño" class="form-select" required>
-                      <option value="">Selecciona un tamaño</option>
-                      <option value="Pequeño">Pequeño</option>
-                      <option value="Mediano">Mediano</option>
-                      <option value="Grande">Grande</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label for="post-ubicacion" class="form-label text-light"
-                      >Ubicación</label
-                    >
-                    <div class="input-group">
-                      <span class="input-group-text"
-                        ><i class="bi bi-geo-alt"></i
-                      ></span>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="post-ubicacion"
-                        name="ubicacion"
-                        placeholder="Ciudad, Estado"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- BOTÓN PUBLICAR -->
-              <div class="text-end mt-4">
-                <button type="submit" class="btn petme-btn-submit px-4">
-                  Publicar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="modal fade"
-      id="adoptModal"
-      tabindex="-1"
-      aria-labelledby="adoptModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content petme-card">
-          <div class="modal-header border-0">
-            <h5 class="modal-title" id="adoptModalLabel">
-              Formulario de adopción <span id="nombreMascotaModal"></span>
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-
-          <div class="modal-body">
-            <form id="adoptionForm" novalidate>
-              <h6 class="text-warning mb-3">Datos personales</h6>
-
-              <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Nombre completo</label>
-                  <input
-                    type="text"
-                    class="form-control petme-textarea"
-                    id="nombreCompleto"
-                    required
-                  />
-                  <div class="invalid-feedback" id="errorNombre"></div>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">Teléfono</label>
-                  <input
-                    type="tel"
-                    class="form-control petme-textarea"
-                    id="telefono"
-                    required
-                  />
-                  <div class="invalid-feedback" id="errorTelefono"></div>
-                </div>
-
-                <div class="col-md-4">
-                  <label class="form-label">Edad</label>
-                  <input
-                    type="number"
-                    class="form-control petme-textarea"
-                    id="edad"
-                    min="18"
-                    max="99"
-                    required
-                  />
-                  <div class="invalid-feedback">
-                    Tienes que ser mayor de edad para continuar.
-                  </div>
-                </div>
-
-                <div class="col-md-8">
-                  <label class="form-label">Correo electrónico</label>
-                  <input
-                    type="email"
-                    class="form-control petme-textarea"
-                    id="correoElectronico"
-                    required
-                  />
-                  <div class="invalid-feedback" id="errorCorreo"></div>
-                </div>
-
-                <div class="col-md-12">
-                  <label class="form-label"
-                    >Sube una identificación oficial (anverso y reverso)</label
-                  >
-                  <input
-                    type="file"
-                    class="form-control petme-upload"
-                    id="identificacion"
-                    accept="image/*, .pdf"
-                    required
-                  />
-                  <div class="invalid-feedback" id="errorIdentificacion"></div>
-                </div>
-              </div>
-
-              <h6 class="text-warning mb-3">Sobre tu hogar</h6>
-
-              <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Tipo de vivienda</label>
-                  <select
-                    class="form-select petme-textarea"
-                    id="tipoVivienda"
-                    required
-                  >
-                    <option value="">Selecciona una opción</option>
-                    <option value="Casa">Casa</option>
-                    <option value="Departamento">Departamento</option>
-                    <option value="CasaConPatio">Casa con patio</option>
-                    <option value="DeptoPetFriendly">
-                      Departamento pet-friendly
-                    </option>
-                  </select>
-                  <div class="invalid-feedback" id="errorVivienda"></div>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label">¿Tienes otras mascotas?</label>
-                  <select
-                    class="form-select petme-textarea"
-                    id="otrasMascotas"
-                    required
-                  >
-                    <option value="">Selecciona una opción</option>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                  </select>
-                  <div class="invalid-feedback" id="errorOtrasMascotas"></div>
-                </div>
-              </div>
-
-              <h6 class="text-warning mb-3">Tu experiencia</h6>
-
-              <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">¿Has adoptado antes?</label>
-                  <select
-                    class="form-select petme-textarea"
-                    id="adoptadoAntes"
-                    required
-                  >
-                    <option value="">Selecciona una opción</option>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                  </select>
-                  <div class="invalid-feedback" id="errorAdoptadoAntes"></div>
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label"
-                    >¿Cuentas con los recursos para su cuidado?</label
-                  >
-                  <select
-                    class="form-select petme-textarea"
-                    id="recursosCuidado"
-                    required
-                  >
-                    <option value="">Selecciona una opción</option>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                  </select>
-                  <div class="invalid-feedback" id="errorRecursos"></div>
-                </div>
-              </div>
-
-              <div class="form-check mb-2">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="terms"
-                  required
-                />
-                <label class="form-check-label" for="terms">
-                  Acepto 
-                  <a href="/componentes/avisoDePrivacidad.html" target="_blank">
-                  términos y condiciones
-                  </a>
-                </label>
-                <div class="invalid-feedback" id="errorTerms"></div>
-              </div>
-
-              <button type="submit" class="btn petme-btn-contact">
-                Enviar solicitud
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Notificaciones -->
-    <div
-      class="modal fade"
-      id="notificacionesModal"
-      tabindex="-1"
-      aria-labelledby="notificacionesModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content petme-modal-content">
-          <div class="modal-header petme-modal-header">
-            <h5 class="modal-title" id="notificacionesModalLabel">
-              <i class="bi bi-bell-fill me-2"></i> Notificaciones
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-
-          <div class="modal-body petme-modal-body">
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-              <i
-                class="bi bi-heart-fill me-3 text-warning"
-                style="font-size: 1.5rem"
-              ></i>
-              <div>
-                <p class="mb-0 fw-bold text-white">
-                  ¡A Buddy le gusta tu foto! 🐾
-                </p>
-                <small class="text-white-50">Hace 5 minutos</small>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-start mb-3 pb-2 border-bottom">
-              <i
-                class="bi bi-chat-dots-fill me-3 text-info"
-                style="font-size: 1.5rem"
-              ></i>
-              <div>
-                <p class="mb-0 fw-bold text-white">Mensaje de Jane Sánchez</p>
-                <small class="text-white-50">Consulta sobre adopción.</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-footer petme-modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-sm btn-link petme-link text-white-50"
-            >
-              Marcar todas como leídas
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bootstrap JS (con Popper incluido) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/JavaScript/feed.js"></script>
-  </body>
 </html>
