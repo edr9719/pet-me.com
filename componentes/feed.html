@@ -104,8 +104,8 @@
         </div>
 
         <!-- Íconos desktop -->
-        <div class="d-flex align-items-center d-none d-lg-flex">
-          <a class="nav-link mx-2" href="/componentes/feed.html">
+        <div class="d-flex align-items-center d-none d-lg-flex gap-3">
+          <a class="nav-link" href="/componentes/feed.html">
             <i
               class="bi bi-house-door"
               style="font-size: 1.5rem; color: white"
@@ -127,7 +127,7 @@
               <span class="visually-hidden">Nuevas notificaciones</span>
             </span>
           </a>
-          <a class="nav-link me-3" href="/componentes/perfil.html">
+          <a class="nav-link" href="/componentes/perfil.html">
             <i
               class="bi bi-person-circle"
               style="font-size: 1.5rem; color: white"
@@ -258,11 +258,21 @@
 
                   <div class="filter-section">
                     <p class="filter-section-title">Especie</p>
-                    <a class="filter-link" href="#" data-tipo="especie" data-valor="Perro">
+                    <a
+                      class="filter-link"
+                      href="#"
+                      data-tipo="especie"
+                      data-valor="Perro"
+                    >
                       <span class="filter-icon">🐕</span>
                       <p class="filter-text">Perros</p>
                     </a>
-                    <a class="filter-link" href="#" data-tipo="especie" data-valor="Gato">
+                    <a
+                      class="filter-link"
+                      href="#"
+                      data-tipo="especie"
+                      data-valor="Gato"
+                    >
                       <span class="filter-icon">🐈</span>
                       <p class="filter-text">Gatos</p>
                     </a>
@@ -271,31 +281,51 @@
                   <div class="filter-section">
                     <p class="filter-section-title">Edad</p>
                     <div class="filter-range-control p-2">
-                        <input type="range" 
-                        id="ageSlider" 
-                        name="ageSlider" 
-                        min="0" 
-                        max="15" 
-                        value="0" 
+                      <input
+                        type="range"
+                        id="ageSlider"
+                        name="ageSlider"
+                        min="0"
+                        max="15"
+                        value="0"
                         step="0.5"
-                            class="form-range" />
-                        <p class="filter-text mb-0 mt-2 text-center" id="ageValue">
-                            Elige la edad
-                        </p>
+                        class="form-range"
+                      />
+                      <p
+                        class="filter-text mb-0 mt-2 text-center"
+                        id="ageValue"
+                      >
+                        Elige la edad
+                      </p>
                     </div>
-                </div>
+                  </div>
 
                   <div class="filter-section">
                     <p class="filter-section-title">Tamaño</p>
-                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Pequeño">
+                    <a
+                      class="filter-link"
+                      href="#"
+                      data-tipo="tamano"
+                      data-valor="Pequeño"
+                    >
                       <span class="filter-text-only">CH</span>
                       <p class="filter-text">Pequeño</p>
                     </a>
-                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Mediano">
+                    <a
+                      class="filter-link"
+                      href="#"
+                      data-tipo="tamano"
+                      data-valor="Mediano"
+                    >
                       <span class="filter-text-only">M</span>
                       <p class="filter-text">Mediano</p>
                     </a>
-                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Grande>
+                    <a
+                      class="filter-link"
+                      href="#"
+                      data-tipo="tamano"
+                      data-valor="Grande"
+                    >
                       <span class="filter-text-only">G</span>
                       <p class="filter-text">Grande</p>
                     </a>

@@ -1,6 +1,6 @@
 /* navbar.css */
 .bg-petme {
-  background-color: #02968A !important;
+  background-color: #02968a !important;
 }
 
 /* Fuente y fondo del offcanvas */
@@ -10,13 +10,13 @@
 }
 
 .offcanvas-header {
-  background-color: #023D54;
-  border-bottom: 2px solid #FFFF66;
+  background-color: #023d54;
+  border-bottom: 2px solid #ffff66;
   padding: 1rem 0;
 }
 
 .offcanvas-body {
-  background-color: #023D54;
+  background-color: #023d54;
   padding-left: 0;
   padding-right: 0;
 }
@@ -27,25 +27,25 @@
 }
 
 .offcanvas .nav-link {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   font-size: 1.1rem;
   padding: 0.75rem 0;
 }
 
 .offcanvas .nav-link:hover,
 .offcanvas .nav-link.active {
-  color: #023D54 !important;
-  background-color: #FFFF66;
+  color: #023d54 !important;
+  background-color: #ffff66;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Barra de búsqueda */
 .search-input {
-  border: 2px solid #02968A !important;
+  border: 2px solid #02968a !important;
   border-radius: 0.25rem 0 0 0.25rem !important;
   background-color: white !important;
-  color: #023D54 !important;
+  color: #023d54 !important;
   padding: 0 12px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Suaviza la transición */
 }
@@ -57,19 +57,19 @@
 
 /* Hover: borde amarillo al pasar el cursor */
 .search-input:hover {
-  border-color: #FFFF66 !important;
+  border-color: #ffff66 !important;
 }
 
 /* Focus: borde amarillo + sombra al hacer clic */
 .search-input:focus {
-  border-color: #FFFF66 !important;
+  border-color: #ffff66 !important;
   box-shadow: 0 0 0 0.25rem rgba(255, 255, 102, 0.5) !important;
   outline: none;
 }
 
 .search-btn {
-  background-color: #02968A !important;
-  border: 2px solid #02968A !important;
+  background-color: #02968a !important;
+  border: 2px solid #02968a !important;
   border-radius: 0 0.25rem 0.25rem 0 !important;
   color: white !important;
   font-weight: 600;
@@ -77,14 +77,19 @@
 }
 
 .search-btn:hover {
-  background-color: #94DEA5 !important;
-  border-color: #94DEA5 !important;
-  color: #023D54 !important;
+  background-color: #94dea5 !important;
+  border-color: #94dea5 !important;
+  color: #023d54 !important;
 }
 
 /* Íconos */
 .nav-link i {
   font-size: 1.5rem;
+}
+
+/* Spacing between icon and text in navbar links */
+.navbar-nav .nav-link i {
+  margin-right: 0.5rem;
 }
 
 /* Animación de hover para los íconos de la navbar */
@@ -96,7 +101,12 @@
 
 .navbar .nav-link i:hover {
   transform: scale(1.2);
-  color: #FFFF66 !important; /* Amarillo brillante al hacer hover */
+  color: #ffff66 !important; /* Amarillo brillante al hacer hover */
+}
+
+/* Equal spacing for desktop navbar icons */
+.navbar .d-flex.gap-3 .nav-link {
+  margin: 0 0.4rem;
 }
 
 /* Logo */
@@ -143,6 +153,6 @@
 }
 
 body {
-    /* El valor debe ser mayor a la altura de tu navbar fija (aprox. 60px) */
-    padding-top: 90px; 
+  /* El valor debe ser mayor a la altura de tu navbar fija (aprox. 60px) */
+  padding-top: 90px;
 }
