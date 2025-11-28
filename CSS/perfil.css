@@ -232,3 +232,27 @@ h2,
   transform: rotate(5deg);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
+/* Responsive styles for "Marcar como Adoptado" button */
+@media (max-width: 768px) {
+  .btn-outline-success {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .btn-outline-success i {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn-outline-success {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .btn-outline-success i {
+    font-size: 0.75rem;
+  }
+}
