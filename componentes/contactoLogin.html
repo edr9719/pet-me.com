@@ -1,101 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contáctenos</title>
-  <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
-  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contáctenos</title>
+    <link rel="icon" href="/Img/icono pet me.png" type="image/x-icon" />
+
     <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-    crossorigin="anonymous"/>
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
     <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-    rel="stylesheet"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
-  <link rel="stylesheet" href="/CSS/contacto.css" />
-  <link rel="stylesheet" href="/CSS/navbar.css" />
+    <link rel="stylesheet" href="/CSS/contacto.css" />
+    <link rel="stylesheet" href="/CSS/navbar.css" />
   </head>
 
   <body class="text-white">
     <!--Navbar-->
-        <nav class="navbar navbar-dark bg-petme fixed-top">
-  <div class="container-fluid d-flex align-items-center">
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center" href="/componentes/acercaDeNosotrosLogin.html">
-      <img src="/Img/icono pet me.png" alt="Logo" class="me-3" style="height: 60px;">
-    </a>
-
-    <!-- Enlaces desktop -->
-    <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
-      
-      <li class="nav-item">
-        <a class="nav-link d-flex align-items-center" href="/componentes/acercaDeNosotrosLogin.html">
-          <i class="bi bi-info-circle"></i> Acerca de Nosotros
+    <nav class="navbar navbar-dark bg-petme fixed-top">
+      <div class="container-fluid d-flex align-items-center">
+        <!-- Logo -->
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="/componentes/acercaDeNosotrosLogin.html"
+        >
+          <img
+            src="/Img/icono pet me.png"
+            alt="Logo"
+            class="me-3"
+            style="height: 60px"
+          />
         </a>
-      </li>
-    </ul>
 
-    <!-- Íconos desktop -->
-    <div class="d-flex align-items-center d-none d-lg-flex">
-      <a class="nav-link me-3" href="/componentes/InicioSesion.html">
-        <i class="bi bi-person-circle"style="font-size: 1.5rem; color: white;"></i>
-      </a>
-    </div>
-
-    <!-- Móvil: búsqueda + hamburguesa -->
-    <div class="d-flex align-items-center d-lg-none">
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Offcanvas (menú hamburguesa) -->
-<div class="offcanvas offcanvas-end bg-petme" tabindex="-1" id="offcanvasDarkNavbar">
-    <div class="offcanvas-header">
-        <img id="offcanvas-logo" src="/Img/pet me.png" alt="Logo" class="me-3" style="height: 25px;">
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="/componentes/InicioSesion.html">
-            <i class="bi bi-house-door"></i> Inicio sesión
+        <!-- Enlaces desktop -->
+        <ul class="navbar-nav d-flex flex-row gap-4 me-auto d-none d-lg-flex">
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center"
+              href="/componentes/acercaDeNosotrosLogin.html"
+            >
+              <i class="bi bi-info-circle"></i> Acerca de Nosotros
             </a>
-        </li>
-        <hr class="my-2">
-        <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/contactoLogin.html">
-            <i class="bi bi-envelope"></i> Contáctanos
-        </a>
-        </li>
-    <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2" href="/componentes/acercaDeNosotrosLogin.html">
-        <i class="bi bi-info-circle"></i> Acerca de Nosotros
-        </a>
-    </li>
-    </ul>
-    </div>
-</div>
-<!--Navbar -->
+          </li>
+        </ul>
 
-<!-- Imagen con texto -->
+        <!-- Íconos desktop -->
+        <div class="d-flex align-items-center d-none d-lg-flex">
+          <a class="nav-link me-3" href="/index.html">
+            <i
+              class="bi bi-person-circle"
+              style="font-size: 1.5rem; color: white"
+            ></i>
+          </a>
+        </div>
+
+        <!-- Móvil: búsqueda + hamburguesa -->
+        <div class="d-flex align-items-center d-lg-none">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasDarkNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Offcanvas (menú hamburguesa) -->
+    <div
+      class="offcanvas offcanvas-end bg-petme"
+      tabindex="-1"
+      id="offcanvasDarkNavbar"
+    >
+      <div class="offcanvas-header">
+        <img
+          id="offcanvas-logo"
+          src="/Img/pet me.png"
+          alt="Logo"
+          class="me-3"
+          style="height: 25px"
+        />
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/index.html"
+            >
+              <i class="bi bi-house-door"></i> Inicio sesión
+            </a>
+          </li>
+          <hr class="my-2" />
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/componentes/contactoLogin.html"
+            >
+              <i class="bi bi-envelope"></i> Contáctanos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center gap-2"
+              href="/componentes/acercaDeNosotrosLogin.html"
+            >
+              <i class="bi bi-info-circle"></i> Acerca de Nosotros
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--Navbar -->
+
+    <!-- Imagen con texto -->
     <div class="container py-5">
       <div class="row petme-form-wrapper shadow-lg">
-        <div class="col-md-6 petme-form-image d-flex flex-column justify-content-center align-items-center text-center">
+        <div
+          class="col-md-6 petme-form-image d-flex flex-column justify-content-center align-items-center text-center"
+        >
           <div class="text-container">
-          <h2 class="petme-accent-text">¡Contáctanos!</h2>
-          <p>Estamos aquí para ayudarte 🐶🐱</p>
+            <h2 class="petme-accent-text">¡Contáctanos!</h2>
+            <p>Estamos aquí para ayudarte 🐶🐱</p>
           </div>
         </div>
         <!-- Formulario -->
@@ -118,8 +168,8 @@
               />
             </div>
             <small id="contador-nombre" class="form-text text-light">
-             0 / 10 caracteres mínimos 🐾
-             </small>
+              0 / 10 caracteres mínimos 🐾
+            </small>
             <div class="mb-3">
               <label for="email" class="form-label">Correo electrónico</label>
               <input
@@ -155,7 +205,9 @@
                 rows="4"
                 required
               ></textarea>
-            <small id="contador" class="form-text text-light">0 / 30 caracteres mínimos 🐾</small>
+              <small id="contador" class="form-text text-light"
+                >0 / 30 caracteres mínimos 🐾</small
+              >
             </div>
             <button type="submit" class="btn petme-btn w-100">Enviar</button>
             <div id="alerta" class="mt-3"></div>
@@ -164,10 +216,10 @@
         </div>
       </div>
     </div>
-<!-- Footer -->
-  <footer class="petme-footer text-center py-3">
-    <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
-  </footer>
+    <!-- Footer -->
+    <footer class="petme-footer text-center py-3">
+      <p class="mb-0">© 2025 PetMe. Todos los derechos reservados.</p>
+    </footer>
     <script src="/JavaScript/contacto.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

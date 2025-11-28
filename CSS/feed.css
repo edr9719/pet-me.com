@@ -106,7 +106,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition: right .3s ease;
+  transition: right 0.3s ease;
 }
 
 .mobile-menu.active {
@@ -568,7 +568,8 @@ body {
     overflow-y: auto;
   }
 
-  .sidebar.active {
+  .sidebar.active,
+  .sidebar.show {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -845,7 +846,7 @@ body {
 
 .petme-upload:hover {
   background-color: var(--petme-bg);
-  transform: scale(1.02); 
+  transform: scale(1.02);
 }
 /* Estilos para la previsualización de subida */
 .preview-item {
