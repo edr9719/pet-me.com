@@ -233,12 +233,24 @@ h2,
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive styles for "Marcar como Adoptado" button */
+/* Responsive styles for profile cards and "Marcar como Adoptado" button */
 @media (max-width: 768px) {
+  /* Make the title-button container wrap on smaller screens */
+  .profile-card .d-flex.justify-content-between {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .profile-card .d-flex.justify-content-between h5 {
+    flex: 1 1 100%;
+    margin-bottom: 0.5rem !important;
+  }
+
   .btn-outline-success {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .btn-outline-success i {
@@ -254,5 +266,14 @@ h2,
 
   .btn-outline-success i {
     font-size: 0.75rem;
+  }
+
+  /* Reduce card padding on very small screens */
+  .profile-card {
+    padding: 0.75rem !important;
+  }
+
+  .profile-card.p-4 {
+    padding: 0.75rem !important;
   }
 }
