@@ -94,7 +94,7 @@
               type="search"
               id="searchInputDesktop"
               class="form-control search-input"
-              placeholder="Buscar mascota o usuario..."
+              placeholder="Buscar..."
               aria-label="Search"
             />
             <button class="btn search-btn" id="searchBtnDesktop" type="button">
@@ -258,11 +258,11 @@
 
                   <div class="filter-section">
                     <p class="filter-section-title">Especie</p>
-                    <a class="filter-link" href="#">
+                    <a class="filter-link" href="#" data-tipo="especie" data-valor="Perro">
                       <span class="filter-icon">🐕</span>
                       <p class="filter-text">Perros</p>
                     </a>
-                    <a class="filter-link" href="#">
+                    <a class="filter-link" href="#" data-tipo="especie" data-valor="Gato">
                       <span class="filter-icon">🐈</span>
                       <p class="filter-text">Gatos</p>
                     </a>
@@ -271,36 +271,31 @@
                   <div class="filter-section">
                     <p class="filter-section-title">Edad</p>
                     <div class="filter-range-control p-2">
-                      <input
-                        type="range"
-                        id="ageSlider"
-                        name="ageSlider"
-                        min="0"
-                        max="5"
-                        value="0"
+                        <input type="range" 
+                        id="ageSlider" 
+                        name="ageSlider" 
+                        min="0" 
+                        max="15" 
+                        value="0" 
                         step="0.5"
-                        class="form-range"
-                      />
-                      <p
-                        class="filter-text mb-0 mt-2 text-center"
-                        id="ageValue"
-                      >
-                        Elige la edad
-                      </p>
+                            class="form-range" />
+                        <p class="filter-text mb-0 mt-2 text-center" id="ageValue">
+                            Elige la edad
+                        </p>
                     </div>
-                  </div>
+                </div>
 
                   <div class="filter-section">
                     <p class="filter-section-title">Tamaño</p>
-                    <a class="filter-link" href="#">
+                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Pequeño">
                       <span class="filter-text-only">CH</span>
                       <p class="filter-text">Pequeño</p>
                     </a>
-                    <a class="filter-link" href="#">
+                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Mediano">
                       <span class="filter-text-only">M</span>
                       <p class="filter-text">Mediano</p>
                     </a>
-                    <a class="filter-link" href="#">
+                    <a class="filter-link" href="#" data-tipo="tamano" data-valor="Grande>
                       <span class="filter-text-only">G</span>
                       <p class="filter-text">Grande</p>
                     </a>

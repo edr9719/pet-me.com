@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // usaremos localStorage temporalmente o mostraremos un default.
             // (Si quieres persistencia real, necesitas agregar el campo en la BD).
             const localDesc = localStorage.getItem(`desc_${userId}`);
-            profileDesc.textContent = localDesc || "¡Hola! Soy nuevo en PetMe.";
+            profileDesc.textContent = localDesc || "¡Hola!... ¿Eres nuevo en PetMe?... Agrega una descripción";
 
             // Llenar Modal de Edición (Pre-cargar datos)
             editNombre.value = user.name;
@@ -202,4 +202,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- INICIALIZAR ---
     cargarDatosUsuario(); // Cargar datos del perfil al abrir la página
+    inicializarEventos();
 });
+  // ==========================================
+// 4. CERRAR SESIÓN (Definido fuera del DOMContentLoaded para mejor organización)
+// ==========================================
+function cerrarSesion() {
+  // 1. Eliminar tokens y userId del almacenamiento local
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('userId');
+
+  // 2. Redirigir al usuario a la página de inicio de sesión
+  window.location.href = '/componentes/InicioSesion.html';
+}
+
+// ==========================================
+// 5. CONECTAR EVENTOS DE CERRAR SESIÓN
+// ==========================================
+function inicializarEventos() {
+    // Conectar el botón de Cerrar Sesión del perfil (el nuevo)
+    const logoutProfileBtn = document.getElementById('logoutProfileBtn');
+    if (logoutProfileBtn) {
+      logoutProfileBtn.addEventListener('click', cerrarSesion);
+    }
+
+    // Si también tienes botones de Logout en el navbar (Desktop/Mobile),
+    // puedes conectarlos aquí:
+    
+    // const logoutDesktopBtn = document.getElementById('logoutDesktop');
+    // if (logoutDesktopBtn) {
+    //   logoutDesktopBtn.addEventListener('click', cerrarSesion);
+    // }
+
+    // const logoutMobileBtn = document.getElementById('logoutMobile');
+    // if (logoutMobileBtn) {
+    //   logoutMobileBtn.addEventListener('click', cerrarSesion);
+    // }
+}

@@ -43,7 +43,7 @@
 // Variable global para manejar el estado del chat y el menú actual.
 let chatState = 'mainMenu';
 
-// --- Referencias a Elementos DOM ---
+// --- Referencias a Elementos DOM (Asume que existen en tu HTML) ---
 const inputField = document.getElementById('user-input');
 const chatWrapper = document.getElementById('chat-wrapper');
 const chatToggleButton = document.getElementById('chat-toggle-btn');
@@ -57,24 +57,61 @@ inputField.addEventListener('keypress', function (e) {
     }
 });
 
-chatToggleButton.addEventListener('click', toggleChat);
-chatCloseButton.addEventListener('click', toggleChat);
+if (chatToggleButton) {
+    chatToggleButton.addEventListener('click', toggleChat);
+}
+if (chatCloseButton) {
+    chatCloseButton.addEventListener('click', toggleChat);
+}
+
+// Asegurar que el chat inicie correctamente si está abierto por defecto
+if (chatWrapper && !chatWrapper.classList.contains('chat-hidden')) {
+    document.addEventListener('DOMContentLoaded', sendMainMenu);
+}
 
 
 // --- Funciones de Utilidad ---
 
 function toggleChat() {
+    if (!chatWrapper || !chatToggleButton) return;
+    
     chatWrapper.classList.toggle('chat-hidden');
 
     if (!chatWrapper.classList.contains('chat-hidden')) {
         chatToggleButton.style.display = 'none';
+        // Asegúrate de iniciar el menú principal cuando se abre el chat
         sendMainMenu();
     } else {
         chatToggleButton.style.display = 'flex';
     }
 }
 
+// Función actualizada para manejar tanto las respuestas rápidas de menú
+// como los clics en el botón de redirección (CTA).
 function handleQuickReplyClick(value) {
+    // Si el valor es una URL de redirección (nuestro patrón de CTA)
+    if (value.startsWith('componentes/feed.html')) { // <-- Se actualizó la comprobación de ruta
+        // 1. Simular la acción del usuario
+        displayMessage(`Presionó: Ir a Catálogo`, 'user-reply-pill');
+        
+        // 2. Simular la redirección e informar al usuario
+        const redirectionMessage = `
+            Abriendo el Catálogo de Adopción...
+            
+            **[Simulación de Redirección]**
+            
+            Esta acción te llevaría a la página: **${value}**
+            
+            (Si deseas buscar otra cosa, vuelve al menú principal).
+        `;
+        displayMessage(redirectionMessage, 'bot');
+        
+        // 3. Volver al menú de Adopción para continuar el flujo del chat
+        sendAdoptMenu();
+        return; 
+    }
+    
+    // Comportamiento por defecto para la navegación de menús
     displayMessage(value, 'user-reply-pill');
     getBotResponse(value);
 }
@@ -88,25 +125,29 @@ function sendMessage() {
     }
 }
 
+// NOTA: Esta función asume que tu HTML maneja .message, .bot, .user, .quick-reply-container, etc.
 function displayMessage(message, sender, quickReplies = []) {
     const chatBox = document.getElementById('chat-box');
+    if (!chatBox) return;
 
+    // Crear el mensaje principal
     const messageElement = document.createElement('div');
     messageElement.classList.add('message');
 
+    // Usamos el sender para estilos
     if (sender === 'user-reply-pill') {
         messageElement.classList.add('user-reply-pill');
     } else {
         messageElement.classList.add(sender);
     }
-
-    if (quickReplies.length > 0) {
-        messageElement.classList.add('menu-message');
-    }
-
-    messageElement.innerHTML = message.replace(/\n/g, '<br>');
+    
+    // Formato de texto simple (Markdown ** y saltos de línea)
+    // NOTA: La función usa innerHTML, lo que permite inyectar etiquetas como <a>
+    const formattedText = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    messageElement.innerHTML = formattedText.trim().replace(/\n/g, '<br>');
     chatBox.appendChild(messageElement);
 
+    // Añadir botones de Quick Reply
     if (quickReplies.length > 0) {
         const replyContainer = document.createElement('div');
         replyContainer.classList.add('quick-reply-container');
@@ -114,6 +155,12 @@ function displayMessage(message, sender, quickReplies = []) {
         quickReplies.forEach(reply => {
             const button = document.createElement('span');
             button.classList.add('quick-reply-button');
+            
+            // Si el valor es una URL, lo tratamos como un botón de acción más grande y visible
+            if (reply.value.startsWith('componentes/feed.html')) { // <-- Se actualizó la comprobación de ruta
+                 button.classList.add('cta-button'); // Clase especial para botón grande
+            }
+            
             button.textContent = reply.text;
             button.addEventListener('click', () => {
                 handleQuickReplyClick(reply.value);
@@ -125,96 +172,11 @@ function displayMessage(message, sender, quickReplies = []) {
         chatBox.appendChild(replyContainer);
     }
 
+    // Scroll al final
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const chatItems = document.querySelectorAll('.chat-item');
-    const conversationMessages = document.querySelector('.conversation-messages');
-    const inputArea = document.querySelector('.conversation-input-area textarea');
-    const sendButton = document.querySelector('.conversation-input-area .send-btn');
-    const chatListItems = document.querySelector('.chat-list-items');
-    const tabs = document.querySelectorAll('.nav-tabs .tab');
 
-
-    function scrollToBottom() {
-        conversationMessages.scrollTop = conversationMessages.scrollHeight;
-    }
-
-    function handleChatSelection(selectedItem) {
-        chatItems.forEach(item => item.classList.remove('active'));
-        selectedItem.classList.add('active');
-        console.log('Chat seleccionado:', selectedItem.querySelector('.chat-name').textContent);
-    }
-
-    function sendMessage() {
-        const messageText = inputArea.value.trim();
-        if (messageText === '') return;
-
-        const messageRow = document.createElement('div');
-        messageRow.classList.add('message-row', 'user');
-
-        const messageBubble = document.createElement('div');
-        messageBubble.classList.add('message', 'user-bubble');
-        messageBubble.textContent = messageText;
-
-        messageRow.appendChild(messageBubble);
-        conversationMessages.appendChild(messageRow);
-        inputArea.value = '';
-        scrollToBottom();
-        setTimeout(simulateBotReply, 1000);
-    }
-
-    function simulateBotReply() {
-        const replyText = "Entendido, nuestro equipo revisará esto pronto. ¿Hay algo más?";
-        const messageRow = document.createElement('div');
-        messageRow.classList.add('message-row', 'bot');
-        const messageBubble = document.createElement('div');
-        messageBubble.classList.add('message', 'bot-bubble');
-        messageBubble.textContent = replyText;
-        messageRow.appendChild(messageBubble);
-        conversationMessages.appendChild(messageRow);
-
-        scrollToBottom();
-    }
-
-    chatItems.forEach(item => {
-        item.addEventListener('click', () => {
-            handleChatSelection(item);
-        });
-    });
-
-    sendButton.addEventListener('click', sendMessage);
-    inputArea.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault(); 
-            sendMessage();
-        }
-    });
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const filter = tab.textContent.toLowerCase();
-            chatListItems.querySelectorAll('.chat-item').forEach(item => {
-                if (filter === 'todos') {
-                    item.style.display = 'flex';
-                } else if (filter === 'no leídos') {
-                    if (item.classList.contains('unread')) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }
-            });
-            console.log('Filtro de chats aplicado:', filter);
-        });
-    });
-    scrollToBottom();
-});
-
-
-// --- Respuestas del Chatbot Pet-Me (Menús con Quick Replies) ---
+// --- DEFINICIÓN DE MENÚS (Estructura de la Interacción) ---
 
 function sendMainMenu() {
     chatState = 'mainMenu';
@@ -243,10 +205,51 @@ function sendAdoptMenu() {
     `;
 
     const options = [
-        { text: "1.1 Ver Perros 🐶", value: "1.1" },
-        { text: "1.2 Ver Gatos 🐱", value: "1.2" },
-        { text: "1.4 Pasos y Requisitos", value: "1.4" },
+        { text: "1.1 Ver Perros 🐶 (Filtros)", value: "1.1" },
+        { text: "1.2 Ver Gatos 🐱 (Filtros)", value: "1.2" }, 
+        { text: "1.4 Pasos del Proceso", value: "1.4" },
         { text: "🔙 Menú Principal", value: "B" }
+    ];
+
+    displayMessage(responseText, 'bot', options);
+}
+
+function sendVerPerrosMenu() {
+    chatState = 'verPerrosMenu';
+    const responseText = `
+        **¡Filtros para encontrar a tu compañero ideal!**
+
+        Selecciona un criterio de búsqueda:
+    `;
+
+    const options = [
+        { text: "5.1 Talla Pequeña 🐕", value: "5.1" },
+        { text: "5.2 Talla Mediana o Grande 🐾", value: "5.2" },
+        { text: "5.3 Cachorros (0-1 año) 👶", value: "5.3" },
+        { text: "5.4 Adultos (1+ año) 🧘", value: "5.4" },
+        { text: "5.5 Ver todos los Perros 🔍", value: "5.5" },
+        { text: "🔙 Menú de Adopción", value: "1" } 
+    ];
+
+    displayMessage(responseText, 'bot', options);
+}
+
+// Menú de Filtros de Gatos
+function sendVerGatosMenu() {
+    chatState = 'verGatosMenu';
+    const responseText = `
+        **¡Filtros para encontrar a tu felino ideal!**
+
+        Selecciona un criterio de búsqueda:
+    `;
+
+    const options = [
+        { text: "6.1 Gatitos (0-1 año) 🐈", value: "6.1" },
+        { text: "6.2 Gatos Adultos (1+ año) 🐾", value: "6.2" },
+        { text: "6.3 Busco Gato Calmo 🧘", value: "6.3" },
+        { text: "6.4 Busco Gato Juguetón 🤸", value: "6.4" },
+        { text: "6.5 Ver todos los Gatos 🔍", value: "6.5" },
+        { text: "🔙 Menú de Adopción", value: "1" } 
     ];
 
     displayMessage(responseText, 'bot', options);
@@ -261,8 +264,8 @@ function sendDudasMenu() {
     `;
 
     const options = [
-        { text: "2.1 No adaptación", value: "2.1" },
-        { text: "2.2 Costos", value: "2.2" },
+        { text: "2.1 ¿Y si no se adapta?", value: "2.1" },
+        { text: "2.2 Costos de una mascota", value: "2.2" },
         { text: "2.3 Compromiso a largo plazo", value: "2.3" },
         { text: "🔙 Menú Principal", value: "B" }
     ];
@@ -279,8 +282,8 @@ function sendCuidadoMenu() {
     `;
 
     const options = [
-        { text: "4.1 Regla 3-3-3", value: "4.1" },
-        { text: "4.2 Nutrición", value: "4.2" },
+        { text: "4.1 Regla 3-3-3 de Adaptación", value: "4.1" },
+        { text: "4.2 Nutrición y dieta", value: "4.2" },
         { text: "4.3 Problemas de Comportamiento", value: "4.3" },
         { text: "🔙 Menú Principal", value: "B" }
     ];
@@ -288,123 +291,210 @@ function sendCuidadoMenu() {
     displayMessage(responseText, 'bot', options);
 }
 
-// --- Lógica de Respuestas Humanas Detalladas ---
+// --- Lógica de Respuestas Detalladas ---
 
+// Esta función ahora retorna 'true' si envió un CTA, y 'false' si es una respuesta de texto simple.
 function handleDetailedResponse(option, userInput) {
     let response = '';
     const input = userInput.toLowerCase();
 
-    // Manejo de dudas de adaptación (Menú 2.0)
-    if (option === 'dudasMenu') {
-        if (input.includes('2.1')) {
-            response = `
-                **¡Entendemos tu Miedo!** Es la preocupación más común.
+    // Manejo de dudas de adaptación (Menú 2.0) y Cuidado (Menú 4.0)
+    if (option === 'dudasMenu' || option === 'cuidadoMenu') {
+        // [CÓDIGO DE RESPUESTAS DETALLADAS DE DUDAS Y CUIDADOS - SIN CAMBIOS]
+        if (option === 'dudasMenu') {
+            if (input === '2.1') { response = `**¡Entendemos tu Miedo!** Es la preocupación más común. Te tranquilizamos: la clave es la **paciencia**. Usa la **Regla de los 3-3-3** (3 días de descompresión, 3 semanas de rutina, 3 meses de confianza total). Además, ofrecemos **soporte post-adopción** y un periodo de prueba de 15 días. ¡No estás solo en esto!`; }
+            else if (input === '2.2') { response = `**Hablemos de costos reales.** La cuota inicial de adopción es de $XXX (cubre vacunas, esterilización y microchip). Pero debes considerar los gastos mensuales recurrentes: alimento de calidad, chequeo veterinario anual, desparasitación trimestral, y accesorios. ¡Es una inversión a largo plazo!`; }
+            else if (input === '2.3') { response = `**Un compromiso de por vida: 10 a 15 años.** Si tu vida va a cambiar (mudanza, bebé, nuevo trabajo), tu mascota debe ser parte de ese plan. ¡Nunca la abandones! Si es una emergencia extrema, contáctanos primero para buscar una solución de reubicación responsable.`; }
+        } else if (option === 'cuidadoMenu') {
+            if (input === '4.1') { response = `**La Regla 3-3-3 es vital para la adaptación:** * **3 Días:** Dale espacio, un lugar seguro y déjalo descompresionar (No forzar interacción). * **3 Semanas:** Establece horarios de alimentación, paseos y juego (Rutina). * **3 Meses:** El animal se siente seguro y te considera su familia (Confianza Total). La paciencia es tu mejor herramienta.`; }
+            else if (input === '4.2') { response = `**La dieta es clave para la salud.** Pregunta al refugio qué comía y haz un cambio gradual si es necesario. Siempre recomendamos alimento balanceado de alta calidad. Evita dar comida humana que pueda ser tóxica (**chocolate, uvas, cebolla, xilitol**). ¡Consulta siempre a tu veterinario!`; }
+            else if (input === '4.3') { response = `**Comportamiento:** La mayoría de los problemas se deben a la falta de ejercicio mental o físico. Si hay orina inapropiada, primero descarta un problema médico (visita al vet). Si muerde, es vital enseñarle el **no** y ofrecerle juguetes apropiados. ¡Nunca castigues, siempre refuerza el comportamiento positivo!`; }
+        }
+        
+        if (response) {
+            displayMessage(response, 'bot');
+            return false; // No es un CTA
+        }
+
+    }
+
+    // --- Lógica de Botones CTA para Perros ---
+    else if (option === 'verPerrosMenu') {
+        // RUTA ACTUALIZADA
+        let link = 'componentes/feed.html?species=dog'; 
+        let filterName = '';
+
+        if (input === '5.1') { filterName = 'Perros Pequeños'; link += '&size=small'; } 
+        else if (input === '5.2') { filterName = 'Perros Medianos/Grandes'; link += '&size=large'; } 
+        else if (input === '5.3') { filterName = 'Cachorros'; link += '&age=puppy'; } 
+        else if (input === '5.4') { filterName = 'Perros Adultos'; link += '&age=adult'; } 
+        else if (input === '5.5') { filterName = 'Todos los Perros'; }
+        
+        if (filterName) {
+            const responseText = `
+                ¡Perfecto! Has seleccionado: **${filterName}**.
                 
-                Te tranquilizamos: la clave es la **paciencia**. Usa la **Regla de los 3-3-3** (3 días de descompresión, 3 semanas de rutina, 3 meses de confianza total).
-                
-                Además, ofrecemos **soporte post-adopción** y un periodo de prueba de 15 días. ¡No estás solo en esto!
+                Presiona el botón de abajo para ir directamente al catálogo de adopción filtrado.
             `;
-        } else if (input.includes('2.2')) {
-            response = `
-                **Hablemos de costos reales.**
-                
-                La cuota inicial de adopción es de $XXX (cubre vacunas y esterilización). Pero debes considerar los gastos mensuales: alimento de calidad, veterinario anual, y accesorios. ¡Es una inversión a largo plazo!
-            `;
-        } else if (input.includes('2.3')) {
-            response = `
-                **Un compromiso de por vida: 10 a 15 años.** Si tu vida va a cambiar (mudanza, bebé), tu mascota debe ser parte de ese plan. ¡Nunca la abandones! Si es una emergencia extrema, contáctanos primero para buscar una solución.
-            `;
+            
+            // Genera el botón CTA (usando el array quickReplies)
+            const ctaButton = {
+                text: `Ver ${filterName} en Catálogo 🔎`, 
+                value: link 
+            };
+            
+            displayMessage(responseText, 'bot', [ctaButton]);
+            return true; // Es un CTA
         }
     }
 
-    // Manejo de Cuidados (Menú 4.0)
-    else if (option === 'cuidadoMenu') {
-        if (input.includes('4.1')) {
-            response = `
-                **La Regla 3-3-3 es vital:**
+    // --- Lógica de Botones CTA para Gatos ---
+    else if (option === 'verGatosMenu') {
+        // RUTA ACTUALIZADA
+        let link = 'componentes/feed.html?species=cat';
+        let filterName = '';
+
+        if (input === '6.1') { filterName = 'Gatitos'; link += '&age=kitten'; } 
+        else if (input === '6.2') { filterName = 'Gatos Adultos'; link += '&age=adult'; } 
+        else if (input === '6.3') { filterName = 'Gatos Calmados'; link += '&personality=calm'; } 
+        else if (input === '6.4') { filterName = 'Gatos Juguetones'; link += '&personality=playful'; } 
+        else if (input === '6.5') { filterName = 'Todos los Gatos'; }
+        
+        if (filterName) {
+            const responseText = `
+                ¡Genial! Has seleccionado: **${filterName}**.
                 
-                * **3 Días:** Dale espacio y un lugar seguro (Descompresión).
-                * **3 Semanas:** Establece rutinas (Rutina).
-                * **3 Meses:** Se siente seguro (Confianza).
-                
-                La paciencia es tu mejor herramienta.
+                Presiona el botón de abajo para ir directamente al catálogo de adopción filtrado.
             `;
-        } else if (input.includes('4.2')) {
-            response = `
-                **La dieta es clave.** Pregunta al refugio qué comía. Siempre recomendamos alimento balanceado de alta calidad. Evita dar comida humana que pueda ser tóxica (chocolate, aguacate, cebolla, uvas).
-            `;
-        } else if (input.includes('4.3')) {
-            response = `
-                **Comportamiento:** Si orina en casa, podría ser ansiedad o un problema médico (visita al vet). Si muerde, es vital enseñarle el *no* y ofrecerle juguetes apropiados. ¡Nunca castigues, siempre refuerza lo positivo!
-            `;
+            
+            // Genera el botón CTA (usando el array quickReplies)
+            const ctaButton = {
+                text: `Ver ${filterName} en Catálogo 🔎`, 
+                value: link 
+            };
+            
+            displayMessage(responseText, 'bot', [ctaButton]);
+            return true; // Es un CTA
         }
     }
 
-    if (response) {
-        // Mostrar respuesta detallada
-        displayMessage(response, 'bot');
-    } else {
-        // En caso de que el usuario haya escrito en vez de usar el botón.
-        displayMessage('Por favor, usa los botones o escribe **B** para volver al menú principal.', 'bot');
+    // Si llegamos aquí y no hay respuesta, es opción no reconocida
+    if (!response) {
+        displayMessage('Opción no reconocida. Por favor, usa los botones o escribe **B** para volver al menú anterior.', 'bot');
     }
+    return false; // No se manejó como CTA
 }
 
 
-// --- Función Principal de Respuesta ---
+// --- Función Principal de Respuesta y Lógica de Flujo ---
 
 function getBotResponse(userInput) {
     const userText = userInput.toLowerCase();
 
-    setTimeout(() => {
-        // Lógica para Volver al Menú Principal
-        if (userText === 'b' || userText === 'volver') {
+    // 1. Manejo de Volver (B)
+    if (userText === 'b' || userText === 'volver' || userText === 'atras') {
+        if (chatState === 'adoptMenu' || chatState === 'dudasMenu' || chatState === 'cuidadoMenu') {
             sendMainMenu();
             return;
+        } 
+        else if (chatState === 'verPerrosMenu' || chatState === 'verGatosMenu') {
+            sendAdoptMenu();
+            return;
         }
+    }
 
-        // --- Manejo del Flujo del Menú ---
-
+    setTimeout(() => {
+        
+        // 2. Manejo del Flujo principal (chatState)
+        
         if (chatState === 'mainMenu') {
-            if (userText === '1') {
+            if (userText === '1' || userText.includes('adoptar')) {
                 sendAdoptMenu();
-            } else if (userText === '2') {
+            } else if (userText === '2' || userText.includes('dudas')) {
                 sendDudasMenu();
-            } else if (userText === '3') {
-                displayMessage('Para ver los requisitos detallados y el formulario, por favor visita: [ENLACE A TU FORMULARIO DE ADOPCIÓN AQUÍ]', 'bot');
-                sendMainMenu(); // Vuelve a mostrar el menú principal
-            } else if (userText === '4') {
+            } else if (userText === '3' || userText.includes('requisitos') || userText.includes('formulario')) {
+                // MODIFICACIÓN: Inyectar un enlace HTML directo al formulario de contacto
+                const formLink = '/componentes/contacto.html';
+                const formMessage = `Para ver los requisitos detallados y acceder al formulario de pre-adopción, por favor visita: <a href="${formLink}" style="font-weight: bold; color: #1e40af; text-decoration: underline;">[ENLACE A TU FORMULARIO DE ADOPCIÓN AQUÍ]</a>. Es el primer paso para comenzar.`;
+                displayMessage(formMessage, 'bot');
+                sendMainMenu();
+            } else if (userText === '4' || userText.includes('cuidado')) {
                 sendCuidadoMenu();
             } else {
+                displayMessage('Opción no válida. Por favor, elige 1, 2, 3 o 4 para navegar.', 'bot');
                 sendMainMenu();
             }
         }
 
         else if (chatState === 'adoptMenu') {
-            if (userText === '1.1') {
-                displayMessage('¡Perfecto! Aquí tienes nuestros filtros de perritos: **[ENLACE PARA VER PERROS]**', 'bot');
-            } else if (userText === '1.2') {
-                displayMessage('¡Miau! Conoce a nuestros felinos: **[ENLACE PARA VER GATOS]**', 'bot');
-            } else if (userText === '1.4') {
+            if (userText === '1.1' || userText.includes('perros')) {
+                sendVerPerrosMenu();
+            } else if (userText === '1.2' || userText.includes('gatos')) {
+                sendVerGatosMenu();
+            } else if (userText === '1.4' || userText.includes('pasos')) {
                 displayMessage('**Tu Camino hacia la Adopción en 4 Pasos:** (1) Postulación (2) Entrevista (3) Encuentro y Contrato (4) ¡A Casa!', 'bot');
+                sendAdoptMenu();
+            } else if (userText === 'b' || userText === 'volver') {
+                sendMainMenu();
+            } else {
+                displayMessage('Opción no válida. Por favor, elige 1.1, 1.2, 1.4 o B.', 'bot');
+                sendAdoptMenu();
             }
-            sendAdoptMenu();
         }
+        
+        // ESTADO: Submenú de Filtros de Perros
+        else if (chatState === 'verPerrosMenu') {
+            if (['5.1', '5.2', '5.3', '5.4', '5.5'].includes(userText)) {
+                // Si handleDetailedResponse retorna TRUE (se mostró un CTA), no volvemos a mostrar el menú.
+                // Si retorna FALSE, el mensaje fue desconocido y volvemos a mostrar el menú.
+                const isCtaSent = handleDetailedResponse('verPerrosMenu', userInput);
+                if (!isCtaSent) {
+                    sendVerPerrosMenu(); 
+                }
+            } else if (userText === '1' || userText === 'b' || userText === 'volver') {
+                sendAdoptMenu();
+            } else {
+                displayMessage('Opción no válida. Por favor, elige una opción de filtro (5.1 a 5.5) o la opción **1** para volver.', 'bot');
+                sendVerPerrosMenu();
+            }
+        }
+        
+        // ESTADO NUEVO: Submenú de Filtros de Gatos
+        else if (chatState === 'verGatosMenu') {
+            if (['6.1', '6.2', '6.3', '6.4', '6.5'].includes(userText)) {
+                // Si handleDetailedResponse retorna TRUE (se mostró un CTA), no volvemos a mostrar el menú.
+                const isCtaSent = handleDetailedResponse('verGatosMenu', userInput);
+                if (!isCtaSent) {
+                    sendVerGatosMenu(); 
+                }
+            } else if (userText === '1' || userText === 'b' || userText === 'volver') {
+                sendAdoptMenu();
+            } else {
+                displayMessage('Opción no válida. Por favor, elige una opción de filtro (6.1 a 6.5) o la opción **1** para volver.', 'bot');
+                sendVerGatosMenu();
+            }
+        }
+
 
         else if (chatState === 'dudasMenu') {
             handleDetailedResponse('dudasMenu', userInput);
-            sendDudasMenu(); // Volver a mostrar el menú de dudas
+            sendDudasMenu(); // Siempre vuelve a mostrar el menú de dudas después de la respuesta
         }
 
         else if (chatState === 'cuidadoMenu') {
             handleDetailedResponse('cuidadoMenu', userInput);
-            sendCuidadoMenu(); // Volver a mostrar el menú de cuidados
+            sendCuidadoMenu(); // Siempre vuelve a mostrar el menú de cuidados después de la respuesta
         }
 
     }, 300); // Retardo para simular "escritura"
 }
 
 
-// --- Inicialización ---
+// --- Inicialización (Manteniendo tu estructura original) ---
 // Al cargar la página, se inicializa el chat como oculto y el botón visible.
-chatWrapper.classList.add('chat-hidden');
-chatToggleButton.style.display = 'flex';
+if (chatWrapper) {
+    chatWrapper.classList.add('chat-hidden');
+}
+if (chatToggleButton) {
+    chatToggleButton.style.display = 'flex';
+}
